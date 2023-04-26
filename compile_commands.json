@@ -1,0 +1,623 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part1/ft_isalpha.o",
+      "part1/ft_isalpha.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part1/ft_isalpha.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part1/ft_isalpha.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part1/ft_isdigit.o",
+      "part1/ft_isdigit.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part1/ft_isdigit.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part1/ft_isdigit.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part1/ft_isalnum.o",
+      "part1/ft_isalnum.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part1/ft_isalnum.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part1/ft_isalnum.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part1/ft_isascii.o",
+      "part1/ft_isascii.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part1/ft_isascii.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part1/ft_isascii.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part1/ft_isprint.o",
+      "part1/ft_isprint.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part1/ft_isprint.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part1/ft_isprint.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part1/ft_strlen.o",
+      "part1/ft_strlen.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part1/ft_strlen.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part1/ft_strlen.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part1/ft_memset.o",
+      "part1/ft_memset.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part1/ft_memset.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part1/ft_memset.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part1/ft_bzero.o",
+      "part1/ft_bzero.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part1/ft_bzero.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part1/ft_bzero.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part1/ft_memcpy.o",
+      "part1/ft_memcpy.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part1/ft_memcpy.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part1/ft_memcpy.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part1/ft_memmove.o",
+      "part1/ft_memmove.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part1/ft_memmove.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part1/ft_memmove.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part1/ft_strlcpy.o",
+      "part1/ft_strlcpy.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part1/ft_strlcpy.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part1/ft_strlcpy.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part1/ft_strlcat.o",
+      "part1/ft_strlcat.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part1/ft_strlcat.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part1/ft_strlcat.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part1/ft_toupper.o",
+      "part1/ft_toupper.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part1/ft_toupper.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part1/ft_toupper.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part1/ft_tolower.o",
+      "part1/ft_tolower.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part1/ft_tolower.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part1/ft_tolower.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part1/ft_strchr.o",
+      "part1/ft_strchr.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part1/ft_strchr.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part1/ft_strchr.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part1/ft_strrchr.o",
+      "part1/ft_strrchr.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part1/ft_strrchr.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part1/ft_strrchr.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part1/ft_strncmp.o",
+      "part1/ft_strncmp.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part1/ft_strncmp.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part1/ft_strncmp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part1/ft_memchr.o",
+      "part1/ft_memchr.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part1/ft_memchr.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part1/ft_memchr.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part1/ft_memcmp.o",
+      "part1/ft_memcmp.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part1/ft_memcmp.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part1/ft_memcmp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part1/ft_strnstr.o",
+      "part1/ft_strnstr.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part1/ft_strnstr.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part1/ft_strnstr.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part1/ft_atoi.o",
+      "part1/ft_atoi.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part1/ft_atoi.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part1/ft_atoi.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part1/ft_calloc.o",
+      "part1/ft_calloc.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part1/ft_calloc.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part1/ft_calloc.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part1/ft_strdup.o",
+      "part1/ft_strdup.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part1/ft_strdup.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part1/ft_strdup.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part2/ft_substr.o",
+      "part2/ft_substr.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part2/ft_substr.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part2/ft_substr.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part2/ft_strjoin.o",
+      "part2/ft_strjoin.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part2/ft_strjoin.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part2/ft_strjoin.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part2/ft_strtrim.o",
+      "part2/ft_strtrim.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part2/ft_strtrim.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part2/ft_strtrim.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part2/ft_split.o",
+      "part2/ft_split.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part2/ft_split.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part2/ft_split.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part2/ft_itoa.o",
+      "part2/ft_itoa.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part2/ft_itoa.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part2/ft_itoa.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part2/ft_strmapi.o",
+      "part2/ft_strmapi.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part2/ft_strmapi.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part2/ft_strmapi.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part2/ft_striteri.o",
+      "part2/ft_striteri.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part2/ft_striteri.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part2/ft_striteri.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part2/ft_putchar_fd.o",
+      "part2/ft_putchar_fd.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part2/ft_putchar_fd.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part2/ft_putchar_fd.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part2/ft_putstr_fd.o",
+      "part2/ft_putstr_fd.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part2/ft_putstr_fd.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part2/ft_putstr_fd.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part2/ft_putendl_fd.o",
+      "part2/ft_putendl_fd.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part2/ft_putendl_fd.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part2/ft_putendl_fd.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/part2/ft_putnbr_fd.o",
+      "part2/ft_putnbr_fd.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/part2/ft_putnbr_fd.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/part2/ft_putnbr_fd.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/additional/ft_atol.o",
+      "additional/ft_atol.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/additional/ft_atol.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/additional/ft_atol.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/additional/ft_free_strarr.o",
+      "additional/ft_free_strarr.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/additional/ft_free_strarr.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/additional/ft_free_strarr.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/additional/ft_isspace.o",
+      "additional/ft_isspace.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/additional/ft_isspace.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/additional/ft_isspace.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/additional/ft_strcmp.o",
+      "additional/ft_strcmp.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/additional/ft_strcmp.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/additional/ft_strcmp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/ft_printf/ft_printf.o",
+      "ft_printf/ft_printf.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/ft_printf/ft_printf.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/ft_printf/ft_printf.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/ft_printf/str_utils.o",
+      "ft_printf/str_utils.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/ft_printf/str_utils.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/ft_printf/str_utils.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/ft_printf/nb_utils.o",
+      "ft_printf/nb_utils.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/ft_printf/nb_utils.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/ft_printf/nb_utils.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/get_next_line/get_next_line.o",
+      "get_next_line/get_next_line.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/get_next_line/get_next_line.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/get_next_line/get_next_line.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc",
+      "-c",
+      "-o",
+      ".obj/get_next_line/get_next_line_utils.o",
+      "get_next_line/get_next_line_utils.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell/libft",
+    "file": "/home/hakim/dev/common_core/minishell/libft/get_next_line/get_next_line_utils.c",
+    "output": "/home/hakim/dev/common_core/minishell/libft/.obj/get_next_line/get_next_line_utils.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-I",
+      "inc",
+      "-I",
+      "libft/inc",
+      "-c",
+      "-o",
+      "src/main.o",
+      "src/main.c"
+    ],
+    "directory": "/home/hakim/dev/common_core/minishell",
+    "file": "/home/hakim/dev/common_core/minishell/src/main.c",
+    "output": "/home/hakim/dev/common_core/minishell/src/main.o"
+  }
+]
