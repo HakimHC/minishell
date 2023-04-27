@@ -16,7 +16,6 @@ CFLAGS += -I $(INCDIR)
 
 CFLAGS += -I $(LFTDIR)/$(INCDIR)
 
-
 #linker
 
 LDFLAGS = -Llibft -lft -lreadline
