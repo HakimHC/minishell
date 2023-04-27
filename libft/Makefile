@@ -6,7 +6,7 @@
 #    By: hakahmed <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/07 19:15:07 by hakahmed          #+#    #+#              #
-#    Updated: 2023/04/11 21:14:54 by hakahmed         ###   ########.fr        #
+#    Updated: 2023/04/26 23:15:32 by hakahmed         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -104,6 +104,7 @@ SRC_ADT = ft_atol.c \
 	  ft_free_strarr.c \
 	  ft_isspace.c \
 	  ft_strcmp.c \
+	  print_list.c \
 
 
 SRC = $(addprefix $(P1DIR)/,$(SRC_P1)) \

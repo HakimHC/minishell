@@ -25,9 +25,17 @@ LDFLAGS = -Llibft -lft -lreadline
 #source files and stuff
 SRCDIR = src
 
-SRCFILES = main.c
+MAINDIR = main
 
-SRC = $(addprefix $(SRCDIR)/,$(SRCFILES))
+MAINFILES = main.c 
+
+LXDIR = lexer
+
+LXSRC = tokenize_line.c
+
+SRC = $(addprefix $(SRCDIR)/,$(MAINDIR)/$(MAINFILES)) \
+      $(addprefix $(SRCDIR)/,$(LXDIR)/$(LXSRC))
+
 
 #objects and stuff
 
@@ -36,7 +44,7 @@ OBJ = $(SRC:.c=.o)
 #rules and stuff
 
 %.o: %.c
-	make -C libft
+	make bonus -C libft
 	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)

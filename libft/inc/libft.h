@@ -6,7 +6,7 @@
 /*   By: hakahmed <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 19:16:14 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/10 13:52:51 by hakim            ###   ########.fr       */
+/*   Updated: 2023/04/26 23:15:12 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ char				*read_buffer(char *s, int i);
 char				*ft_substr_gnl(char const *s, size_t len);
 char				*ft_strjoin_free(char const *s1, char const *s2);
 char				*ft_strdup_free(char const *s1);
+void				print_list(t_list *head, int  nl);
 
 #endif

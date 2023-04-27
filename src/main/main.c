@@ -9,15 +9,16 @@ int	main(void)
 {
 	char	*line;
 
-	line = readline("8====D $> ");
+	line = readline("minishell$ ");
 	while (ft_strncmp(line, "exit", 4))
 	{
 		printf("Line read: %s\n", line);
 		add_history(line);
+		t_list *tokens = split_line(line);
+		(void) tokens;
 		free(line);
-		line = readline("8====D $> ");
+		line = readline("minishell$ ");
 	}
 	free(line);
-	rl_clear_history();
 	return (0);
 }

@@ -6,10 +6,17 @@
 
 # include "libft.h"
 
-typedef struct s_point
+typedef struct s_cmdtab
 {
-	int x;
-	int y;
-}	t_point;
+	char	*cmd;
+	t_list	*args;
+	char	*redir_in;
+	char	*redir_out;
+	int	flags;
+}	t_cmdtab;
+
+/* lexer */
+int	is_special_char(char c);
+t_list	*split_line(char *line);
 
 #endif
