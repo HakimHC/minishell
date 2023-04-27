@@ -3,20 +3,44 @@
 
 # define READ_END 0
 # define WRITE_END 1
+# define HEREDOC 0b1
+# define APPEND 0b10
+# define PIPE_IN 0b100
+# define PIPE_OUT 0b1000
+# define REDIR_IN 0b10000
+# define REDIR_OUT 0b100000
 
-# include "libft.h"
+# include "../libft/inc/libft.h"
+
+typedef struct s_redir
+{
+	char	*file;
+	int	type;
+}	t_redir;
 
 typedef struct s_cmdtab
 {
 	char	*cmd;
 	t_list	*args;
-	char	*redir_in;
-	char	*redir_out;
-	int	flags;
+	t_list	*redir_in;
+	t_list	*redir_out;
+	int	*flags;
+	struct s_cmdtab *next;
 }	t_cmdtab;
+
+typedef struct s_data
+{
+	t_cmdtab	*cmdtab;
+	t_list		*tokens;
+}	t_data;
 
 /* lexer */
 int	is_special_char(char c);
 t_list	*split_line(char *line);
+
+/* parser */
+t_cmdtab	*cmdtab_init(void);
+int	*set_flags(t_data *data);
+void	populate(t_data *data);
 
 #endif

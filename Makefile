@@ -6,6 +6,7 @@ CC = gcc
 
 CFLAGS = -Wall -Werror -Wextra
 
+# CFLAGS +=  -g3
 
 #include headers
 INCDIR = inc
@@ -20,6 +21,7 @@ CFLAGS += -I $(LFTDIR)/$(INCDIR)
 
 LDFLAGS = -Llibft -lft -lreadline
 
+# LDFLAGS += -fsanitize=address
 
 #source files and stuff
 SRCDIR = src
@@ -32,8 +34,13 @@ LXDIR = lexer
 
 LXSRC = tokenize_line.c
 
+PSDIR = parser
+
+PSSRC = cmdtab.c
+
 SRC = $(addprefix $(SRCDIR)/,$(MAINDIR)/$(MAINFILES)) \
-      $(addprefix $(SRCDIR)/,$(LXDIR)/$(LXSRC))
+      $(addprefix $(SRCDIR)/,$(LXDIR)/$(LXSRC)) \
+      $(addprefix $(SRCDIR)/,$(PSDIR)/$(PSSRC))
 
 
 #objects and stuff
@@ -61,7 +68,7 @@ fclean: clean
 re: fclean all
 
 asan: $(LDFLAGS) += -fsanitize=address
-asan: $(CFLAGS) += -g3
+asan: $(CFLAGS) += -g3 -fsanitize=address
 asan: re
 
 leak: $(LDFLAGS) += -fsanitize=leak
