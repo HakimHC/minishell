@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/27 04:03:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/27 19:18:08 by hakahmed         ###   ########.fr       */
+/*   Created: 2023/04/27 18:23:57 by hakahmed          #+#    #+#             */
+/*   Updated: 2023/04/27 18:34:32 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
-#include <readline/history.h>
-#include <readline/readline.h>
 
 #include "minishell.h"
 
-t_data	*data;
-
-void	leaks(void)
+void	pipe_parse_error(void)
 {
-	system("leaks -q minishell");
-}
+	t_list	*curr;
 
-int	main(void)
-{
-	/* atexit(leaks); */
-	data = malloc(sizeof(t_data));
-	if (!data)
-		exit(69);
-	cmd_listen("8==========D ");
-	/* free(data->cmdtab->flags); */
-	/* free(data->cmdtab); */
-	/* free(data); */
-	return (0);
+	curr = data->tokens;
+	if (curr && curr->content && ((char *)(curr->content))[0] == '|')
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token '|'\n", 2);
+		exit(258);
+	}
 }

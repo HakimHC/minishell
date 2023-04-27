@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 02:49:30 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/27 16:42:18 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:25:25 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,35 +25,11 @@ t_cmdtab	*cmdtab_init(void)
 	return (tab);
 }
 
-int	*set_flags(t_data *data)
-{
-	int	*flags;
-	t_list	*curr;
-
-	flags = (int *) malloc(sizeof(int));
-	if (!flags)
-		return (NULL);
-	*flags = 0;
-	curr = data->tokens;
-	while (curr && ft_strncmp(curr->content, "|", 1))
-	{
-		if (!ft_strncmp(curr->content, "<<", 2))
-			*flags = *flags | HEREDOC;
-		else if (!ft_strncmp(curr->content, ">>", 2))
-			*flags = *flags | APPEND;
-		else if (!ft_strncmp(curr->content, ">", 1))
-			*flags = *flags | REDIR_OUT;
-		else if (!ft_strncmp(curr->content, "<", 1))
-			*flags = *flags | REDIR_IN;
-		curr = curr->next;
-	}
-	return (flags);
-}
-
-void	make_redir(t_data *data, int type, char *file)
+void	make_redir(t_data *data, int type, char *file, t_cmdtab *tab)
 {
 	t_redir	*redir;
 
+	(void) data;
 	redir = (t_redir *) malloc(sizeof(t_redir));
 	// PROTECT MALLOC
 	if (!redir)
@@ -61,9 +37,9 @@ void	make_redir(t_data *data, int type, char *file)
 	redir->type = type;
 	redir->file = ft_strdup(file);
 	if (type == REDIR_OUT || type == APPEND)
-		ft_lstadd_back(&(data->cmdtab->redir_out), ft_lstnew(redir));
+		ft_lstadd_back(&(tab->redir_out), ft_lstnew(redir));
 	else if (type == REDIR_IN || type == HEREDOC)
-		ft_lstadd_back(&(data->cmdtab->redir_in), ft_lstnew(redir));
+		ft_lstadd_back(&(tab->redir_in), ft_lstnew(redir));
 	else
 		ft_putstr_fd("fatal: bad redirection\n", 2);
 }
@@ -71,43 +47,50 @@ void	make_redir(t_data *data, int type, char *file)
 void	populate(t_data *data)
 {
 	t_list	*curr;
+	t_cmdtab *curr_cmd;
 
 	curr = data->tokens;
-	while (curr && ft_strncmp(curr->content, "|", 1))
+	curr_cmd = data->cmdtab;
+	while (curr)
 	{
-		if (!ft_strncmp(curr->content, "<<", 2))
+		while (curr && ft_strncmp(curr->content, "|", 1))
 		{
+			if (!ft_strncmp(curr->content, "<<", 2))
+			{
+				curr = curr->next;
+				make_redir(data, HEREDOC, curr->content, curr_cmd);
+			}
+			else if (!ft_strncmp(curr->content, ">>", 2))
+			{
+				curr = curr->next;
+				make_redir(data, APPEND, curr->content, curr_cmd);
+			}
+			else if (!ft_strncmp(curr->content, ">", 1))
+			{
+				curr = curr->next;
+				make_redir(data, REDIR_OUT, curr->content, curr_cmd);
+			}
+			else if (!ft_strncmp(curr->content, "<", 1))
+			{
+				curr = curr->next;
+				make_redir(data, REDIR_IN, curr->content, curr_cmd);
+			}
+			else if (ft_strncmp(curr->content, "|", 1) && !curr_cmd->cmd)
+			{
+				curr_cmd->cmd = ft_strdup(curr->content);
+			}
+			else if (ft_strncmp(curr->content, "|", 1))
+			{
+				ft_lstadd_back(&(curr_cmd->args), ft_lstnew(ft_strdup(curr->content)));
+			}
 			curr = curr->next;
-			ft_lstadd_back(&(data->cmdtab->redir_in), ft_lstnew(ft_strdup(curr->content)));
-			*(data->cmdtab->flags) = *(data->cmdtab->flags) & ~REDIR_IN;
 		}
-		else if (!ft_strncmp(curr->content, ">>", 2))
+		if (curr && !ft_strncmp(curr->content, "|", 1))
 		{
+			curr_cmd->next  = cmdtab_init();
+			curr_cmd = curr_cmd->next;
+		}
+		if (curr)
 			curr = curr->next;
-			ft_lstadd_back(&(data->cmdtab->redir_out), ft_lstnew(ft_strdup(curr->content)));
-			*(data->cmdtab->flags) = *(data->cmdtab->flags) & ~REDIR_OUT;
-
-		}
-		else if (!ft_strncmp(curr->content, ">", 1))
-		{
-			curr = curr->next;
-			ft_lstadd_back(&(data->cmdtab->redir_out), ft_lstnew(ft_strdup(curr->content)));
-			*(data->cmdtab->flags) = *(data->cmdtab->flags) & ~APPEND;
-		}
-		else if (!ft_strncmp(curr->content, "<", 1))
-		{
-			curr = curr->next;
-			ft_lstadd_back(&(data->cmdtab->redir_in), ft_lstnew(ft_strdup(curr->content)));
-			*(data->cmdtab->flags) = *(data->cmdtab->flags) & ~HEREDOC;
-		}
-		else if (ft_strncmp(curr->content, "|", 1) && !data->cmdtab->cmd)
-		{
-			data->cmdtab->cmd = ft_strdup(curr->content);
-		}
-		else if (ft_strncmp(curr->content, "|", 1))
-		{
-			ft_lstadd_back(&(data->cmdtab->args), ft_lstnew(ft_strdup(curr->content)));
-		}
-		curr = curr->next;
 	}
 }

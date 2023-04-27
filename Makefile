@@ -6,7 +6,7 @@ CC = gcc
 
 CFLAGS = -Wall -Werror -Wextra
 
-# CFLAGS +=  -g3
+CFLAGS +=  -g3
 
 #include headers
 INCDIR = inc
@@ -21,14 +21,17 @@ CFLAGS += -I $(LFTDIR)/$(INCDIR)
 
 LDFLAGS = -Llibft -lft -lreadline
 
-# LDFLAGS += -fsanitize=address
+LDFLAGS += -fsanitize=address
 
 #source files and stuff
 SRCDIR = src
 
 MAINDIR = main
 
-MAINFILES = main.c 
+MAINSRC = main.c \
+	  utils.c
+
+MAIN = $(addprefix $(MAINDIR)/,$(MAINSRC))
 
 LXDIR = lexer
 
@@ -36,11 +39,15 @@ LXSRC = tokenize_line.c
 
 PSDIR = parser
 
-PSSRC = cmdtab.c
+PSSRC = cmdtab.c \
+	error_handling.c \
+	cmdtab_utils.c
 
-SRC = $(addprefix $(SRCDIR)/,$(MAINDIR)/$(MAINFILES)) \
+PS = $(addprefix $(PSDIR)/,$(PSSRC))
+
+SRC = $(addprefix $(SRCDIR)/,$(MAIN)) \
       $(addprefix $(SRCDIR)/,$(LXDIR)/$(LXSRC)) \
-      $(addprefix $(SRCDIR)/,$(PSDIR)/$(PSSRC))
+      $(addprefix $(SRCDIR)/,$(PS)) \
 
 
 #objects and stuff

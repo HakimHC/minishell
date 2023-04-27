@@ -34,13 +34,27 @@ typedef struct s_data
 	t_list		*tokens;
 }	t_data;
 
+/* global */
+
+extern t_data *data;
+
+/* main */
+
+void	cmd_listen(char *prompt);
+void	destroyer(void);
+
 /* lexer */
+void	tokenize_input(char *input);
 int	is_special_char(char c);
 t_list	*split_line(char *line);
 
 /* parser */
+void	fill_cmdtab(void);
+void	print_cmdtab(void);
 t_cmdtab	*cmdtab_init(void);
 int	*set_flags(t_data *data);
 void	populate(t_data *data);
+void	pipe_parse_error(void);
+void	input_syntax_errors(void);
 
 #endif
