@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:56:03 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/27 19:10:35 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/04/28 04:10:34 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ t_list	*split_line(char *line)
 void	input_syntax_errors(void)
 {
 	pipe_parse_error();
+	redir_parse_error();
 }
 
 void	tokenize_input(char *input)

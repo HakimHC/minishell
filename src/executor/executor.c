@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flags.c                                            :+:      :+:    :+:   */
+/*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/27 03:16:16 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/27 03:20:52 by hakahmed         ###   ########.fr       */
+/*   Created: 2023/04/27 20:35:17 by hakahmed          #+#    #+#             */
+/*   Updated: 2023/04/27 21:04:39 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <stdio.h>
 
-#define HEREDOC 0b1
-#define APPEND 0b10
-#define PIPE_IN 0b100
-#define PIPE_OUT 0b1000
+#include "minishell.h"
 
-int	main(void)
+void	open_file(char *file, t_cmdtab *tab)
 {
-	int	flags;
+	t_redir *lst;
 
-	flags = HEREDOC | APPEND | PIPE_OUT;
-	if ((flags & HEREDOC) != 0)
-		printf("HEREDOC ENABLED\n");
-	if ((flags & APPEND) != 0)
-		printf("APPEND ENABLED\n");
-	if ((flags & PIPE_IN) != 0)
-		printf("PIPE_IN ENABLED\n");
-	if ((flags & PIPE_OUT) != 0)
-		printf("PIPE_OUT ENABLED\n");
+	lst = tab->redir_in->content;
+}
+
+void	executor(void)
+{
+	int		fd;
+	t_cmdtab	*cmdtab;
+
+
 }

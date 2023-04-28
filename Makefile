@@ -41,13 +41,21 @@ PSDIR = parser
 
 PSSRC = cmdtab.c \
 	error_handling.c \
+	error_handling_utils.c \
 	cmdtab_utils.c
+
+EXECDIR = executor
+
+EXECSRC = utils.c
+
+EXEC= $(addprefix $(EXECDIR)/,$(EXECSRC))
 
 PS = $(addprefix $(PSDIR)/,$(PSSRC))
 
 SRC = $(addprefix $(SRCDIR)/,$(MAIN)) \
       $(addprefix $(SRCDIR)/,$(LXDIR)/$(LXSRC)) \
       $(addprefix $(SRCDIR)/,$(PS)) \
+      $(addprefix $(SRCDIR)/,$(EXEC))
 
 
 #objects and stuff

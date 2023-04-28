@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 04:03:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/27 19:18:08 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/04/27 20:31:44 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,12 @@ void	leaks(void)
 int	main(void)
 {
 	/* atexit(leaks); */
+	extern char **environ;
 	data = malloc(sizeof(t_data));
 	if (!data)
 		exit(69);
+	data->envp = environ;
+	/* ft_printf("%A", data->envp); */
 	cmd_listen("8==========D ");
 	/* free(data->cmdtab->flags); */
 	/* free(data->cmdtab); */
