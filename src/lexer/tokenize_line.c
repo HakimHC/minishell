@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:56:03 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/28 04:10:34 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/04/28 04:52:55 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_list	*split_line(char *line)
 			if (line[i + j] == '|')
 				j++;
 			token = ft_lstnew(ft_substr(line, i, j));
-			ft_printf("TOKEN [%s]\n", token->content);
+			/* ft_printf("TOKEN [%s]\n", token->content); */
 			ft_lstadd_back(&head, token);
 		}
 		else if (line[i])
@@ -48,7 +48,7 @@ t_list	*split_line(char *line)
 			while (!is_special_char(line[i + j]) && !ft_isspace(line[i + j]) && line[i])
 				j++;
 			token = ft_lstnew(ft_substr(line, i, j));
-			ft_printf("TOKEN [%s]\n", token->content);
+			/* ft_printf("TOKEN [%s]\n", token->content); */
 			ft_lstadd_back(&head, token);
 		}
 		i += j;

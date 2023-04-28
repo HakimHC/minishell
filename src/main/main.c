@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 04:03:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/27 20:31:44 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/04/28 04:48:07 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(void)
 		exit(69);
 	data->envp = environ;
 	/* ft_printf("%A", data->envp); */
-	cmd_listen("8==========D ");
+	cmd_listen("minishell$ ");
 	/* free(data->cmdtab->flags); */
 	/* free(data->cmdtab); */
 	/* free(data); */

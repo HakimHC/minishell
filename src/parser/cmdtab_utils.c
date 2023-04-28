@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 19:11:17 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/27 19:11:53 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/04/28 04:49:46 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	print_cmdtab(void)
 		print_list(cmd_curr->args,0);
 		ft_putstr("\n==============================\n");
 		curr = cmd_curr->redir_in;
-		ft_putstr("REDIR IN:\n");
+		ft_putstr("REDIR IN:\n\n");
 		while (curr)
 		{
 			ft_printf("FILE: %s\nTYPE: %d\n", ((char *)((t_redir*) (curr->content))->file),
@@ -35,7 +35,7 @@ void	print_cmdtab(void)
 		}
 		curr = cmd_curr->redir_out;
 		ft_putstr("\n==============================\n");
-		ft_putstr("REDIR OUT:\n");
+		ft_putstr("REDIR OUT:\n\n");
 		while (curr)
 		{
 			ft_printf("FILE: %s\nTYPE: %d\n", ((char *)((t_redir*) (curr->content))->file),
@@ -43,7 +43,8 @@ void	print_cmdtab(void)
 			curr = curr->next;
 		}
 		ft_putstr("\n==============================\n");
-		ft_putstr("PIPE\n");
+		if (cmd_curr->next)
+			ft_putstr("\n{ PIPE }\n");
 		cmd_curr = cmd_curr->next;
 	}
 }
