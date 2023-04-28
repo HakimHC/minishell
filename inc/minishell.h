@@ -47,7 +47,7 @@ void	cmd_listen(char *prompt);
 void	destroyer(void);
 
 /* lexer */
-void	tokenize_input(char *input);
+int	tokenize_input(char *input);
 int	is_special_char(char c);
 t_list	*split_line(char *line);
 
@@ -57,11 +57,11 @@ void	print_cmdtab(void);
 t_cmdtab	*cmdtab_init(void);
 int	*set_flags(t_data *data);
 void	populate(t_data *data);
-void	pipe_parse_error(void);
-void	input_syntax_errors(void);
+int	pipe_parse_error(void);
+int	input_syntax_errors(void);
 unsigned char is_redir(char *token);
-void	redir_parse_error(void);
-void	print_token_error(char *token);
+int	redir_parse_error(void);
+int	print_token_error(char *token);
 
 /* executor */
 void	ft_execute(char *cmd, t_list *_args);

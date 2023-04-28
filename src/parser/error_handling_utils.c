@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 04:02:22 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/28 04:38:30 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/04/28 14:25:05 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ unsigned char is_redir(char *token)
 	return (0);
 }
 
-void	print_token_error(char *token)
+int	print_token_error(char *token)
 {
 	ft_putstr_fd("fatal: ", 2);
 	ft_putstr_fd("syntax error near unexpected token ", 2);
 	ft_putstr_fd("'", 2);
 	ft_putstr_fd(token, 2);
 	ft_putstr_fd("'\n", 2);
-	exit(238);
+	return (1);
 }
