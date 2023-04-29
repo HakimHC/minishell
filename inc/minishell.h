@@ -77,5 +77,6 @@ char	*get_path(char *envp[]);
 char	**split_path(char *path);
 char	*get_cmd(char *path[], char *cmd, int b);
 char	**path_arr(char *envp[]);
+int	ft_abs_path(char *cmd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 19:08:56 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/29 21:31:00 by hakim            ###   ########.fr       */
+/*   Updated: 2023/04/29 23:23:55 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,22 @@ void	cmd_listen(char *prompt)
 	line = readline(prompt);
 	while (ft_strncmp(line, "exit", 4))
 	{
-		add_history(line);
-		if (pre_token_parse_error(line))
+		if (line[0])
 		{
-			print_token_error("|");
-			exit(1);
+			add_history(line);
+			if (pre_token_parse_error(line))
+			{
+				print_token_error("|");
+				exit(1);
+			}
+			if (!tokenize_input(line))
+			{
+				fill_cmdtab();
+				/* print_cmdtab(); */
+				executor(data->cmdtab);
+			}
+			/* destroyer(); */
 		}
-		if (!tokenize_input(line))
-		{
-			fill_cmdtab();
-			/* print_cmdtab(); */
-			executor(data->cmdtab);
-		}
-		/* destroyer(); */
 		free(line);
 		line = readline(prompt);
 	}

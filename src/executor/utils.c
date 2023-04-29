@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:21:09 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/29 21:53:36 by hakim            ###   ########.fr       */
+/*   Updated: 2023/04/29 23:08:12 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,10 @@ void	ft_execute(char *cmd, t_list *_args)
 	pid_t pid;
 
 	args = list_to_arr(_args);
-	cmd_path = get_cmd(path_arr(data->envp), cmd, 1);
+	if (!ft_abs_path(cmd))
+		cmd_path = get_cmd(path_arr(data->envp), cmd, 1);
+	else
+		cmd_path = cmd;
 	args[0] = ft_strdup(cmd_path);
 	pid = ft_fork();
 	if (!pid)
