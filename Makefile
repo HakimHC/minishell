@@ -21,7 +21,7 @@ CFLAGS += -I $(LFTDIR)/$(INCDIR)
 
 LDFLAGS = -Llibft -lft -lreadline
 
-LDFLAGS += -fsanitize=address
+# LDFLAGS += -fsanitize=address
 
 #source files and stuff
 SRCDIR = src
@@ -52,6 +52,7 @@ PSSRC = cmdtab.c \
 EXECDIR = executor
 
 EXECSRC = executor.c \
+	  envparser.c \
 	  utils.c
 
 EXEC= $(addprefix $(EXECDIR)/,$(EXECSRC))
@@ -65,6 +66,8 @@ SRC = $(addprefix $(SRCDIR)/,$(LXDIR)/$(LXSRC)) \
 SRC_NORMAL = $(SRC) $(addprefix $(SRCDIR)/,$(MAIN))
 SRC_DEBUG = $(SRC) $(addprefix $(SRCDIR)/,$(MAIN_DB))
 
+LIB = libft/libft.a
+
 #objects and stuff
 
 
@@ -73,11 +76,14 @@ OBJ_DEBUG = $(SRC_DEBUG:.c=.o)
 
 #rules and stuff
 
-%.o: %.c
-	make bonus -C libft
-	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
+
+$(LIB):
+	make bonus -C libft
+
+%.o: %.c $(LIB)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ_NORMAL)
 	$(CC) $(CFLAGS) $(OBJ_NORMAL) $(LDFLAGS) -o $(NAME)
@@ -87,7 +93,8 @@ debug: $(OBJ_DEBUG)
 
 clean:
 	make fclean -C libft
-	rm -f $(OBJ)
+	rm -f $(OBJ_NORMAL)
+	rm -f $(OBJ_DEBUG)
 
 fclean: clean
 	rm -f $(NAME)
@@ -96,10 +103,10 @@ re: fclean all
 
 asan: $(LDFLAGS) += -fsanitize=address
 asan: $(CFLAGS) += -g3 -fsanitize=address
-asan: re
+asan: $(NAME) 
 
 leak: $(LDFLAGS) += -fsanitize=leak
 leak: $(CFLAGS) += -g3
-leak: re
+leak: $(NAME)
 
 .PHONY: all fclean clean re

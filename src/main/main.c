@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 04:03:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/28 04:48:07 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/04/29 21:48:11 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ int	main(void)
 	if (!data)
 		exit(69);
 	data->envp = environ;
+	/* data->stdin = dup(STDIN_FILENO); */
 	/* ft_printf("%A", data->envp); */
-	cmd_listen("minishell$ ");
+	cmd_listen("8=====D ");
 	/* free(data->cmdtab->flags); */
 	/* free(data->cmdtab); */
 	/* free(data); */

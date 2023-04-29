@@ -6,10 +6,11 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:35:17 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/29 20:08:39 by hakim            ###   ########.fr       */
+/*   Updated: 2023/04/29 21:57:14 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -94,7 +95,7 @@ int	open_outfile(t_cmdtab *tab)
 	return (fd);
 }
 
-void	create_pipe(int redir_out, t_cmdtab *tab)
+void	create_pipe(int redir_out, int redir_in, t_cmdtab *tab)
 {
 	int	fd[2];
 	pid_t	pid;
@@ -104,11 +105,15 @@ void	create_pipe(int redir_out, t_cmdtab *tab)
 	if (!pid)
 	{
 		close(fd[READ_END]);
+		if (redir_in != STDIN_FILENO)
+			dup2(redir_in, STDIN_FILENO);
 		if (redir_out != STDOUT_FILENO)
 			dup2(redir_out, STDOUT_FILENO);
 		else
 			dup2(fd[WRITE_END], STDOUT_FILENO);
+		close(fd[WRITE_END]);
 		ft_execute(tab->cmd, tab->args);
+		exit(0);
 	}
 	close(fd[WRITE_END]);
 	dup2(fd[READ_END], STDIN_FILENO);
@@ -119,26 +124,36 @@ void	executor(t_cmdtab *tab)
 {
 	int	fdin;
 	int	fdout;
-	
+	pid_t	pid;
+
 	if (!tab)
-		return ;
-	dprintf(2, "executor init\n");
-	fdin = open_infile(tab);
-	/* dup2(fdin, STDIN_FILENO); */
-	fdout = open_outfile(tab);
-	if (tab->next)
-		create_pipe(fdout, tab);
-	else
+		return;
+	pid = ft_fork();
+	if (!pid)
 	{
-		/* dup2(fdout, STDOUT_FILENO); */
-		if (!fork())
+		while (tab)
 		{
-			dup2(fdout, STDOUT_FILENO);
-			dup2(fdin, STDIN_FILENO);
-			ft_execute(tab->cmd, tab->args);
+			fdin = open_infile(tab);
+			fdout = open_outfile(tab);
+			if (tab->next)
+				create_pipe(fdout, fdin, tab);
+			else
+			{
+				/* dup2(fdout, STDOUT_FILENO); */
+				dup2(fdout, STDOUT_FILENO);
+				dup2(fdin, STDIN_FILENO);
+				ft_execute(tab->cmd, tab->args);
+				while (1)
+				{
+					pid_t p = waitpid(-1, NULL, 0);
+					if (p < 0)
+						break ;
+				}
+				exit(0);
+			}
+			tab = tab->next;
 		}
-		wait(NULL);
-		return ;
+
 	}
-	executor(tab->next);
+	waitpid(pid, NULL, 0);
 }

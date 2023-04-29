@@ -35,6 +35,7 @@ typedef struct s_data
 	t_cmdtab	*cmdtab;
 	t_list		*tokens;
 	char		**envp;
+	int		stdin;
 }	t_data;
 
 /* global */
@@ -72,5 +73,9 @@ pid_t	ft_fork(void);
 char	**list_to_arr(t_list *head);
 void	perror_exit(char *str);
 void	executor(t_cmdtab *tab);
+char	*get_path(char *envp[]);
+char	**split_path(char *path);
+char	*get_cmd(char *path[], char *cmd, int b);
+char	**path_arr(char *envp[]);
 
 #endif

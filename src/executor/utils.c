@@ -6,10 +6,11 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:21:09 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/27 20:46:00 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/04/29 21:53:36 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/types.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -79,10 +80,14 @@ int	ft_open(char *file, int oflags)
 void	ft_execute(char *cmd, t_list *_args)
 {
 	char **args;
+	char *cmd_path;
+	pid_t pid;
 
 	args = list_to_arr(_args);
-	args[0] = ft_strdup(cmd);
-	if (!fork())
-		execve(cmd, args, data->envp);
-	wait(NULL);
+	cmd_path = get_cmd(path_arr(data->envp), cmd, 1);
+	args[0] = ft_strdup(cmd_path);
+	pid = ft_fork();
+	if (!pid)
+		execve(cmd_path, args, data->envp);
+	waitpid(pid, NULL, 1);
 }
