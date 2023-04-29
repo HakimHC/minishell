@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 19:08:56 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/28 12:51:36 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/04/29 19:55:42 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,16 @@ void	cmd_listen(char *prompt)
 	while (ft_strncmp(line, "exit", 4))
 	{
 		add_history(line);
+		if (pre_token_parse_error(line))
+		{
+			print_token_error("|");
+			exit(1);
+		}
 		if (!tokenize_input(line))
 		{
 			fill_cmdtab();
 			print_cmdtab();
+			executor(data->cmdtab);
 		}
 		/* destroyer(); */
 		free(line);

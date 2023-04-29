@@ -31,7 +31,12 @@ MAINDIR = main
 MAINSRC = main.c \
 	  utils.c
 
+MAIN_DBSRC = db_main.c \
+	     utils.c
+
 MAIN = $(addprefix $(MAINDIR)/,$(MAINSRC))
+
+MAIN_DB = $(addprefix $(MAINDIR)/,$(MAIN_DBSRC))
 
 LXDIR = lexer
 
@@ -46,21 +51,25 @@ PSSRC = cmdtab.c \
 
 EXECDIR = executor
 
-EXECSRC = utils.c
+EXECSRC = executor.c \
+	  utils.c
 
 EXEC= $(addprefix $(EXECDIR)/,$(EXECSRC))
 
 PS = $(addprefix $(PSDIR)/,$(PSSRC))
 
-SRC = $(addprefix $(SRCDIR)/,$(MAIN)) \
-      $(addprefix $(SRCDIR)/,$(LXDIR)/$(LXSRC)) \
+SRC = $(addprefix $(SRCDIR)/,$(LXDIR)/$(LXSRC)) \
       $(addprefix $(SRCDIR)/,$(PS)) \
       $(addprefix $(SRCDIR)/,$(EXEC))
 
+SRC_NORMAL = $(SRC) $(addprefix $(SRCDIR)/,$(MAIN))
+SRC_DEBUG = $(SRC) $(addprefix $(SRCDIR)/,$(MAIN_DB))
 
 #objects and stuff
 
-OBJ = $(SRC:.c=.o)
+
+OBJ_NORMAL = $(SRC_NORMAL:.c=.o)
+OBJ_DEBUG = $(SRC_DEBUG:.c=.o)
 
 #rules and stuff
 
@@ -70,8 +79,11 @@ OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(LDFLAGS) -o $(NAME)
+$(NAME): $(OBJ_NORMAL)
+	$(CC) $(CFLAGS) $(OBJ_NORMAL) $(LDFLAGS) -o $(NAME)
+
+debug: $(OBJ_DEBUG)
+	$(CC) $(CFLAGS) $(OBJ_DEBUG) $(LDFLAGS) -o db_minishell
 
 clean:
 	make fclean -C libft

@@ -62,6 +62,7 @@ int	input_syntax_errors(void);
 unsigned char is_redir(char *token);
 int	redir_parse_error(void);
 int	print_token_error(char *token);
+int	pre_token_parse_error(char *input);
 
 /* executor */
 void	ft_execute(char *cmd, t_list *_args);
@@ -70,5 +71,6 @@ void	ft_pipe(int fd[2]);
 pid_t	ft_fork(void);
 char	**list_to_arr(t_list *head);
 void	perror_exit(char *str);
+void	executor(t_cmdtab *tab);
 
 #endif

@@ -6,10 +6,11 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:23:57 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/28 14:26:54 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/04/29 18:28:23 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "minishell.h"
@@ -55,6 +56,47 @@ int	redir_parse_error(void)
 		else if (!curr->next && is_redir(curr->content))
 			return (print_token_error(curr->content));
 		curr = curr->next;
+	}
+	return (0);
+}
+
+char	*ft_strchrset(char *str, char *set)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (str[i])
+	{
+		j = 0;
+		while (set[j] && str[i] != set[j])
+			j++;
+		if (set[j])
+		{
+			while (str[i] == set[j])
+				i++;
+			return (str + i);
+		}
+		i++;
+	}
+	return (NULL);
+}
+
+int	pre_token_parse_error(char *input)
+{
+	int	i;
+
+	input = ft_strchrset(input, "<>");
+	while (input)
+	{
+		i = 0;
+		if (input[i] == '|')
+			return (0);
+		while (input[i] && ft_isspace(input[i]))
+			i++;
+		if (input[i] == '|')
+			return (1);
+		input = ft_strchrset(input, "<>");
 	}
 	return (0);
 }
