@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:21:09 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/29 23:08:12 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/01 14:39:05 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/wait.h>
+#include <errno.h>
 
 #include "minishell.h"
 
 void	perror_exit(char *str)
 {
 	perror(str);
-	exit(EXIT_FAILURE);
+	exit(errno);
 }
 
 char	**list_to_arr(t_list *head)
@@ -85,10 +86,12 @@ void	ft_execute(char *cmd, t_list *_args)
 
 	args = list_to_arr(_args);
 	if (!ft_abs_path(cmd))
-		cmd_path = get_cmd(path_arr(data->envp), cmd, 1);
+		cmd_path = get_cmd(path_arr(), cmd, 1);
 	else
 		cmd_path = cmd;
 	args[0] = ft_strdup(cmd_path);
+	if (!cmd_path)
+		exit(127);
 	pid = ft_fork();
 	if (!pid)
 		execve(cmd_path, args, data->envp);

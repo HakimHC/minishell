@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:35:17 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/01 13:28:33 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/01 17:14:34 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,10 @@ int	open_infile(t_cmdtab *tab)
 			fd = handle_heredoc(file->file);
 		else
 			fd = open(file->file, O_RDONLY);
-		if (fd < 0 && !lst->next)
-			perror_exit(file->file);
-		else if (fd < 0 && lst->next)
+		if (fd < 0)
 			perror(file->file);
-		/* if (lst->next) */
-		/* 	close(fd); */
+		if (lst->next)
+			close(fd);
 		lst = lst->next;
 	}
 	return (fd);
@@ -125,12 +123,12 @@ void	create_pipe(int redir_out, int redir_in, t_cmdtab *tab)
 		if (redir_in != STDIN_FILENO)
 		{
 			dup2(redir_in, STDIN_FILENO);
-			close(redir_in);
+			/* close(redir_in); */
 		}
 		if (redir_out != STDOUT_FILENO)
 		{
 			dup2(redir_out, STDOUT_FILENO);
-			close(redir_out);
+			/* close(redir_out); */
 		}
 		else
 			dup2(fd[WRITE_END], STDOUT_FILENO);
@@ -138,8 +136,8 @@ void	create_pipe(int redir_out, int redir_in, t_cmdtab *tab)
 		ft_execute(tab->cmd, tab->args);
 		exit(0);
 	}
-	close(redir_in);
-	close(redir_out);
+	/* close(redir_in); */
+	/* close(redir_out); */
 	close(fd[WRITE_END]);
 	dup2(fd[READ_END], STDIN_FILENO);
 	close(fd[READ_END]);
@@ -150,6 +148,7 @@ void	executor(t_cmdtab *tab)
 	int	fdin;
 	int	fdout;
 	pid_t	pid;
+	int	status;
 
 	if (!tab)
 		return;
@@ -160,7 +159,11 @@ void	executor(t_cmdtab *tab)
 		{
 			fdin = open_infile(tab);
 			fdout = open_outfile(tab);
-			/* printf("redirin: %d\n", fdin); */
+			if (fdin < 0 || fdout < 0)
+			{
+				tab = tab->next;
+				continue;
+			}
 			if (tab->next)
 				create_pipe(fdout, fdin, tab);
 			else
@@ -175,15 +178,15 @@ void	executor(t_cmdtab *tab)
 				ft_execute(tab->cmd, tab->args);
 				while (1)
 				{
-					pid_t p = waitpid(-1, NULL, 0);
+					pid_t p = waitpid(-1, &status, 0);
 					if (p < 0)
-						break ;
+						exit(WEXITSTATUS(status));
 				}
-				exit(0);
+				exit(WEXITSTATUS(status));
 			}
 			tab = tab->next;
 		}
 
 	}
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &status, 0);
 }

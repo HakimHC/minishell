@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 13:28:50 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/29 23:07:31 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/01 14:18:08 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,6 @@ int	ft_abs_path(char *cmd)
 	return (0);
 }
 
-char	*get_path(char *envp[])
-{
-	int	i;
-
-	i = 0;
-	while (envp[i])
-	{
-		if (!ft_strncmp(envp[i], "PATH", 4))
-			return (ft_strdup(ft_strchr(envp[i], '=') + 1));
-		i++;
-	}
-	return (NULL);
-}
-
 char	**split_path(char *path)
 {
 	char	**arr;
@@ -46,7 +32,6 @@ char	**split_path(char *path)
 	int		i;
 
 	arr = ft_split(path, ':');
-	free(path);
 	i = 0;
 	while (arr[i])
 	{
@@ -58,12 +43,12 @@ char	**split_path(char *path)
 	return (arr);
 }
 
-char	**path_arr(char *envp[])
+char	**path_arr(void)
 {
 	char	*path;
 	char	**arr_path;
 
-	path = get_path(envp);
+	path = getenv("PATH");
 	if (!path)
 		return (NULL);
 	arr_path = split_path(path);
@@ -94,7 +79,7 @@ char	*get_cmd(char *path[], char *cmd, int b)
 		else
 			ft_putendl_fd("", 2);
 	}
-	return (0);
+	return (NULL);
 }
 
 // int	main(int argc, char *argv[], char *envp[])

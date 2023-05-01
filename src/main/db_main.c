@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 17:52:57 by hakim             #+#    #+#             */
-/*   Updated: 2023/04/29 19:59:17 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/01 16:42:43 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(int argc, char **argv)
 	if (!tokenize_input(line))
 	{
 		fill_cmdtab();
-		print_cmdtab();
+		/* print_cmdtab(); */
 		executor(data->cmdtab);
 	}
 	return (0);

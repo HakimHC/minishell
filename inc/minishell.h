@@ -73,10 +73,9 @@ pid_t	ft_fork(void);
 char	**list_to_arr(t_list *head);
 void	perror_exit(char *str);
 void	executor(t_cmdtab *tab);
-char	*get_path(char *envp[]);
 char	**split_path(char *path);
 char	*get_cmd(char *path[], char *cmd, int b);
-char	**path_arr(char *envp[]);
+char	**path_arr(void);
 int	ft_abs_path(char *cmd);
 
 #endif
