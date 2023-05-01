@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 04:03:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/29 21:48:11 by hakim            ###   ########.fr       */
+/*   Updated: 2023/04/30 22:05:42 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(void)
 	data->envp = environ;
 	/* data->stdin = dup(STDIN_FILENO); */
 	/* ft_printf("%A", data->envp); */
-	cmd_listen("8=====D ");
+	cmd_listen("$> ");
 	/* free(data->cmdtab->flags); */
 	/* free(data->cmdtab); */
 	/* free(data); */

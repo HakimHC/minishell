@@ -6,22 +6,43 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:35:17 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/29 21:57:14 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/01 13:28:33 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <fcntl.h>
-#include <unistd.h>
 #include <stdio.h>
+#include <readline/readline.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <sys/wait.h>
 
 #include "minishell.h"
 
 int	handle_heredoc(char *delim)
 {
-	(void) delim;
-	return (0);
+	int	fd;
+	char	*line;
+	pid_t pid;
+
+	line = readline("heredoc> ");
+	fd = ft_open("/tmp/.heredoc", O_CREAT | O_WRONLY | O_TRUNC);
+	pid = ft_fork();
+	if (!pid)
+	{
+		while (ft_strncmp(line, delim, ft_strlen(line)))
+		{
+			ft_putendl_fd(line, fd);
+			free(line);
+			line = readline("heredoc> ");
+		}
+		free(line);
+		exit(0);
+	}
+	waitpid(pid, NULL, 0);
+	close(fd);
+	fd = open("/tmp/.heredoc", O_RDONLY);
+	return (fd);
 }
 
 int	open_infile(t_cmdtab *tab)
@@ -34,25 +55,21 @@ int	open_infile(t_cmdtab *tab)
 	if (!lst)
 		return (STDIN_FILENO);
 	file = lst->content;
-	while (lst->next)
+	while (lst)
 	{
 		file = lst->content;
 		if (file->type == HEREDOC)
 			fd = handle_heredoc(file->file);
-		fd = open(file->file, O_RDONLY);
-		if (fd < 0)
+		else
+			fd = open(file->file, O_RDONLY);
+		if (fd < 0 && !lst->next)
+			perror_exit(file->file);
+		else if (fd < 0 && lst->next)
 			perror(file->file);
-		close(fd);
+		/* if (lst->next) */
+		/* 	close(fd); */
 		lst = lst->next;
 	}
-	if (file->type == REDIR_IN)
-	{
-		fd = open(file->file, O_RDONLY);
-		if (fd < 0)
-			perror_exit(file->file);
-	}
-	else
-		fd = handle_heredoc(file->file);
 	return (fd);
 }
 
@@ -80,9 +97,9 @@ int	open_outfile(t_cmdtab *tab)
 	lst = tab->redir_out;
 	if (!lst)
 		return (STDOUT_FILENO);
-	file = lst->content;
-	while (lst->next)
+	while (lst)
 	{
+		file = lst->content;
 		fd = open_with_flags(file->file, file->type);
 		if (fd < 0)
 			perror(file->file);
@@ -106,15 +123,23 @@ void	create_pipe(int redir_out, int redir_in, t_cmdtab *tab)
 	{
 		close(fd[READ_END]);
 		if (redir_in != STDIN_FILENO)
+		{
 			dup2(redir_in, STDIN_FILENO);
+			close(redir_in);
+		}
 		if (redir_out != STDOUT_FILENO)
+		{
 			dup2(redir_out, STDOUT_FILENO);
+			close(redir_out);
+		}
 		else
 			dup2(fd[WRITE_END], STDOUT_FILENO);
 		close(fd[WRITE_END]);
 		ft_execute(tab->cmd, tab->args);
 		exit(0);
 	}
+	close(redir_in);
+	close(redir_out);
 	close(fd[WRITE_END]);
 	dup2(fd[READ_END], STDIN_FILENO);
 	close(fd[READ_END]);
@@ -135,6 +160,7 @@ void	executor(t_cmdtab *tab)
 		{
 			fdin = open_infile(tab);
 			fdout = open_outfile(tab);
+			/* printf("redirin: %d\n", fdin); */
 			if (tab->next)
 				create_pipe(fdout, fdin, tab);
 			else
@@ -142,6 +168,10 @@ void	executor(t_cmdtab *tab)
 				/* dup2(fdout, STDOUT_FILENO); */
 				dup2(fdout, STDOUT_FILENO);
 				dup2(fdin, STDIN_FILENO);
+				if (fdin != STDIN_FILENO)
+					close(fdin);
+				if (fdout != STDOUT_FILENO)
+					close(fdout);
 				ft_execute(tab->cmd, tab->args);
 				while (1)
 				{
