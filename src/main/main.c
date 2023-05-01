@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 04:03:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/30 22:05:42 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/01 21:20:49 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,36 @@ void	leaks(void)
 	system("leaks -q minishell");
 }
 
-int	main(void)
+char	**ft_arrdup(char **arr)
+{
+	int	i;
+	char	**res;
+
+	i = 0;
+	while (arr[i])
+		i++;
+	res = (char **) malloc(sizeof(char *) * (i + 1));
+	if (!res)
+		return (NULL);
+	i = 0;
+	while (arr[i])
+	{
+		res[i] = ft_strdup(arr[i]);
+		i++;
+	}
+	res[i] = NULL;
+	return (res);
+}
+
+int	main(int argc, char **argv, char **envp)
 {
 	/* atexit(leaks); */
-	extern char **environ;
+	(void) argc;
+	(void) argv;
 	data = malloc(sizeof(t_data));
 	if (!data)
 		exit(69);
-	data->envp = environ;
+	data->envp = ft_arrdup(envp);
 	/* data->stdin = dup(STDIN_FILENO); */
 	/* ft_printf("%A", data->envp); */
 	cmd_listen("$> ");

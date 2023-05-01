@@ -78,4 +78,10 @@ char	*get_cmd(char *path[], char *cmd, int b);
 char	**path_arr(void);
 int	ft_abs_path(char *cmd);
 
+/* builtins */
+void	ft_env(void);
+t_list	*envars_to_list(char *envp[]);
+char	**list_to_envars(t_list *head);
+void	ft_export(char *arg);
+
 #endif
