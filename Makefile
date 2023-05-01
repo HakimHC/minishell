@@ -21,7 +21,7 @@ CFLAGS += -I $(LFTDIR)/$(INCDIR)
 
 LDFLAGS = -Llibft -lft -lreadline
 
-LDFLAGS += -fsanitize=address
+# LDFLAGS += -fsanitize=address
 
 #source files and stuff
 SRCDIR = src
@@ -59,6 +59,7 @@ BIDIR = builtins
 
 BISRC = env.c \
 	export.c \
+	unset.c \
 
 BI = $(addprefix $(BIDIR)/,$(BISRC))
 

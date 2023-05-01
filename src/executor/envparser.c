@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 13:28:50 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/01 14:18:08 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/01 22:45:32 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	**path_arr(void)
 	char	*path;
 	char	**arr_path;
 
-	path = getenv("PATH");
+	path = ft_getenv("PATH");
 	if (!path)
 		return (NULL);
 	arr_path = split_path(path);

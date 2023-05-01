@@ -83,5 +83,8 @@ void	ft_env(void);
 t_list	*envars_to_list(char *envp[]);
 char	**list_to_envars(t_list *head);
 void	ft_export(char *arg);
+void	ft_unsetenv(char *var);
+void	ft_unset(t_list *args);
+char	*ft_getenv(char *arg);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 18:30:22 by hakim             #+#    #+#             */
-/*   Updated: 2023/05/01 21:40:23 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/01 22:35:15 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,19 @@ t_list	*envars_to_list(char *envp[])
 char	**list_to_envars(t_list *head)
 {
 	char	**envars;
+	t_list	*curr;
 	int	i;
 
 	envars = (char **) malloc((ft_lstsize(head) + 1) * sizeof(char *));
 	if (!envars)
 		return (NULL);
 	i = 0;
-	while (head)
+	curr = head;
+	while (curr)
 	{
-		envars[i] = ft_strdup(head->content);
+		envars[i] = ft_strdup(curr->content);
 		i++;
-		head = head->next;
+		curr = curr->next;
 	}
 	envars[i] = NULL;
 	ft_lstclear(&head, &free);

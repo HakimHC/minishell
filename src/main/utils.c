@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 19:08:56 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/01 21:43:54 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/01 22:36:55 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	cmd_listen(char *prompt)
 			{
 				fill_cmdtab();
 				/* print_cmdtab(); */
+				ft_unsetenv("PATH");
+				/* printf("%s\n", ft_getenv("PATH")); */
 				executor(data->cmdtab);
 			}
 			/* destroyer(); */
@@ -44,6 +46,7 @@ void	cmd_listen(char *prompt)
 		free(line);
 		line = readline(prompt);
 	}
+	ft_free_strarr(data->envp);
 	free(line);
 }
 

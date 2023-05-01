@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:21:09 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/01 14:39:05 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/01 22:39:15 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,7 @@ void	ft_execute(char *cmd, t_list *_args)
 	pid = ft_fork();
 	if (!pid)
 		execve(cmd_path, args, data->envp);
+	ft_free_strarr(args);
+	free(cmd_path);
 	waitpid(pid, NULL, 1);
 }
