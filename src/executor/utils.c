@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:21:09 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/01 22:39:15 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/03 22:23:43 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,24 +78,46 @@ int	ft_open(char *file, int oflags)
 	return (fd);
 }
 
+unsigned char exec_builtin(char *cmd, t_list *args)
+{
+	int	i;
+
+	if (!cmd)
+		return (0);
+	i = 0;
+	while (i < 7)
+	{
+		if (!ft_strcmp((data->builtins->cmd)[i], cmd))
+		{
+			(data->builtins->f)[i](args);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 void	ft_execute(char *cmd, t_list *_args)
 {
 	char **args;
 	char *cmd_path;
-	pid_t pid;
 
+	if (!cmd || exec_builtin(cmd, _args))
+		exit(0);
 	args = list_to_arr(_args);
 	if (!ft_abs_path(cmd))
 		cmd_path = get_cmd(path_arr(), cmd, 1);
 	else
 		cmd_path = cmd;
-	args[0] = ft_strdup(cmd_path);
 	if (!cmd_path)
 		exit(127);
-	pid = ft_fork();
-	if (!pid)
-		execve(cmd_path, args, data->envp);
+	args[0] = ft_strdup(cmd_path);
+	if (access(cmd_path, F_OK))
+		exit(127);
+	execve(cmd_path, args, data->envparr);
+	exit(0);
 	ft_free_strarr(args);
-	free(cmd_path);
-	waitpid(pid, NULL, 1);
+	if (cmd_path != cmd)
+		free(cmd_path);
+	exit(errno);
 }

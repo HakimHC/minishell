@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 19:08:56 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/01 22:36:55 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/04 02:26:00 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	cmd_listen(char *prompt)
 	char	*line;
 
 	line = readline(prompt);
-	while (ft_strncmp(line, "exit", 4))
+	while (1)
 	{
 		if (line[0])
 		{
@@ -37,8 +37,10 @@ void	cmd_listen(char *prompt)
 			{
 				fill_cmdtab();
 				/* print_cmdtab(); */
-				ft_unsetenv("PATH");
+				/* ft_unsetenv("PATH"); */
 				/* printf("%s\n", ft_getenv("PATH")); */
+				/* print_env(data->envp); */
+				expand_cmd(data->cmdtab);
 				executor(data->cmdtab);
 			}
 			/* destroyer(); */
@@ -46,7 +48,6 @@ void	cmd_listen(char *prompt)
 		free(line);
 		line = readline(prompt);
 	}
-	ft_free_strarr(data->envp);
 	free(line);
 }
 

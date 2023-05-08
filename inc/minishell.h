@@ -20,6 +20,12 @@ typedef struct s_redir
 	int	type;
 }	t_redir;
 
+typedef struct  s_env
+{
+	char	*key;
+	char	*value;
+}	t_env;
+
 typedef struct s_cmdtab
 {
 	char	*cmd;
@@ -30,12 +36,19 @@ typedef struct s_cmdtab
 	struct s_cmdtab *next;
 }	t_cmdtab;
 
+typedef struct s_builtin
+{
+	char	*cmd[7];
+	void	(*f[7])(t_list *);
+}	t_builtin;
+
 typedef struct s_data
 {
 	t_cmdtab	*cmdtab;
 	t_list		*tokens;
-	char		**envp;
-	int		stdin;
+	t_list		*envp;
+	t_builtin	*builtins;
+	char		**envparr;
 }	t_data;
 
 /* global */
@@ -79,12 +92,26 @@ char	**path_arr(void);
 int	ft_abs_path(char *cmd);
 
 /* builtins */
-void	ft_env(void);
+void	ft_env(t_list *args);
 t_list	*envars_to_list(char *envp[]);
 char	**list_to_envars(t_list *head);
-void	ft_export(char *arg);
+void	ft_export(t_list *arg);
 void	ft_unsetenv(char *var);
+void	ft_setenv(char *arg);
 void	ft_unset(t_list *args);
 char	*ft_getenv(char *arg);
+void	ft_echo(t_list	*args);
+void	ft_pwd(t_list *args);
+void	ft_cd(t_list *args);
+void	print_env(t_list *head);
+t_list	*parse_envar(char *envar);
+unsigned char export_error(char *arg);
+unsigned char exec_builtin(char *cmd, t_list *args);
+int is_int(char *str);
+void	ft_exit(t_list *args);
+
+/* expander */
+void	expand_cmd(t_cmdtab *tab);
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 22:14:34 by hakim             #+#    #+#             */
-/*   Updated: 2023/05/01 22:44:45 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/03 14:47:17 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,15 @@ void	ft_unsetenv(char *var)
 	t_list	*lst;
 	t_list	*curr;
 	t_list	*prev;
+	t_env	*env;
 
-	lst = envars_to_list(data->envp);
-	var = ft_strjoin(var, "=");
-	curr = lst;
+	lst = data->envp;
+	curr = data->envp;
 	prev = NULL;
 	while (curr)
 	{
-		if (!ft_strncmp(curr->content, var, ft_strlen(var)))
+		env = curr->content;
+		if (!ft_strncmp(env->key, var, ft_strlen(env->key) + 1))
 		{
 			if (prev)
 				prev->next = curr->next;
@@ -38,9 +39,6 @@ void	ft_unsetenv(char *var)
 		prev = curr;
 		curr = curr->next;
 	}
-	free(var);
-	data->envp = list_to_envars(lst);
-	ft_printf("%A", data->envp);
 }
 
 void	ft_unset(t_list *args)
@@ -53,4 +51,6 @@ void	ft_unset(t_list *args)
 		ft_unsetenv(curr->content);
 		curr = curr->next;
 	}
+	ft_free_strarr(data->envparr);
+	data->envparr = list_to_envars(data->envp);
 }

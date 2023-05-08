@@ -21,7 +21,7 @@ CFLAGS += -I $(LFTDIR)/$(INCDIR)
 
 LDFLAGS = -Llibft -lft -lreadline
 
-# LDFLAGS += -fsanitize=address
+LDFLAGS += -fsanitize=address
 
 #source files and stuff
 SRCDIR = src
@@ -60,6 +60,15 @@ BIDIR = builtins
 BISRC = env.c \
 	export.c \
 	unset.c \
+	echo.c \
+	pwd.c \
+	cd.c \
+	exit.c \
+	envar_utils.c
+
+EXPDIR = expander
+
+EXPSRC = expander.c
 
 BI = $(addprefix $(BIDIR)/,$(BISRC))
 
@@ -67,10 +76,13 @@ EXEC= $(addprefix $(EXECDIR)/,$(EXECSRC))
 
 PS = $(addprefix $(PSDIR)/,$(PSSRC))
 
+EXP = $(addprefix $(EXPDIR)/,$(EXPSRC))
+
 SRC = $(addprefix $(SRCDIR)/,$(LXDIR)/$(LXSRC)) \
       $(addprefix $(SRCDIR)/,$(PS)) \
       $(addprefix $(SRCDIR)/,$(EXEC)) \
       $(addprefix $(SRCDIR)/,$(BI)) \
+      $(addprefix $(SRCDIR)/,$(EXP)) \
 
 SRC_NORMAL = $(SRC) $(addprefix $(SRCDIR)/,$(MAIN))
 SRC_DEBUG = $(SRC) $(addprefix $(SRCDIR)/,$(MAIN_DB))
