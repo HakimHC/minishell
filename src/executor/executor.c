@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:35:17 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/04 12:24:40 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:36:17 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,18 @@ int	handle_heredoc(char *delim)
 {
 	int	fd;
 	char	*line;
-	pid_t pid;
 
 	line = readline("heredoc> ");
 	fd = ft_open("/tmp/.heredoc", O_CREAT | O_WRONLY | O_TRUNC);
-	pid = ft_fork();
-	if (!pid)
+	while (ft_strncmp(line, delim, ft_strlen(line) + 1))
 	{
-		while (ft_strncmp(line, delim, ft_strlen(line) + 1))
-		{
-			ft_putendl_fd(line, fd);
-			free(line);
-			line = readline("heredoc> ");
-		}
+		ft_putendl_fd(line, fd);
 		free(line);
-		exit(0);
+		line = readline("heredoc> ");
 	}
-	waitpid(pid, NULL, 0);
+	free(line);
+	printf("here we go\n");
+	exit(0);
 	close(fd);
 	fd = open("/tmp/.heredoc", O_RDONLY);
 	return (fd);
@@ -136,6 +131,7 @@ void	create_pipe(int redir_out, int redir_in, t_cmdtab *tab)
 			dup2(fd[WRITE_END], STDOUT_FILENO);
 		close(fd[WRITE_END]);
 		ft_execute(tab->cmd, tab->args);
+		/* exit(0); */
 	}
 	if (redir_in != STDIN_FILENO)
 		close(redir_in);
@@ -192,6 +188,7 @@ void	builtin_pipe(t_cmdtab *tab)
 		dup2(fd[WRITE_END], STDOUT_FILENO);
 		close(fd[WRITE_END]);
 		ft_execute(tab->cmd, tab->args);
+		exit(0);
 	}
 	close(fd[WRITE_END]);
 	dup2(fd[READ_END], STDIN_FILENO);
@@ -223,9 +220,9 @@ void	executor(t_cmdtab *tab)
 	pid_t	pid;
 	int	status;
 
-	int fdo = dup(STDIN_FILENO);
 	if (!tab)
 		return;
+	data->fdo = STDIN_FILENO;
 	if (!(tab->next) && is_builtin(tab->cmd))
 	{
 		handle_builtin();
@@ -233,6 +230,7 @@ void	executor(t_cmdtab *tab)
 	}
 	else if (tab->next && is_builtin(tab->cmd))
 	{
+		data->fdo = dup(STDIN_FILENO);
 		builtin_pipe(tab);
 		tab = tab->next;
 	}
@@ -247,15 +245,20 @@ void	executor(t_cmdtab *tab)
 				create_pipe(fdout, fdin, tab);
 			else
 			{
-				/* dup2(fdout, STDOUT_FILENO); */
-				/* dup2(fdout, STDOUT_FILENO); */
 				/* if (fdin != STDIN_FILENO) */
-				/* 	close(fdin); */
-				/* if (fdout != STDOUT_FILENO) */
-				/* 	close(fdout); */
-				/* close(STDIN_FILENO); */
+				/* 	dup2(fdin, STDIN_FILENO); */
+				dup2(fdin, STDIN_FILENO);
+				dup2(fdout, STDOUT_FILENO);
+				if (fdin != STDIN_FILENO)
+					close(fdin);
+				if (fdout != STDOUT_FILENO)
+					close(fdout);
+				/* close(data->fdo); */
 				if (!fork())
+				{
 					ft_execute(tab->cmd, tab->args);
+					/* exit(0); */
+				}
 				while (1)
 				{
 					pid_t p = waitpid(-1, &status, 0);
@@ -269,6 +272,11 @@ void	executor(t_cmdtab *tab)
 		}
 	}
 	waitpid(pid, NULL, 0);
-	dup2(fdo, STDIN_FILENO);
-	close(fdo);
+	/* dup2(fdo, STDIN_FILENO); */
+	/* close(fdo); */
+	if (data->fdo != 0)
+	{
+		dup2(data->fdo, STDIN_FILENO);
+		close(data->fdo);
+	}
 }

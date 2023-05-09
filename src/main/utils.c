@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 19:08:56 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/04 02:26:00 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:33:40 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	cmd_listen(char *prompt)
 	line = readline(prompt);
 	while (1)
 	{
-		if (line[0])
+		if (line && line[0])
 		{
 			add_history(line);
 			if (pre_token_parse_error(line))
@@ -37,13 +37,8 @@ void	cmd_listen(char *prompt)
 			{
 				fill_cmdtab();
 				/* print_cmdtab(); */
-				/* ft_unsetenv("PATH"); */
-				/* printf("%s\n", ft_getenv("PATH")); */
-				/* print_env(data->envp); */
-				expand_cmd(data->cmdtab);
 				executor(data->cmdtab);
 			}
-			/* destroyer(); */
 		}
 		free(line);
 		line = readline(prompt);
@@ -53,16 +48,9 @@ void	cmd_listen(char *prompt)
 
 void	destroyer(void)
 {
-	// !!!!!!!!!! FREEE REDIRS IN LOOP
-
 	free(data->cmdtab->cmd);
 	ft_lstclear(&(data->cmdtab->args), &free);
-	if (data->cmdtab->redir_in && data->cmdtab->redir_in->content)
-		free((char*)((t_redir *)(data->cmdtab->redir_in->content))->file);
-	if (data->cmdtab->redir_out &&data->cmdtab->redir_out->content)
-		free((char*)((t_redir *)(data->cmdtab->redir_out->content))->file);
 	ft_lstclear(&(data->cmdtab->redir_in), &free);
 	ft_lstclear(&(data->cmdtab->redir_out), &free);
 	ft_lstclear(&(data->tokens), &free);
 }
-

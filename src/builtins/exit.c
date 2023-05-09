@@ -6,7 +6,7 @@
 /*   By: hakahmed <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 22:41:10 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/03 22:56:28 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:13:19 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include "minishell.h"
 
-int is_int(char *str)
+int	is_int(char *str)
 {
 	int	n;
 

@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 17:43:20 by hakim             #+#    #+#             */
-/*   Updated: 2023/05/03 12:46:09 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:14:40 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,16 @@ void	ft_pwd(t_list *args)
 		return ;
 	}
 	size = 50;
-	wd = (char *) malloc((size + 1)* sizeof(char));
+	wd = (char *) malloc((size + 1) * sizeof(char));
 	if (!wd)
-		return ;
-	while (1)
+		perror_exit("malloc");
+	while (!getcwd(wd, size))
 	{
-		if (!getcwd(wd, size))
-		{
-			printf("size: %lu\n", size);
-			size += 10;
-			free(wd);
-			wd = (char *) malloc((size + 1) * sizeof(char));
-			if (!wd)
-				return ;
-		}
-		else
-			break ;
+		size += 10;
+		free(wd);
+		wd = (char *) malloc((size + 1) * sizeof(char));
+		if (!wd)
+			perror_exit("malloc");
 	}
 	printf("%s\n", wd);
 	free(wd);

@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 17:52:57 by hakim             #+#    #+#             */
-/*   Updated: 2023/05/01 16:42:43 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/09 12:18:02 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	main(int argc, char **argv)
 	data = malloc(sizeof(t_data));
 	if (!data)
 		exit(69);
-	data->envp = environ;
 	line = argv[1];
 	add_history(line);
 	if (pre_token_parse_error(line))
@@ -44,7 +43,6 @@ int	main(int argc, char **argv)
 	if (!tokenize_input(line))
 	{
 		fill_cmdtab();
-		/* print_cmdtab(); */
 		executor(data->cmdtab);
 	}
 	return (0);

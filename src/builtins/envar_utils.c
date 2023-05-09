@@ -6,7 +6,7 @@
 /*   By: hakahmed <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 19:14:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/04 02:29:06 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:10:57 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**list_to_envars(t_list *head)
 	t_list	*curr;
 	t_env	*env;
 	char	*aux;
-	int	i;
+	int		i;
 
 	envars = (char **) malloc((ft_lstsize(head) + 1) * sizeof(char *));
 	if (!envars)
@@ -56,7 +56,7 @@ char	*ft_getenv(char *arg)
 	return (NULL);
 }
 
-unsigned char process_env(t_env *env)
+unsigned char	process_env(t_env *env)
 {
 	t_list	*curr;
 	t_env	*curr_env;
@@ -65,7 +65,8 @@ unsigned char process_env(t_env *env)
 	while (curr)
 	{
 		curr_env = curr->content;
-		if (!ft_strcmp(curr_env->key, env->key) && ft_strcmp(curr_env->value, env->value))
+		if (!ft_strcmp(curr_env->key, env->key)
+			&& ft_strcmp(curr_env->value, env->value))
 		{
 			free(curr_env->value);
 			free(env->key);
@@ -82,8 +83,8 @@ unsigned char process_env(t_env *env)
 void	ft_setenv(char *arg)
 {
 	t_env	*env;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	t_list	*node;
 
 	env = (t_env *)malloc(sizeof(t_env));
@@ -91,11 +92,12 @@ void	ft_setenv(char *arg)
 		return ;
 	i = 0;
 	j = 0;
-	while (arg[j++] != '=');
+	while (arg[j++] != '=')
+		;
 	env->key = ft_substr(arg, i, j - 1);
 	i += j;
 	j = 0;
-	while(arg[i + j])
+	while (arg[i + j])
 		j++;
 	env->value = ft_substr(arg, i, j);
 	if (!process_env(env))
@@ -105,12 +107,13 @@ void	ft_setenv(char *arg)
 	}
 }
 
-unsigned char export_error(char *arg)
+unsigned char	export_error(char *arg)
 {
 	int	i;
 
 	i = -1;
-	while (ft_isspace(arg[++i]));
+	while (ft_isspace(arg[++i]))
+		;
 	if (arg[i] == '=')
 	{
 		ft_putstr_fd("export: '", 2);

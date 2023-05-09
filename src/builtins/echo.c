@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 17:33:45 by hakim             #+#    #+#             */
-/*   Updated: 2023/05/03 11:36:59 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:05:20 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 void	ft_echo(t_list	*args)
 {
-	t_list	*curr;
-	unsigned char n;
+	t_list			*curr;
+	unsigned char	n;
 
 	curr = args;
 	n = 0;

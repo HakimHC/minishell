@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 22:14:34 by hakim             #+#    #+#             */
-/*   Updated: 2023/05/03 14:47:17 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:11:33 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_unsetenv(char *var)
 
 void	ft_unset(t_list *args)
 {
-	t_list *curr;
+	t_list	*curr;
 
 	curr = args;
 	while (curr)

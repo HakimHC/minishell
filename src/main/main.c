@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 04:03:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/03 22:48:40 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:18:44 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,44 +25,24 @@ void	leaks(void)
 	system("leaks -q minishell");
 }
 
-char	**ft_arrdup(char **arr)
-{
-	int	i;
-	char	**res;
-
-	i = 0;
-	while (arr[i])
-		i++;
-	res = (char **) malloc(sizeof(char *) * (i + 1));
-	if (!res)
-		return (NULL);
-	i = 0;
-	while (arr[i])
-	{
-		res[i] = ft_strdup(arr[i]);
-		i++;
-	}
-	res[i] = NULL;
-	return (res);
-}
-
 t_list	*parse_envar(char *envar)
 {
 	t_env	*env;
 	t_list	*node;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	env = (t_env *)malloc(sizeof(t_env));
 	if (!env || !ft_strchr(envar, '='))
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (envar[j++] != '=');
+	while (envar[j++] != '=')
+		;
 	env->key = ft_substr(envar, i, j - 1);
 	i += j;
 	j = 0;
-	while(envar[i + j])
+	while (envar[i + j])
 		j++;
 	env->value = ft_substr(envar, i, j);
 	node = ft_lstnew(env);
@@ -71,7 +51,7 @@ t_list	*parse_envar(char *envar)
 
 t_list	*env_init(char *envp[])
 {
-	int	i;
+	int		i;
 	t_list	*head;
 	t_list	*node;
 
@@ -112,7 +92,6 @@ t_builtin	*populate_builtins(void)
 
 int	main(int argc, char **argv, char **envp)
 {
-	/* atexit(leaks); */
 	(void) argc;
 	(void) argv;
 	data = malloc(sizeof(t_data));
@@ -123,15 +102,6 @@ int	main(int argc, char **argv, char **envp)
 	data->builtins = populate_builtins();
 	if (!data->builtins)
 		return (2);
-
-	/* data->builtins->f[0](data->envp); */
-	/* t_list *env = env_init(envp); */
-	/* print_env(env); */
-	/* data->stdin = dup(STDIN_FILENO); */
-	/* ft_printf("%A", data->envp); */
 	cmd_listen("$_ ");
-	/* free(data->cmdtab->flags); */
-	/* free(data->cmdtab); */
-	/* free(data); */
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 04:02:22 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/28 14:25:05 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/09 11:44:25 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include "minishell.h"
 
-unsigned char is_redir(char *token)
+unsigned char	is_redir(char *token)
 {
 	if (!token)
 		return (0);

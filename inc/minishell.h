@@ -49,6 +49,7 @@ typedef struct s_data
 	t_list		*envp;
 	t_builtin	*builtins;
 	char		**envparr;
+	int		fdo;
 }	t_data;
 
 /* global */
