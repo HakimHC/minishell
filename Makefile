@@ -6,9 +6,9 @@ CC = gcc
 
 CFLAGS = -Wall -Werror -Wextra
 
-# CFLAGS += -g3
+CFLAGS += -g3
 
-# CFLAGS += -O3
+CFLAGS += -O3
 
 #include headers
 INCDIR = inc
@@ -23,7 +23,7 @@ CFLAGS += -I $(LFTDIR)/$(INCDIR)
 
 LDFLAGS = -Llibft -lft -lreadline
 
-LDFLAGS += -fsanitize=address
+# LDFLAGS += -fsanitize=address
 
 #source files and stuff
 SRCDIR = src

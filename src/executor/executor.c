@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:35:17 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/09 17:36:17 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/10 10:16:05 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,13 @@ int	handle_heredoc(char *delim)
 	int	fd;
 	char	*line;
 
+	fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	dprintf(2, "nice fD: %d\n", fd);
+	if (fd < 0)
+		return (fd);
 	line = readline("heredoc> ");
-	fd = ft_open("/tmp/.heredoc", O_CREAT | O_WRONLY | O_TRUNC);
+	/* if (!line) */
+	/* 	return -1; */
 	while (ft_strncmp(line, delim, ft_strlen(line) + 1))
 	{
 		ft_putendl_fd(line, fd);
@@ -33,10 +38,8 @@ int	handle_heredoc(char *delim)
 		line = readline("heredoc> ");
 	}
 	free(line);
-	printf("here we go\n");
-	exit(0);
 	close(fd);
-	fd = open("/tmp/.heredoc", O_RDONLY);
+	fd = open(".heredoc", O_RDONLY);
 	return (fd);
 }
 
@@ -49,7 +52,6 @@ int	open_infile(t_cmdtab *tab)
 	lst = tab->redir_in;
 	if (!lst)
 		return (STDIN_FILENO);
-	file = lst->content;
 	while (lst)
 	{
 		file = lst->content;
@@ -59,7 +61,7 @@ int	open_infile(t_cmdtab *tab)
 			fd = open(file->file, O_RDONLY);
 		if (fd < 0)
 			perror(file->file);
-		if (lst->next)
+		if (lst->next && fd > 0)
 			close(fd);
 		lst = lst->next;
 	}
@@ -110,7 +112,7 @@ void	create_pipe(int redir_out, int redir_in, t_cmdtab *tab)
 	int	fd[2];
 	pid_t	pid;
 
-	pipe(fd);
+	ft_pipe(fd);
 	pid = ft_fork();
 	if (!pid)
 	{
@@ -133,10 +135,10 @@ void	create_pipe(int redir_out, int redir_in, t_cmdtab *tab)
 		ft_execute(tab->cmd, tab->args);
 		/* exit(0); */
 	}
-	if (redir_in != STDIN_FILENO)
-		close(redir_in);
-	if (redir_out != STDOUT_FILENO)
-		close(redir_out);
+	/* if (redir_in != STDIN_FILENO) */
+	/* 	close(redir_in); */
+	/* if (redir_out != STDOUT_FILENO) */
+	/* 	close(redir_out); */
 	close(fd[WRITE_END]);
 	dup2(fd[READ_END], STDIN_FILENO);
 	close(fd[READ_END]);
@@ -239,21 +241,22 @@ void	executor(t_cmdtab *tab)
 	{
 		while (tab)
 		{
-			fdin = open_infile(tab);
 			fdout = open_outfile(tab);
+			fdin = open_infile(tab);
 			if (tab->next)
 				create_pipe(fdout, fdin, tab);
 			else
 			{
-				/* if (fdin != STDIN_FILENO) */
-				/* 	dup2(fdin, STDIN_FILENO); */
-				dup2(fdin, STDIN_FILENO);
-				dup2(fdout, STDOUT_FILENO);
+				if (fdin < 0)
+					perror_exit("lol");
+				if (fdin != STDIN_FILENO)
+					dup2(fdin, STDIN_FILENO);
+				if (fdout != STDOUT_FILENO)
+					dup2(fdout, STDOUT_FILENO);
 				if (fdin != STDIN_FILENO)
 					close(fdin);
 				if (fdout != STDOUT_FILENO)
 					close(fdout);
-				/* close(data->fdo); */
 				if (!fork())
 				{
 					ft_execute(tab->cmd, tab->args);
@@ -277,6 +280,6 @@ void	executor(t_cmdtab *tab)
 	if (data->fdo != 0)
 	{
 		dup2(data->fdo, STDIN_FILENO);
-		close(data->fdo);
+		/* close(data->fdo); */
 	}
 }
