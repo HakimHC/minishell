@@ -6,7 +6,7 @@
 #    By: hakahmed <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/07 19:15:07 by hakahmed          #+#    #+#              #
-#    Updated: 2023/04/26 23:15:32 by hakahmed         ###   ########.fr        #
+#    Updated: 2023/05/11 14:38:20 by hakahmed         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -155,26 +155,20 @@ RM = rm -rf
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(LIB) $(NAME) $(OBJ)
-	@echo ""
-	@echo "$(COLOUR_GREEN)$(bold)Everything compiled successfully!$(COLOUR_END)$(reset)🎉"
+	$(LIB) $(NAME) $(OBJ)
 
 bonus: $(OBJ) $(BONUSOBJ) 
-	@$(LIB) $(NAME) $(BONUSOBJ) $(OBJ)
-	@echo ""
-	@echo "$(COLOUR_GREEN)$(bold)Everything compiled successfully!$(COLOUR_END)$(reset)🎉"
+	$(LIB) $(NAME) $(BONUSOBJ) $(OBJ)
 
 $(OBJDIR)/%.o: %.c
-	@mkdir -p $(dir $@)
-	@$(CC) $(IFLAGS) $(CCFLAGS) -c -o $@ $<
-	@echo "$(COLOUR_BLUE)$(bold)Compiling $(COLOUR_END)$(reset)" $<
+	mkdir -p $(dir $@)
+	$(CC) $(IFLAGS) $(CCFLAGS) -c -o $@ $<
 
 clean:
-	@$(RM) $(OBJDIR)
-	@echo "$(COLOUR_GREEN)$(bold)Cleaned!$(COLOUR_END)$(reset)🧪"
+	$(RM) $(OBJDIR)
 
 fclean: clean
-	@$(RM) $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 

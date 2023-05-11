@@ -6,10 +6,11 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 19:08:56 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/09 22:33:36 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/11 15:33:01 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -18,6 +19,21 @@
 
 #include "minishell.h"
 
+
+bool	empty_line(char *line)
+{
+	int	i;
+
+	if (!line)
+		return (false);
+	i = 0;
+	while (line[i] && ft_isspace(line[i]))
+		i++;
+	if (!line[i])
+		return true;
+	return false;
+}
+
 void	cmd_listen(char *prompt)
 {
 	char	*line;
@@ -25,7 +41,7 @@ void	cmd_listen(char *prompt)
 	line = readline(prompt);
 	while (1)
 	{
-		if (line && line[0])
+		if (!empty_line(line))
 		{
 			add_history(line);
 			if (pre_token_parse_error(line))

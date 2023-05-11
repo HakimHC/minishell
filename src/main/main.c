@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 04:03:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/09 21:54:56 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/11 16:07:45 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,6 @@ int	main(int argc, char **argv, char **envp)
 	if (argc == 2)
 		db(argv[1]);
 	else
-		cmd_listen("$_ ");
+		cmd_listen("\033[6;35;1mjakinsh$\033[0m ");
 	return (0);
 }

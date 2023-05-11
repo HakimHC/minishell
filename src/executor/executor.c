@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:35:17 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/11 14:32:52 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/11 16:14:13 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,6 @@ void	create_pipe(int redir_out, int redir_in, t_cmdtab *tab)
 	if (!pid)
 	{
 		close(fd[READ_END]);
-		if (!(tab->cmd) || redir_in < 0 || redir_out < 0)
-			exit(0);
 		if (redir_in != STDIN_FILENO)
 		{
 			dup2(redir_in, STDIN_FILENO);
@@ -169,35 +167,6 @@ unsigned char handle_builtin(void)
 	return (b);
 }
 
-void	builtin_pipe(t_cmdtab *tab)
-{
-	pid_t	pid;
-	int	fd[2];
-	int	fdin;
-	int	fdout;
-
-	fdin = open_infile(tab);
-	if (fdin != STDIN_FILENO)
-		close(fdin);
-	fdout = open_outfile(tab);
-	if (fdout != STDOUT_FILENO)
-		close(fdout);
-	ft_pipe(fd);
-	pid = ft_fork();
-	if (!pid)
-	{
-		/* close(STDIN_FILENO); */
-		close(fd[READ_END]);
-		dup2(fd[WRITE_END], STDOUT_FILENO);
-		close(fd[WRITE_END]);
-		ft_execute(tab->cmd, tab->args);
-		exit(0);
-	}
-	close(fd[WRITE_END]);
-	dup2(fd[READ_END], STDIN_FILENO);
-	close(fd[READ_END]);
-}
-
 unsigned char is_builtin(char *cmd)
 {
 	int	i;
@@ -241,8 +210,8 @@ void	executor(t_cmdtab *tab)
 				create_pipe(fdout, fdin, tab);
 			else
 			{
-				if (fdin < 0)
-					perror_exit("lol");
+				if (fdin < 0 || fdout < 0)
+					break ;
 				if (fdin != STDIN_FILENO)
 					dup2(fdin, STDIN_FILENO);
 				if (fdout != STDOUT_FILENO)
