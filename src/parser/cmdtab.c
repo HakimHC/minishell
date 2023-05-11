@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 02:49:30 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/09 13:31:18 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:34:13 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,14 @@ void	make_redir(t_data *data, int type, char *file, t_cmdtab *tab)
 	redir = (t_redir *) malloc(sizeof(t_redir));
 	if (!redir)
 		perror_exit("malloc");
+	if (type == HEREDOC)
+	{
+		redir->type = REDIR_IN;
+		redir->file = ft_strdup("/tmp/.heredoc");
+		ft_lstadd_back(&(tab->redir_in), ft_lstnew(redir));
+		handle_heredoc(file);
+		return ;
+	}
 	redir->type = type;
 	redir->file = ft_strdup(file);
 	if (type == REDIR_OUT || type == APPEND)

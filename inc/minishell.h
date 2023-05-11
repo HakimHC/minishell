@@ -91,6 +91,7 @@ char	**split_path(char *path);
 char	*get_cmd(char *path[], char *cmd, int b);
 char	**path_arr(void);
 int	ft_abs_path(char *cmd);
+int	handle_heredoc(char *delim);
 
 /* builtins */
 void	ft_env(t_list *args);

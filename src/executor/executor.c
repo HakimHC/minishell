@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:35:17 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/10 10:16:05 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:32:52 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ int	handle_heredoc(char *delim)
 	int	fd;
 	char	*line;
 
-	fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	dprintf(2, "nice fD: %d\n", fd);
+	fd = open("/tmp/.heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
 		return (fd);
 	line = readline("heredoc> ");
@@ -39,7 +38,6 @@ int	handle_heredoc(char *delim)
 	}
 	free(line);
 	close(fd);
-	fd = open(".heredoc", O_RDONLY);
 	return (fd);
 }
 
@@ -140,7 +138,10 @@ void	create_pipe(int redir_out, int redir_in, t_cmdtab *tab)
 	/* if (redir_out != STDOUT_FILENO) */
 	/* 	close(redir_out); */
 	close(fd[WRITE_END]);
-	dup2(fd[READ_END], STDIN_FILENO);
+	if (tab->next && tab->next->redir_in && ((t_redir *)tab->next->redir_in->content)->type == HEREDOC)
+		;
+	else
+		dup2(fd[READ_END], STDIN_FILENO);
 	close(fd[READ_END]);
 }
 
@@ -224,16 +225,9 @@ void	executor(t_cmdtab *tab)
 
 	if (!tab)
 		return;
-	data->fdo = STDIN_FILENO;
 	if (!(tab->next) && is_builtin(tab->cmd))
 	{
 		handle_builtin();
-		tab = tab->next;
-	}
-	else if (tab->next && is_builtin(tab->cmd))
-	{
-		data->fdo = dup(STDIN_FILENO);
-		builtin_pipe(tab);
 		tab = tab->next;
 	}
 	pid = ft_fork();
@@ -257,29 +251,19 @@ void	executor(t_cmdtab *tab)
 					close(fdin);
 				if (fdout != STDOUT_FILENO)
 					close(fdout);
-				if (!fork())
-				{
+				if (!ft_fork())
 					ft_execute(tab->cmd, tab->args);
-					/* exit(0); */
-				}
-				while (1)
-				{
-					pid_t p = waitpid(-1, &status, 0);
-					if (p < 0)
-						exit(0);
-						/* break ; */
-					/* exit(WEXITSTATUS(status)); */
-				}
+				close(STDIN_FILENO);
 			}
 			tab = tab->next;
 		}
+		while (1)
+		{
+			pid_t p = waitpid(-1, &status, 0);
+			if (p < 0)
+				exit(90);
+		
+		}
 	}
 	waitpid(pid, NULL, 0);
-	/* dup2(fdo, STDIN_FILENO); */
-	/* close(fdo); */
-	if (data->fdo != 0)
-	{
-		dup2(data->fdo, STDIN_FILENO);
-		/* close(data->fdo); */
-	}
 }
