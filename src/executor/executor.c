@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:35:17 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/11 16:14:13 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/12 20:48:12 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,10 +136,7 @@ void	create_pipe(int redir_out, int redir_in, t_cmdtab *tab)
 	/* if (redir_out != STDOUT_FILENO) */
 	/* 	close(redir_out); */
 	close(fd[WRITE_END]);
-	if (tab->next && tab->next->redir_in && ((t_redir *)tab->next->redir_in->content)->type == HEREDOC)
-		;
-	else
-		dup2(fd[READ_END], STDIN_FILENO);
+	dup2(fd[READ_END], STDIN_FILENO);
 	close(fd[READ_END]);
 }
 

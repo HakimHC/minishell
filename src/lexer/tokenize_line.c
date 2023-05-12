@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:56:03 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/09 12:01:39 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/12 20:42:15 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 int	is_special_char(char c)
 {
-	return (!(!(ft_strchr("<>|", c))));
+	return (!(!(ft_strchr("<>|\'\"", c))));
 }
 
 int	token_creator(t_list **head, char *line, int i)
@@ -62,6 +62,124 @@ t_list	*split_line(char *line)
 	return (head);
 }
 
+void	expand(t_list *token)
+{
+	t_list *tmp;
+	char *content;
+
+	tmp = NULL;
+	if (!ft_strchr(token->content, '$'))
+		return ;
+	content = token->content;
+	int i = 0;
+	int j;
+	t_list *node;
+	while (content[i])
+	{
+		j = 0;
+		if (content[i] == '$')
+		{
+			i++;
+			while (content[i + j] && content[i + j] != '$'
+				&& !ft_isspace(content[i + j]))
+				j++;
+			node = ft_lstnew(ft_substr(content, i - 1, j + 1));
+			/* ft_printf("{%s}\n", node->content); */
+			ft_lstadd_back(&tmp, node);
+			i += j;
+		}
+		else
+		{
+			while (content[i + j] && content[i + j] != '$')
+				j++;
+			node = ft_lstnew(ft_substr(content, i, j));
+			/* ft_printf("{%s}\n", node->content); */
+			ft_lstadd_back(&tmp, node);
+			i += j;
+		}
+	}
+	t_list *curr = tmp;
+	while (curr)
+	{
+		if (ft_strchr(curr->content, '$') && ft_strncmp(curr->content, "$", 2))
+		{
+			char *aux = curr->content;
+			curr->content = ft_strdup(getenv(curr->content + 1));
+			free(aux);
+		}
+		curr = curr->next;
+	}
+	char *res = ft_strdup("");
+	curr = tmp;
+	while (curr)
+	{
+		char *aux = res;
+		res = ft_strjoin(res, curr->content);
+		free(aux);
+		curr = curr->next;
+	}
+	token->content = res;
+	free(content);
+	ft_lstclear(&tmp, free);
+}
+
+t_list *tokenize(char *input)
+{
+	t_list *node;
+	t_list *head;
+
+	int i = 0;
+	int j;
+	head = NULL;
+	while (input[i])
+	{
+		if (!is_special_char(input[i]))
+		{
+			j = 0;
+			while (input[i + j] && !is_special_char(input[i + j])
+					&& !ft_isspace(input[i + j]))
+				j++;
+			//expand.....
+			//
+			node = ft_lstnew(ft_substr(input, i, j));
+			expand(node);
+			ft_lstadd_back(&head, node);
+			/* ft_printf("[%s]\n", node->content); */
+			i += j;
+		}
+		else if (input[i] != '\"' && input[i] != '\'' && is_special_char(input[i]))
+		{
+			char c = input[i];
+			j = 0;
+			while (input[i + j] && input[i + j] == c)
+				j++;
+			node = ft_lstnew(ft_substr(input, i, j));
+			ft_lstadd_back(&head, node);
+			/* ft_printf("[%s]\n", node->content); */
+			i += j;
+		}
+		else if (input[i] == '\"' || input[i] == '\'')
+		{
+			char c = input[i++];
+			j = 0;
+			while (input[i + j] && input[i + j] != c)
+				j++;
+			node = ft_lstnew(ft_substr(input, i, j));
+			if (c == 34)
+				expand(node);
+			ft_lstadd_back(&head, node);
+			i += j;
+			if (!input[i])
+				return (head);
+			i++;
+			/* ft_printf("[%s]\n", node->content); */
+		}
+		while (input[i] && ft_isspace(input[i]))
+			i++;
+	}
+	return (head);
+}
+
 int	input_syntax_errors(void)
 {
 	if (pipe_parse_error() || redir_parse_error())
@@ -71,6 +189,7 @@ int	input_syntax_errors(void)
 
 int	tokenize_input(char *input)
 {
-	data->tokens = split_line(input);
+	/* data->tokens = split_line(input); */
+	data->tokens = tokenize(input);
 	return (input_syntax_errors());
 }
