@@ -134,8 +134,8 @@ leak: $(NAME)
 
 commit: fclean
 	@read -p "Commit msg: " msg; \
-	git add .
-	git commit -m $msg
+	git add . ; \
+	git commit -m "$$msg" ; \
 	git push
 
 .PHONY: all fclean clean re
