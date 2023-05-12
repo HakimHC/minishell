@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:21:09 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/09 19:17:06 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/11 20:13:21 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,11 @@ void	ft_execute(char *cmd, t_list *_args)
 	args[0] = ft_strdup(cmd_path);
 	if (access(cmd_path, F_OK))
 		exit(127);
-	execve(cmd_path, args, data->envparr);
-	ft_free_strarr(args);
-	if (cmd_path != cmd)
-		free(cmd_path);
-	exit(errno);
+	if (execve(cmd_path, args, data->envparr) == -1)
+	{
+		ft_free_strarr(args);
+		if (cmd_path != cmd)
+			free(cmd_path);
+		exit(errno);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: hakahmed <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 19:14:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/09 12:10:57 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/11 20:06:08 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ unsigned char	process_env(t_env *env)
 			free(curr_env->value);
 			free(env->key);
 			curr_env->value = ft_strdup(env->value);
-			free(env);
 			free(env->value);
+			free(env);
 			return (1);
 		}
 		curr = curr->next;
