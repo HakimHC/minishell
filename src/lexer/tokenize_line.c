@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:56:03 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/12 20:42:15 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/12 21:08:43 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,10 @@ void	expand(t_list *token)
 		if (ft_strchr(curr->content, '$') && ft_strncmp(curr->content, "$", 2))
 		{
 			char *aux = curr->content;
-			curr->content = ft_strdup(getenv(curr->content + 1));
+			if (ft_getenv(curr->content + 1))
+				curr->content = ft_strdup(ft_getenv(curr->content + 1));
+			else
+				curr->content = NULL;
 			free(aux);
 		}
 		curr = curr->next;
@@ -114,7 +117,10 @@ void	expand(t_list *token)
 	while (curr)
 	{
 		char *aux = res;
-		res = ft_strjoin(res, curr->content);
+		if (curr->content)
+			res = ft_strjoin(res, curr->content);
+		else
+			res = ft_strjoin(res, "");
 		free(aux);
 		curr = curr->next;
 	}
