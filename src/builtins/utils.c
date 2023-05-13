@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/01 12:19:41 by hakim             #+#    #+#             */
-/*   Updated: 2023/05/13 21:28:11 by hakim            ###   ########.fr       */
+/*   Created: 2023/05/13 21:32:56 by hakim             #+#    #+#             */
+/*   Updated: 2023/05/13 21:33:05 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <readline/readline.h>
-#include <stdlib.h>
-#include <fcntl.h>
-
 #include "minishell.h"
 
-int	handle_heredoc(char *delim)
+unsigned char is_builtin(char *cmd)
 {
-	int	fd;
-	char	*line;
+	int	i;
+	char	*str;
 
-	fd = open("/tmp/.heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd < 0)
-		return (fd);
-	line = readline("heredoc> ");
-	while (ft_strncmp(line, delim, ft_strlen(line) + 1))
+	if (!cmd)
+		return (0);
+	i = 0;
+	while (i < 7)
 	{
-		ft_putendl_fd(line, fd);
-		free(line);
-		line = readline("heredoc> ");
+		str = (data->builtins->cmd)[i];
+		if (!ft_strncmp(cmd, str, ft_strlen(cmd) + 1))
+			return (1);
+		i++;
 	}
-	free(line);
-	close(fd);
-	return (fd);
+	return (0);
 }
+

@@ -6,13 +6,13 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 23:11:54 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/27 15:31:58 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/13 21:57:25 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	print_list(t_list *head, int  nl)
+void	print_list(t_list *head, int nl)
 {
 	if (!head)
 		return ;

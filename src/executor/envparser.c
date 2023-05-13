@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 13:28:50 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/01 22:45:32 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/13 21:48:21 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ char	*get_cmd(char *path[], char *cmd, int b)
 		ft_free_strarr(path);
 	if (b)
 	{
-		ft_putstr_fd("command not found: ", 2);
 		if (cmd)
-			ft_putendl_fd(cmd, 2);
+			ft_putstr_fd(cmd, 2);
 		else
-			ft_putendl_fd("", 2);
+			ft_putstr_fd("", 2);
+		ft_putendl_fd(": command not found", 2);
 	}
 	return (NULL);
 }

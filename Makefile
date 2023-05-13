@@ -55,7 +55,10 @@ EXECDIR = executor
 
 EXECSRC = executor.c \
 	  envparser.c \
-	  utils.c
+	  utils.c \
+	  heredoc.c \
+	  open_files.c \
+	  exec_utils.c
 
 BIDIR = builtins
 
@@ -66,7 +69,8 @@ BISRC = env.c \
 	pwd.c \
 	cd.c \
 	exit.c \
-	envar_utils.c
+	envar_utils.c \
+	utils.c
 
 EXPDIR = expander
 

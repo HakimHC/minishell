@@ -92,6 +92,14 @@ char	*get_cmd(char *path[], char *cmd, int b);
 char	**path_arr(void);
 int	ft_abs_path(char *cmd);
 int	handle_heredoc(char *delim);
+int	open_infile(t_cmdtab *tab);
+int	open_with_flags(char *file, int type);
+int	open_outfile(t_cmdtab *tab);
+void	handle_redirects(int redir_out, int redir_in, int pfd);
+void	create_pipe(int redir_out, int redir_in, t_cmdtab *tab);
+unsigned char handle_builtin(t_cmdtab **tab);
+void	wait_childs();
+void	exec_last(int fdin, int fdout, t_cmdtab *tab);
 
 /* builtins */
 void	ft_env(t_list *args);
@@ -111,6 +119,7 @@ unsigned char export_error(char *arg);
 unsigned char exec_builtin(char *cmd, t_list *args);
 int is_int(char *str);
 void	ft_exit(t_list *args);
+unsigned char is_builtin(char *cmd);
 
 /* expander */
 void	expand_cmd(t_cmdtab *tab);

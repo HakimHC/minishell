@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:21:09 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/12 21:31:11 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/13 21:55:49 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,6 @@ void	ft_execute(char *cmd, t_list *_args)
 	if (!cmd_path)
 		exit(127);
 	args[0] = ft_strdup(cmd_path);
-	
-	//CHECK IF ITS A DIR
-	
 	if (access(cmd_path, F_OK))
 		perror_exit(cmd_path);
 	if (execve(cmd_path, args, data->envparr) == -1)
