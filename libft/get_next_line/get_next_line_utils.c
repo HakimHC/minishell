@@ -6,7 +6,7 @@
 /*   By: hakahmed <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 19:31:20 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/04/11 17:52:16 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/13 20:28:25 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char	*ft_substr_gnl(char const *s, unsigned int start, size_t len)
 
 	j = 0;
 	(void) start;
+	(void) len;
 	if (!s)
 		return ("");
 	if (!s[0])

@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:56:03 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/12 21:08:43 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/13 20:42:42 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,5 +197,10 @@ int	tokenize_input(char *input)
 {
 	/* data->tokens = split_line(input); */
 	data->tokens = tokenize(input);
+	if (pre_token_parse_error(input))
+	{
+		print_token_error("|");
+		return (1);
+	}
 	return (input_syntax_errors());
 }

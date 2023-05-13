@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 19:08:56 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/12 15:24:08 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/13 21:21:28 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <readline/history.h>
 #include <readline/readline.h>
 
+#include "libft.h"
 #include "minishell.h"
 
 
@@ -45,17 +46,15 @@ void	cmd_listen(char *prompt)
 		if (!empty_line(line))
 		{
 			add_history(line);
-			if (pre_token_parse_error(line))
-			{
-				print_token_error("|");
-				exit(1);
-			}
 			if (!tokenize_input(line))
 			{
 				fill_cmdtab();
 				/* print_cmdtab(); */
 				executor(data->cmdtab);
+				destroyer();
 			}
+			else
+				ft_lstclear(&(data->tokens), free); 
 		}
 		free(line);
 		line = readline(prompt);
@@ -63,11 +62,41 @@ void	cmd_listen(char *prompt)
 	free(line);
 }
 
+void	free_redirs(t_list *redirs)
+{
+	t_redir	*curr;
+
+	while (redirs)
+	{
+		curr = redirs->content;
+		free(curr->file);
+		redirs = redirs->next;
+	}
+}
+
+void	free_cmdtab()
+{
+	t_cmdtab 	*curr;
+	t_cmdtab	*aux;
+
+	curr = data->cmdtab;
+	while (curr)
+	{
+		aux = curr;
+		free(curr->cmd);
+		ft_lstclear(&(curr->args), &free);
+		free_redirs(curr->redir_in);
+		free_redirs(curr->redir_out);
+		ft_lstclear(&(curr->redir_in), &free);
+		ft_lstclear(&(curr->redir_out), &free);
+		curr = curr->next;
+		free(aux);
+	}
+	data->cmdtab = NULL;
+}
+
 void	destroyer(void)
 {
-	free(data->cmdtab->cmd);
-	ft_lstclear(&(data->cmdtab->args), &free);
-	ft_lstclear(&(data->cmdtab->redir_in), &free);
-	ft_lstclear(&(data->cmdtab->redir_out), &free);
+	free_cmdtab();
 	ft_lstclear(&(data->tokens), &free);
 }

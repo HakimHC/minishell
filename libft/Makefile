@@ -6,7 +6,7 @@
 #    By: hakahmed <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/07 19:15:07 by hakahmed          #+#    #+#              #
-#    Updated: 2023/05/11 14:38:20 by hakahmed         ###   ########.fr        #
+#    Updated: 2023/05/13 20:27:48 by hakim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,8 @@
 CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
+
+CFLAGS += -g3
 
 # CFLAGS += -fsanitize=address -g3
 
@@ -162,7 +164,7 @@ bonus: $(OBJ) $(BONUSOBJ)
 
 $(OBJDIR)/%.o: %.c
 	mkdir -p $(dir $@)
-	$(CC) $(IFLAGS) $(CCFLAGS) -c -o $@ $<
+	$(CC) $(IFLAGS) $(CFLAGS) -c -o $@ $<
 
 clean:
 	$(RM) $(OBJDIR)

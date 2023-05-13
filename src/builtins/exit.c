@@ -6,11 +6,14 @@
 /*   By: hakahmed <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 22:41:10 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/09 12:13:19 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/13 21:22:04 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdio.h>
+#include <readline/history.h>
+#include <readline/readline.h>
 
 #include "minishell.h"
 
@@ -35,5 +38,7 @@ void	ft_exit(t_list *args)
 		ft_putendl_fd("exit: numerical value required", 2);
 		exit(255);
 	}
+	rl_clear_history();
+	destroyer();
 	exit(ft_atoi(args->content));
 }
