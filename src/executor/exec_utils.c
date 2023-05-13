@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:50:32 by hakim             #+#    #+#             */
-/*   Updated: 2023/05/13 21:53:33 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/13 23:11:56 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ unsigned char handle_builtin(t_cmdtab **tab)
 	close(tmpin);
 	close(tmpout);
 	*tab = (*tab)->next;
+	data->exit_code = 0;
 	return (b);
 }
 
@@ -97,18 +98,22 @@ void	wait_childs()
 
 void	exec_last(int fdin, int fdout, t_cmdtab *tab)
 {
-	if (fdin < 0 || fdout < 0)
-		exit(errno);
-	if (fdin != STDIN_FILENO)
-		dup2(fdin, STDIN_FILENO);
-	if (fdout != STDOUT_FILENO)
-		dup2(fdout, STDOUT_FILENO);
-	if (fdin != STDIN_FILENO)
-		close(fdin);
-	if (fdout != STDOUT_FILENO)
-		close(fdout);
 	if (!ft_fork())
+	{
+		if (fdin < 0 || fdout < 0)
+			exit(errno);
+		if (fdin != STDIN_FILENO)
+			dup2(fdin, STDIN_FILENO);
+		if (fdout != STDOUT_FILENO)
+			dup2(fdout, STDOUT_FILENO);
+		if (fdin != STDIN_FILENO)
+			close(fdin);
+		if (fdout != STDOUT_FILENO)
+			close(fdout);
 		ft_execute(tab->cmd, tab->args);
+	}
+	close(fdin);
+	close(fdout);
 	close(STDIN_FILENO);
 
 }

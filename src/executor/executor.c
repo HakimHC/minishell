@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:35:17 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/13 21:54:12 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/13 23:13:30 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,25 @@ void	executor(t_cmdtab *tab)
 
 	if (!(tab->next) && is_builtin(tab->cmd))
 		handle_builtin(&tab);
-	pid = ft_fork();
-	if (!pid)
+	else
 	{
-		while (tab)
+		pid = ft_fork();
+		if (!pid)
 		{
-			fdout = open_outfile(tab);
-			fdin = open_infile(tab);
-			if (tab->next)
-				create_pipe(fdout, fdin, tab);
-			else
-				exec_last(fdin, fdout, tab);
-			tab = tab->next;
+			while (tab)
+			{
+				fdout = open_outfile(tab);
+				fdin = open_infile(tab);
+				if (tab->next)
+					create_pipe(fdout, fdin, tab);
+				else
+					exec_last(fdin, fdout, tab);
+				tab = tab->next;
+			}
+			wait_childs();
 		}
-		wait_childs();
+		waitpid(pid, &status, 0);
+		data->exit_code = WEXITSTATUS(status);
 	}
-	waitpid(pid, &status, 0);
+	ft_printf("exit code: %d\n", data->exit_code);
 }
