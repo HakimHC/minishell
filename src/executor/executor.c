@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:35:17 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/13 23:13:30 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/13 23:26:22 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,5 @@ void	executor(t_cmdtab *tab)
 		waitpid(pid, &status, 0);
 		data->exit_code = WEXITSTATUS(status);
 	}
-	ft_printf("exit code: %d\n", data->exit_code);
+	/* ft_printf("exit code: %d\n", data->exit_code); */
 }

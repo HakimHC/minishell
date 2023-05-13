@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:56:03 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/13 20:42:42 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/13 23:27:34 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ void	expand(t_list *token)
 			char *aux = curr->content;
 			if (ft_getenv(curr->content + 1))
 				curr->content = ft_strdup(ft_getenv(curr->content + 1));
+			else if (!ft_strncmp(curr->content, "$?", 3))
+				curr->content = ft_itoa(data->exit_code);
 			else
 				curr->content = NULL;
 			free(aux);
