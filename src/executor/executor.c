@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:35:17 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/12 20:48:12 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/13 18:59:06 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,10 @@ int	open_outfile(t_cmdtab *tab)
 		fd = open_with_flags(file->file, file->type);
 		if (fd < 0)
 			perror(file->file);
-		close(fd);
+		if (lst->next)
+			close(fd);
 		lst = lst->next;
 	}
-	fd = open_with_flags(file->file, file->type);
-	if (fd < 0)
-		perror_exit(file->file);
 	return (fd);
 }
 
@@ -148,10 +146,12 @@ unsigned char handle_builtin(void)
 	int	fdout;
 	unsigned char b;
 
-	tmpin = dup(STDIN_FILENO);
-	tmpout = dup(STDOUT_FILENO);
 	fdin = open_infile(data->cmdtab);
 	fdout = open_outfile(data->cmdtab);
+	if (fdin < 0 || fdout < 0)
+		return 1;
+	tmpin = dup(STDIN_FILENO);
+	tmpout = dup(STDOUT_FILENO);
 	if (fdin != STDIN_FILENO)
 		dup2(fdin, STDIN_FILENO);
 	if (fdout != STDOUT_FILENO)
