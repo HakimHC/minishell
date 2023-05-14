@@ -6,7 +6,7 @@
 #    By: hakahmed <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/07 19:15:07 by hakahmed          #+#    #+#              #
-#    Updated: 2023/05/13 20:27:48 by hakim            ###   ########.fr        #
+#    Updated: 2023/05/14 17:59:40 by hakim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -163,8 +163,8 @@ bonus: $(OBJ) $(BONUSOBJ)
 	$(LIB) $(NAME) $(BONUSOBJ) $(OBJ)
 
 $(OBJDIR)/%.o: %.c
-	mkdir -p $(dir $@)
-	$(CC) $(IFLAGS) $(CFLAGS) -c -o $@ $<
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(IFLAGS) -c -o $@ $<
 
 clean:
 	$(RM) $(OBJDIR)

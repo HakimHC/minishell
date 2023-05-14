@@ -6,7 +6,7 @@
 /*   By: hakahmed <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 22:41:10 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/13 21:22:04 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/14 18:23:59 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_int(char *str)
 	int	n;
 
 	n = ft_atol(str);
-	if ((n == 0) && (ft_strncmp(str, "0", 1)))
+	if ((n == 0) && (ft_strncmp(str, "0", 2)))
 		return (0);
 	return (1);
 }
@@ -36,9 +36,8 @@ void	ft_exit(t_list *args)
 	else if (!is_int(args->content))
 	{
 		ft_putendl_fd("exit: numerical value required", 2);
-		exit(255);
+		/* exit(255); */
+		return ;
 	}
-	rl_clear_history();
-	destroyer();
 	exit(ft_atoi(args->content));
 }

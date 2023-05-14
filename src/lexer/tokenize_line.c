@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:56:03 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/13 23:27:34 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/14 19:33:23 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,8 @@ t_list *tokenize(char *input)
 		if (!is_special_char(input[i]))
 		{
 			j = 0;
+			while (input[i] && ft_isspace(input[i]))
+				i++;
 			while (input[i + j] && !is_special_char(input[i + j])
 					&& !ft_isspace(input[i + j]))
 				j++;
@@ -177,10 +179,10 @@ t_list *tokenize(char *input)
 				expand(node);
 			ft_lstadd_back(&head, node);
 			i += j;
+			/* ft_printf("[%s]\n", node->content); */
 			if (!input[i])
 				return (head);
 			i++;
-			/* ft_printf("[%s]\n", node->content); */
 		}
 		while (input[i] && ft_isspace(input[i]))
 			i++;
