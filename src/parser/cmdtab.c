@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 02:49:30 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/15 13:52:07 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:57:49 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ unsigned char	handle_redirs(t_list *curr, t_cmdtab *curr_cmd)
 	{
 		curr = curr->next;
 		tkn = curr->content;
-		make_redir(data, HEREDOC, curr->content, curr_cmd);
+		make_redir(data, HEREDOC, tkn->content, curr_cmd);
 	}
 	else if (!ft_strncmp(tkn->content, ">>", 3))
 	{
@@ -80,7 +80,7 @@ unsigned char	handle_redirs(t_list *curr, t_cmdtab *curr_cmd)
 	{
 		curr = curr->next;
 		tkn = curr->content;
-		make_redir(data, REDIR_IN, curr->content, curr_cmd);
+		make_redir(data, REDIR_IN, tkn->content, curr_cmd);
 	}
 	else
 		return (0);
@@ -115,7 +115,13 @@ void	populate(t_data *data)
 		{
 			curr = determine_type(curr, curr_cmd);
 			curr = curr->next;
+			if (curr)
+				tkn = curr->content;
+			else
+				break;
 		}
+		if (curr)
+			tkn = curr->content;
 		if (curr && !ft_strncmp(tkn->content, "|", 2) && tkn->type == SYMB)
 		{
 			curr_cmd->next = cmdtab_init();

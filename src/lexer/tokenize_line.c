@@ -6,10 +6,11 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:56:03 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/15 12:57:38 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/15 15:58:36 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "libft.h"
@@ -20,47 +21,9 @@ int	is_special_char(char c)
 	return (!(!(ft_strchr("<>|\'\"", c))));
 }
 
-int	token_creator(t_list **head, char *line, int i)
+int	is_quote(char c)
 {
-	int		j;
-	t_list	*token;
-
-	j = 0;
-	if (is_special_char(line[i]) && line[i])
-	{
-		while (is_special_char(line[i + j]) && line[i + j] != '|'
-			&& line[i + j])
-			j++;
-		if (line[i + j] == '|')
-			j++;
-		token = ft_lstnew(ft_substr(line, i, j));
-		ft_lstadd_back(head, token);
-	}
-	else if (line[i])
-	{
-		while (!is_special_char(line[i + j]) && !ft_isspace(line[i + j])
-			&& line[i])
-			j++;
-		token = ft_lstnew(ft_substr(line, i, j));
-		ft_lstadd_back(head, token);
-	}
-	return (j);
-}
-
-t_list	*split_line(char *line)
-{
-	t_list	*head;
-	int		i;
-
-	i = 0;
-	head = NULL;
-	while (line[i])
-	{
-		while (ft_isspace(line[i]))
-			i++;
-		i += token_creator(&head, line, i);
-	}
-	return (head);
+	return (!(!(ft_strchr("\'\"", c))));
 }
 
 char *expand(char *token)
@@ -146,56 +109,111 @@ t_list *mk_tkn(char *input, int type)
 	return (node);
 }
 
+int	mk_normal(char *input, int i, t_list **head)
+{
+	int	j;
+	t_list	*node;
+	char	*exp;
+
+	j = 0;
+	while (input[i] && ft_isspace(input[i]))
+		i++;
+	while (input[i + j] && !is_special_char(input[i + j])
+			&& !ft_isspace(input[i + j]))
+		j++;
+	node = mk_tkn(ft_substr(input, i, j), NORM);
+	exp = expand(((t_token *)node->content)->content);
+	((t_token *)node->content)->content = exp;
+	ft_lstadd_back(head, node);
+	i += j;
+	return (i);
+}
+
+int	mk_symbol(char *input, int i, t_list **head)
+{
+	int	j;
+	char	c;
+	t_list	*node;
+	char	*exp;
+
+	c = input[i];
+	j = 0;
+	while (input[i + j] && input[i + j] == c)
+		j++;
+	node = mk_tkn(ft_substr(input, i, j), SYMB);
+	exp = expand(((t_token *)node->content)->content);
+	((t_token *)node->content)->content = exp;
+	ft_lstadd_back(head, node);
+	i += j;
+	return (i);
+}
+
+int	concat_tkn(char *input, int i, t_list *tkn)
+{
+	char	c;
+	int	j;
+	char	*content;
+	char	*tmp;
+	t_token	*cn;
+
+	c = input[i++];
+	j = 0;
+	while (input[i + j] && input[i + j] != c)
+		j++;
+	if (c == 34)
+		content = expand(ft_substr(input, i, j));
+	else
+		content = ft_substr(input, i, j);
+	cn = tkn->content;
+	tmp = cn->content;
+	cn->content = ft_strjoin(cn->content, content);
+	free(tmp);
+	return (i);
+}
+
+int	mk_quote(char *input, int i, t_list **head)
+{
+	char	c;
+	int	j;
+	t_list	*node;
+	char	*exp;
+
+	c = input[i++];
+	j = 0;
+	while (input[i + j] && input[i + j] != c)
+		j++;
+	node = mk_tkn(ft_substr(input, i, j), NORM);
+	if (c == 34)
+	{
+		exp = expand(((t_token *)node->content)->content);
+		((t_token *)node->content)->content = exp;
+	}
+	i += j + 1;
+	/* t_token *tkn = node->content; */
+	/* printf("[%s]\n", tkn->content); */
+	/* while (is_quote(input[i])) */
+	/* 	i = concat_tkn(input, i, node) + 1; */
+	i--;
+	ft_lstadd_back(head, node);
+	return (i);
+}
+
 t_list *tokenize(char *input)
 {
-	t_list *node;
 	t_list *head;
+	int	i;
 
-	int i = 0;
-	int j;
 	head = NULL;
+	i = 0;
 	while (input[i])
 	{
 		if (!is_special_char(input[i]))
+			i = mk_normal(input, i, &head);
+		else if (!is_quote(input[i]) && is_special_char(input[i]))
+			i = mk_symbol(input, i, &head);
+		else if (is_quote(input[i]))
 		{
-			j = 0;
-			while (input[i] && ft_isspace(input[i]))
-				i++;
-			while (input[i + j] && !is_special_char(input[i + j])
-					&& !ft_isspace(input[i + j]))
-				j++;
-			//expand.....
-			//
-			node = mk_tkn(ft_substr(input, i, j), NORM);
-			((t_token *)node->content)->content = expand(((t_token *)node->content)->content);
-			ft_lstadd_back(&head, node);
-			/* ft_printf("[%s]\n", node->content); */
-			i += j;
-		}
-		else if (input[i] != '\"' && input[i] != '\'' && is_special_char(input[i]))
-		{
-			char c = input[i];
-			j = 0;
-			while (input[i + j] && input[i + j] == c)
-				j++;
-			node = mk_tkn(ft_substr(input, i, j), SYMB);
-			((t_token *)node->content)->content = expand(((t_token *)node->content)->content);
-			ft_lstadd_back(&head, node);
-			/* ft_printf("[%s]\n", node->content); */
-			i += j;
-		}
-		else if (input[i] == '\"' || input[i] == '\'')
-		{
-			char c = input[i++];
-			j = 0;
-			while (input[i + j] && input[i + j] != c)
-				j++;
-			node = mk_tkn(ft_substr(input, i, j), NORM);
-			if (c == 34)
-				((t_token *)node->content)->content = expand(((t_token *)node->content)->content);
-			ft_lstadd_back(&head, node);
-			i += j;
-			/* ft_printf("[%s]\n", node->content); */
+			i = mk_quote(input, i, &head);
 			if (!input[i])
 				return (head);
 			i++;
@@ -215,7 +233,6 @@ int	input_syntax_errors(void)
 
 int	tokenize_input(char *input)
 {
-	/* data->tokens = split_line(input); */
 	data->tokens = tokenize(input);
 	if (pre_token_parse_error(input))
 	{

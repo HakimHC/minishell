@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 19:08:56 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/15 10:41:33 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/15 14:12:17 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,23 @@ void	free_redirs(t_list *redirs)
 	}
 }
 
-void	free_cmdtab()
+void	free_tokens(void)
+{
+	t_list	*curr;
+	t_token	*tkn;
+
+	curr = data->tokens;
+	while (curr)
+	{
+		tkn = curr->content;
+		free(tkn->content);
+		curr = curr->next;
+	}
+	ft_lstclear(&(data->tokens), free);
+}
+
+
+void	free_cmdtab(void)
 {
 	t_cmdtab 	*curr;
 	t_cmdtab	*aux;
@@ -104,5 +120,5 @@ void	free_cmdtab()
 void	destroyer(void)
 {
 	free_cmdtab();
-	ft_lstclear(&(data->tokens), &free);
+	free_tokens();
 }
