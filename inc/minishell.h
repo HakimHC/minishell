@@ -9,6 +9,8 @@
 # define PIPE_OUT 0b1000
 # define REDIR_IN 0b10000
 # define REDIR_OUT 0b100000
+# define SYMB 1
+# define NORM 0
 
 # include <unistd.h>
 
@@ -25,6 +27,12 @@ typedef struct  s_env
 	char	*key;
 	char	*value;
 }	t_env;
+
+typedef struct s_token
+{
+	char	*content;
+	int	type;
+}	t_token;
 
 typedef struct s_cmdtab
 {

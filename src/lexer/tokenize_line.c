@@ -6,12 +6,13 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:56:03 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/14 22:38:06 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/15 12:57:38 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
+#include "libft.h"
 #include "minishell.h"
 
 int	is_special_char(char c)
@@ -62,15 +63,15 @@ t_list	*split_line(char *line)
 	return (head);
 }
 
-void	expand(t_list *token)
+char *expand(char *token)
 {
 	t_list *tmp;
 	char *content;
 
 	tmp = NULL;
-	if (!ft_strchr(token->content, '$'))
-		return ;
-	content = token->content;
+	if (!ft_strchr(token, '$'))
+		return (token);
+	content = token;
 	int i = 0;
 	int j;
 	t_list *node;
@@ -126,9 +127,23 @@ void	expand(t_list *token)
 		free(aux);
 		curr = curr->next;
 	}
-	token->content = res;
 	free(content);
 	ft_lstclear(&tmp, free);
+	return (res);
+}
+
+t_list *mk_tkn(char *input, int type)
+{
+	t_token	*tkn;
+	t_list	*node;
+
+	tkn = (t_token *) malloc(sizeof(t_token));
+	if (!tkn)
+		perror_exit("malloc");
+	tkn->content = input;
+	tkn->type = type;
+	node = ft_lstnew(tkn);
+	return (node);
 }
 
 t_list *tokenize(char *input)
@@ -151,8 +166,8 @@ t_list *tokenize(char *input)
 				j++;
 			//expand.....
 			//
-			node = ft_lstnew(ft_substr(input, i, j));
-			expand(node);
+			node = mk_tkn(ft_substr(input, i, j), NORM);
+			((t_token *)node->content)->content = expand(((t_token *)node->content)->content);
 			ft_lstadd_back(&head, node);
 			/* ft_printf("[%s]\n", node->content); */
 			i += j;
@@ -163,7 +178,8 @@ t_list *tokenize(char *input)
 			j = 0;
 			while (input[i + j] && input[i + j] == c)
 				j++;
-			node = ft_lstnew(ft_substr(input, i, j));
+			node = mk_tkn(ft_substr(input, i, j), SYMB);
+			((t_token *)node->content)->content = expand(((t_token *)node->content)->content);
 			ft_lstadd_back(&head, node);
 			/* ft_printf("[%s]\n", node->content); */
 			i += j;
@@ -174,9 +190,9 @@ t_list *tokenize(char *input)
 			j = 0;
 			while (input[i + j] && input[i + j] != c)
 				j++;
-			node = ft_lstnew(ft_substr(input, i, j));
+			node = mk_tkn(ft_substr(input, i, j), NORM);
 			if (c == 34)
-				expand(node);
+				((t_token *)node->content)->content = expand(((t_token *)node->content)->content);
 			ft_lstadd_back(&head, node);
 			i += j;
 			/* ft_printf("[%s]\n", node->content); */

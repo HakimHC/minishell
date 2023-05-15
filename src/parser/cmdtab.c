@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 02:49:30 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/11 14:34:13 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/15 13:52:07 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,24 +53,33 @@ void	make_redir(t_data *data, int type, char *file, t_cmdtab *tab)
 
 unsigned char	handle_redirs(t_list *curr, t_cmdtab *curr_cmd)
 {
-	if (!ft_strncmp(curr->content, "<<", 2))
+	t_token	*tkn;
+
+	tkn = curr->content;
+	if (tkn->type != SYMB)
+		return (0);
+	if (!ft_strncmp(tkn->content, "<<", 3))
 	{
 		curr = curr->next;
+		tkn = curr->content;
 		make_redir(data, HEREDOC, curr->content, curr_cmd);
 	}
-	else if (!ft_strncmp(curr->content, ">>", 2))
+	else if (!ft_strncmp(tkn->content, ">>", 3))
 	{
 		curr = curr->next;
-		make_redir(data, APPEND, curr->content, curr_cmd);
+		tkn = curr->content;
+		make_redir(data, APPEND, tkn->content, curr_cmd);
 	}
-	else if (!ft_strncmp(curr->content, ">", 1))
+	else if (!ft_strncmp(tkn->content, ">", 2))
 	{
 		curr = curr->next;
-		make_redir(data, REDIR_OUT, curr->content, curr_cmd);
+		tkn = curr->content;
+		make_redir(data, REDIR_OUT, tkn->content, curr_cmd);
 	}
-	else if (!ft_strncmp(curr->content, "<", 1))
+	else if (!ft_strncmp(tkn->content, "<", 2))
 	{
 		curr = curr->next;
+		tkn = curr->content;
 		make_redir(data, REDIR_IN, curr->content, curr_cmd);
 	}
 	else
@@ -82,29 +91,32 @@ t_list	*determine_type(t_list *curr, t_cmdtab *curr_cmd)
 {
 	if (handle_redirs(curr, curr_cmd))
 		curr = curr->next;
-	else if (ft_strncmp(curr->content, "|", 1) && !curr_cmd->cmd)
-		curr_cmd->cmd = ft_strdup(curr->content);
-	else if (ft_strncmp(curr->content, "|", 1))
+	else if (!curr_cmd->cmd)
+		curr_cmd->cmd = ft_strdup(((t_token *)curr->content)->content);
+	else
 		ft_lstadd_back(&(curr_cmd->args),
-			ft_lstnew(ft_strdup(curr->content)));
+			ft_lstnew(ft_strdup(((t_token *)curr->content)->content)));
 	return (curr);
 }
 
 void	populate(t_data *data)
 {
 	t_list		*curr;
+	t_token		*tkn;
 	t_cmdtab	*curr_cmd;
 
 	curr = data->tokens;
 	curr_cmd = data->cmdtab;
 	while (curr)
 	{
-		while (curr && ft_strncmp(curr->content, "|", 1))
+		tkn = curr->content;
+		while ((curr && ft_strncmp(tkn->content, "|", 2))
+			|| (!ft_strncmp(tkn->content, "|", 2) && tkn->type == NORM))
 		{
 			curr = determine_type(curr, curr_cmd);
 			curr = curr->next;
 		}
-		if (curr && !ft_strncmp(curr->content, "|", 1))
+		if (curr && !ft_strncmp(tkn->content, "|", 2) && tkn->type == SYMB)
 		{
 			curr_cmd->next = cmdtab_init();
 			curr_cmd = curr_cmd->next;

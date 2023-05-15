@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:23:57 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/09 11:43:54 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/15 13:56:50 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@
 int	pipe_parse_error(void)
 {
 	t_list	*curr;
+	t_token	*tkn;
 
 	curr = data->tokens;
-	if (curr && curr->content && ((char *)(curr->content))[0] == '|')
+	tkn = curr->content;
+	if (curr && tkn->content && ((char *)(tkn->content))[0] == '|')
 	{
 		ft_putstr_fd("fatal: ", 2);
 		ft_putstr_fd("syntax error near unexpected token '|'\n", 2);
@@ -30,7 +32,8 @@ int	pipe_parse_error(void)
 		return (0);
 	while (curr->next)
 		curr = curr->next;
-	if (!ft_strncmp(curr->content, "|", 1))
+	tkn = curr->content;
+	if (!ft_strncmp(tkn->content, "|", 1))
 	{
 		ft_putstr_fd("fatal: ", 2);
 		ft_putstr_fd("syntax error near unexpected token '|'\n", 2);
@@ -42,19 +45,21 @@ int	pipe_parse_error(void)
 int	redir_parse_error(void)
 {
 	t_list	*curr;
+	t_token	*tkn;
 
 	curr = data->tokens;
 	while (curr)
 	{
+		tkn = curr->content;
 		if (is_redir(curr->content)
 			&& curr->next
-			&& is_redir(curr->next->content))
+			&& is_redir(((t_token *)curr->next->content)->content))
 			return (print_token_error(curr->content));
-		else if (is_redir(curr->content)
-			&& ft_strlen(curr->content) > 2)
+		else if (is_redir(tkn->content)
+			&& ft_strlen(tkn->content) > 2)
 			return (print_token_error(curr->content));
-		else if (!curr->next && is_redir(curr->content))
-			return (print_token_error(curr->content));
+		else if (!curr->next && is_redir(tkn->content))
+			return (print_token_error(tkn->content));
 		curr = curr->next;
 	}
 	return (0);
