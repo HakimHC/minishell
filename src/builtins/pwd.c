@@ -6,10 +6,11 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 17:43:20 by hakim             #+#    #+#             */
-/*   Updated: 2023/05/09 12:14:40 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/05/15 11:19:11 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <dirent.h>
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -21,6 +22,7 @@ void	ft_pwd(t_list *args)
 {
 	char	*wd;
 	size_t	size;
+	DIR	*dir;
 
 	if (ft_lstsize(args) > 0)
 	{
@@ -31,6 +33,10 @@ void	ft_pwd(t_list *args)
 	wd = (char *) malloc((size + 1) * sizeof(char));
 	if (!wd)
 		perror_exit("malloc");
+	dir = opendir(".");
+	if (!readdir(dir))
+		return(perror(""));
+	closedir(dir);
 	while (!getcwd(wd, size))
 	{
 		size += 10;

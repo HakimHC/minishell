@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 19:08:56 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/14 19:25:59 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/15 10:41:33 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ bool	empty_line(char *line)
 	return false;
 }
 
+void	leaks(void)
+{
+	system("leaks -q minishell");
+}
+
 void	cmd_listen(char *prompt)
 {
 	char	*line;
@@ -57,6 +62,7 @@ void	cmd_listen(char *prompt)
 				ft_lstclear(&(data->tokens), free); 
 		}
 		free(line);
+		/* system("leaks -q minishell"); */
 		line = readline(prompt);
 	}
 	free(line);

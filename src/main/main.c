@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 04:03:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/12 20:50:46 by hakim            ###   ########.fr       */
+/*   Updated: 2023/05/15 10:30:22 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,6 @@
 #include "minishell.h"
 
 t_data	*data;
-
-void	leaks(void)
-{
-	system("leaks -q minishell");
-}
 
 t_list	*parse_envar(char *envar)
 {
