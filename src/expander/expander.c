@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 01:47:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/04 02:28:25 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/10 21:13:23 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,72 @@
 
 #include "minishell.h"
 
-void	expand_cmd(t_cmdtab *tab)
+char *expand(char *token)
 {
-	char	*var;
-	char	*temp;
-	char	*env;
-	int	i;
+	t_list *tmp;
+	char *content;
 
-	var = NULL;
-	if (ft_strchr(tab->cmd, '$'))
-		var = ft_strdup(ft_strchr(tab->cmd, '$') + 1);
-	else
-		return ;
-	env = ft_getenv(var);
-	ft_printf("env: %s\n", env);
-	free(var);
-	i = -1;
-	while ((tab->cmd)[++i] != '$');
-	temp = ft_substr(tab->cmd, 0, i + 1);
-	if (!temp)
-		return ;
-	var = ft_strjoin(temp, env);
-	free(temp);
-	free(env);
-	ft_printf("var: %s\n", var);
+	tmp = NULL;
+	if (!ft_strchr(token, '$'))
+		return (token);
+	content = token;
+	int i = 0;
+	int j;
+	t_list *node;
+	while (content[i])
+	{
+		j = 0;
+		if (content[i] == '$')
+		{
+			i++;
+			while (content[i + j] && content[i + j] != '$'
+				&& !ft_isspace(content[i + j]))
+				j++;
+			node = ft_lstnew(ft_substr(content, i - 1, j + 1));
+			/* ft_printf("{%s}\n", node->content); */
+			ft_lstadd_back(&tmp, node);
+			i += j;
+		}
+		else
+		{
+			while (content[i + j] && content[i + j] != '$')
+				j++;
+			node = ft_lstnew(ft_substr(content, i, j));
+			/* ft_printf("{%s}\n", node->content); */
+			ft_lstadd_back(&tmp, node);
+			i += j;
+		}
+	}
+	t_list *curr = tmp;
+	while (curr)
+	{
+		if (ft_strchr(curr->content, '$') && ft_strncmp(curr->content, "$", 2))
+		{
+			char *aux = curr->content;
+			if (ft_getenv(curr->content + 1))
+				curr->content = ft_strdup(ft_getenv(curr->content + 1));
+			else if (!ft_strncmp(curr->content, "$?", 3))
+				curr->content = ft_itoa(data->exit_code);
+			else
+				curr->content = NULL;
+			free(aux);
+		}
+		curr = curr->next;
+	}
+	char *res = ft_strdup("");
+	curr = tmp;
+	while (curr)
+	{
+		char *aux = res;
+		if (curr->content)
+			res = ft_strjoin(res, curr->content);
+		else
+			res = ft_strjoin(res, "");
+		free(aux);
+		curr = curr->next;
+	}
+	free(content);
+	ft_lstclear(&tmp, free);
+	return (res);
 }
 
-void	expander(void)
-{
-	////
-}

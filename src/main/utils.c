@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 19:08:56 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/15 14:12:17 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/04 21:47:33 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ void	leaks(void)
 	system("leaks -q minishell");
 }
 
+void	handle_sigquit(int sig)
+{
+	(void) sig;
+
+
+}
+
 void	cmd_listen(char *prompt)
 {
 	char	*line;
@@ -48,6 +55,7 @@ void	cmd_listen(char *prompt)
 	line = readline(prompt);
 	while (1)
 	{
+		/* signal(SIGQUIT, &handle_sigquit); */
 		if (!empty_line(line))
 		{
 			add_history(line);

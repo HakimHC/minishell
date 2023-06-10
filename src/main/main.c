@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 04:03:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/15 10:30:22 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/08 15:30:19 by hakim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,6 @@ int	main(int argc, char **argv, char **envp)
 	if (argc == 2)
 		db(argv[1]);
 	else
-		cmd_listen("\033[6;35;1mminishell$\033[0m ");
+		cmd_listen("\033[35;1mminishell$\033[0m ");
 	return (0);
 }

@@ -23,7 +23,7 @@ CFLAGS += -I $(LFTDIR)/$(INCDIR)
 
 LDFLAGS = -Llibft -lft -lreadline
 
-# LDFLAGS += -fsanitize=address
+LDFLAGS += -fsanitize=address
 
 #source files and stuff
 SRCDIR = src
@@ -42,7 +42,9 @@ MAIN_DB = $(addprefix $(MAINDIR)/,$(MAIN_DBSRC))
 
 LXDIR = lexer
 
-LXSRC = tokenize_line.c
+LXSRC = tokenize_line.c \
+	lexer_utils.c \
+	tokenizer_utils.c
 
 PSDIR = parser
 
@@ -76,6 +78,8 @@ EXPDIR = expander
 
 EXPSRC = expander.c
 
+LX = $(addprefix $(LXDIR)/,$(LXSRC))
+
 BI = $(addprefix $(BIDIR)/,$(BISRC))
 
 EXEC= $(addprefix $(EXECDIR)/,$(EXECSRC))
@@ -84,7 +88,7 @@ PS = $(addprefix $(PSDIR)/,$(PSSRC))
 
 EXP = $(addprefix $(EXPDIR)/,$(EXPSRC))
 
-SRC = $(addprefix $(SRCDIR)/,$(LXDIR)/$(LXSRC)) \
+SRC = $(addprefix $(SRCDIR)/,$(LX)) \
       $(addprefix $(SRCDIR)/,$(PS)) \
       $(addprefix $(SRCDIR)/,$(EXEC)) \
       $(addprefix $(SRCDIR)/,$(BI)) \

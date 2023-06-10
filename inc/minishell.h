@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/10 21:23:33 by hakahmed          #+#    #+#             */
+/*   Updated: 2023/06/10 21:23:33 by hakahmed         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -73,6 +85,13 @@ void	destroyer(void);
 int	tokenize_input(char *input);
 int	is_special_char(char c);
 t_list	*split_line(char *line);
+int	is_special_char(char c);
+int	is_quote(char c);
+t_list *mk_tkn(char *input, int type);
+int	mk_normal(char *input, int i, t_list **head);
+int	mk_symbol(char *input, int i, t_list **head);
+int	concat_tkn(char *input, int i, t_list *tkn);
+int	mk_quote(char *input, int i, t_list **head);
 
 /* parser */
 void	fill_cmdtab(void);
@@ -131,6 +150,7 @@ unsigned char is_builtin(char *cmd);
 
 /* expander */
 void	expand_cmd(t_cmdtab *tab);
+char 	*expand(char *token);
 
 
 #endif
