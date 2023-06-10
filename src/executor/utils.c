@@ -6,11 +6,10 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:21:09 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/13 23:09:19 by hakim            ###   ########.fr       */
+/*   Updated: 2023/06/10 21:37:12 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -30,8 +29,8 @@ char	**list_to_arr(t_list *head)
 {
 	t_list	*curr;
 	char	**arr;
-	int	size;
-	int	i;
+	int		size;
+	int		i;
 
 	size = ft_lstsize(head);
 	arr = (char **) malloc((size + 2) * sizeof(char *));
@@ -49,36 +48,7 @@ char	**list_to_arr(t_list *head)
 	return (arr);
 }
 
-pid_t	ft_fork(void)
-{
-	pid_t	pid;
-
-	pid = fork();
-	if (pid < 0)
-		perror_exit("fork");
-	return (pid);
-}
-
-void	ft_pipe(int fd[2])
-{
-	int	p;
-
-	p = pipe(fd);
-	if (p < 0)
-		perror_exit("pipe");
-}
-
-int	ft_open(char *file, int oflags)
-{
-	int	fd;
-
-	fd = open(file, oflags, 0644);
-	if (fd < 0)
-		perror_exit(file);
-	return (fd);
-}
-
-unsigned char exec_builtin(char *cmd, t_list *args)
+unsigned char	exec_builtin(char *cmd, t_list *args)
 {
 	int	i;
 
@@ -99,8 +69,8 @@ unsigned char exec_builtin(char *cmd, t_list *args)
 
 void	ft_execute(char *cmd, t_list *_args)
 {
-	char **args;
-	char *cmd_path;
+	char	**args;
+	char	*cmd_path;
 
 	if (!cmd || exec_builtin(cmd, _args))
 		exit(0);

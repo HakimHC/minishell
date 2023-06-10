@@ -60,7 +60,8 @@ EXECSRC = executor.c \
 	  utils.c \
 	  heredoc.c \
 	  open_files.c \
-	  exec_utils.c
+	  exec_utils.c \
+	  p_syscalls.c
 
 BIDIR = builtins
 

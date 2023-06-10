@@ -6,20 +6,21 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:29:59 by hakim             #+#    #+#             */
-/*   Updated: 2023/05/13 21:30:24 by hakim            ###   ########.fr       */
+/*   Updated: 2023/06/10 21:41:48 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <fcntl.h>
 
+#include "libft.h"
 #include "minishell.h"
 
 int	open_infile(t_cmdtab *tab)
 {
-	t_list *lst;
-	t_redir *file;
-	int	fd;
+	t_list	*lst;
+	t_redir	*file;
+	int		fd;
 
 	lst = tab->redir_in;
 	if (!lst)
@@ -52,14 +53,13 @@ int	open_with_flags(char *file, int type)
 		flags = flags | O_APPEND;
 	fd = open(file, flags, 0644);
 	return (fd);
-
 }
 
 int	open_outfile(t_cmdtab *tab)
 {
-	t_list *lst;
-	t_redir *file;
-	int	fd;
+	t_list	*lst;
+	t_redir	*file;
+	int		fd;
 
 	lst = tab->redir_out;
 	if (!lst)

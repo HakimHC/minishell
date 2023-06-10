@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:50:32 by hakim             #+#    #+#             */
-/*   Updated: 2023/05/13 23:11:56 by hakim            ###   ########.fr       */
+/*   Updated: 2023/06/10 21:34:29 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <stdlib.h>
 
 #include "minishell.h"
-
 
 void	handle_redirects(int redir_out, int redir_in, int pfd)
 {
@@ -35,7 +34,7 @@ void	handle_redirects(int redir_out, int redir_in, int pfd)
 
 void	create_pipe(int redir_out, int redir_in, t_cmdtab *tab)
 {
-	int	fd[2];
+	int		fd[2];
 	pid_t	pid;
 
 	ft_pipe(fd);
@@ -56,13 +55,13 @@ void	create_pipe(int redir_out, int redir_in, t_cmdtab *tab)
 	close(fd[READ_END]);
 }
 
-unsigned char handle_builtin(t_cmdtab **tab)
+unsigned char	handle_builtin(t_cmdtab **tab)
 {
-	int	tmpin;
-	int	fdin;
-	int	tmpout;
-	int	fdout;
-	unsigned char b;
+	int				tmpin;
+	int				fdin;
+	int				tmpout;
+	int				fdout;
+	unsigned char	b;
 
 	fdin = open_infile(data->cmdtab);
 	fdout = open_outfile(data->cmdtab);
@@ -84,13 +83,14 @@ unsigned char handle_builtin(t_cmdtab **tab)
 	return (b);
 }
 
-void	wait_childs()
+void	wait_childs(void)
 {
-	int	status;
+	int		status;
+	pid_t	p;
 
 	while (1)
 	{
-		pid_t p = waitpid(-1, &status, 0);
+		p = waitpid(-1, &status, 0);
 		if (p < 0)
 			exit(WEXITSTATUS(status));
 	}
@@ -115,5 +115,4 @@ void	exec_last(int fdin, int fdout, t_cmdtab *tab)
 	close(fdin);
 	close(fdout);
 	close(STDIN_FILENO);
-
 }

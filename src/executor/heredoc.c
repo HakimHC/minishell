@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 12:19:41 by hakim             #+#    #+#             */
-/*   Updated: 2023/05/13 21:28:11 by hakim            ###   ########.fr       */
+/*   Updated: 2023/06/10 21:41:15 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 int	handle_heredoc(char *delim)
 {
-	int	fd;
+	int		fd;
 	char	*line;
 
 	fd = open("/tmp/.heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);

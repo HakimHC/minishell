@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:35:17 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/13 23:26:22 by hakim            ###   ########.fr       */
+/*   Updated: 2023/06/10 21:40:46 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,25 @@
 
 #include "minishell.h"
 
-void	executor(t_cmdtab *tab)
+t_cmdtab	*smart_exec(t_cmdtab *tab)
 {
 	int	fdin;
 	int	fdout;
+
+	fdout = open_outfile(tab);
+	fdin = open_infile(tab);
+	if (tab->next)
+		create_pipe(fdout, fdin, tab);
+	else
+		exec_last(fdin, fdout, tab);
+	tab = tab->next;
+	return (tab);
+}
+
+void	executor(t_cmdtab *tab)
+{
 	pid_t	pid;
-	int	status;
+	int		status;
 
 	if (!(tab->next) && is_builtin(tab->cmd))
 		handle_builtin(&tab);
@@ -35,19 +48,10 @@ void	executor(t_cmdtab *tab)
 		if (!pid)
 		{
 			while (tab)
-			{
-				fdout = open_outfile(tab);
-				fdin = open_infile(tab);
-				if (tab->next)
-					create_pipe(fdout, fdin, tab);
-				else
-					exec_last(fdin, fdout, tab);
-				tab = tab->next;
-			}
+				tab = smart_exec(tab);
 			wait_childs();
 		}
 		waitpid(pid, &status, 0);
 		data->exit_code = WEXITSTATUS(status);
 	}
-	/* ft_printf("exit code: %d\n", data->exit_code); */
 }
