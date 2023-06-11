@@ -6,56 +6,64 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 01:47:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 04:36:48 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 08:09:11 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
+#include "libft.h"
 #include "minishell.h"
 
-char *expand(char *token)
+int	mk_exptoken(t_list **head, char *token, int i)
 {
-	t_list *tmp;
-	char *content;
+	t_list	*node;
+	int		j;
 
-	tmp = NULL;
-	if (!ft_strchr(token, '$'))
-		return (token);
-	content = token;
-	int i = 0;
-	int j;
-	t_list *node;
-	while (content[i])
+	i++;
+	j = 0;
+	while (token[i + j] && token[i + j] != '$'
+		&& !ft_isspace(token[i + j]))
+		j++;
+	node = ft_lstnew(ft_substr(token, i - 1, j + 1));
+	ft_lstadd_back(head, node);
+	return (j + 1);
+}
+
+void	split_envars(t_list **head, char *token)
+{
+	int		i;
+	int		j;
+	t_list	*node;
+
+	i = 0;
+	while (token[i])
 	{
 		j = 0;
-		if (content[i] == '$')
-		{
-			i++;
-			while (content[i + j] && content[i + j] != '$'
-				&& !ft_isspace(content[i + j]))
-				j++;
-			node = ft_lstnew(ft_substr(content, i - 1, j + 1));
-			/* ft_printf("{%s}\n", node->content); */
-			ft_lstadd_back(&tmp, node);
-			i += j;
-		}
+		if (token[i] == '$')
+			i += mk_exptoken(head, token, i);
 		else
 		{
-			while (content[i + j] && content[i + j] != '$')
+			while (token[i + j] && token[i + j] != '$')
 				j++;
-			node = ft_lstnew(ft_substr(content, i, j));
-			/* ft_printf("{%s}\n", node->content); */
-			ft_lstadd_back(&tmp, node);
+			node = ft_lstnew(ft_substr(token, i, j));
+			ft_lstadd_back(head, node);
 			i += j;
 		}
 	}
-	t_list *curr = tmp;
+}
+
+void	expand_env(t_list *head)
+{
+	t_list	*curr;
+	char	*aux;
+
+	curr = head;
 	while (curr)
 	{
 		if (ft_strchr(curr->content, '$') && ft_strncmp(curr->content, "$", 2))
 		{
-			char *aux = curr->content;
+			aux = curr->content;
 			if (ft_getenv(curr->content + 1))
 				curr->content = ft_strdup(ft_getenv(curr->content + 1));
 			else if (!ft_strncmp(curr->content, "$?", 3))
@@ -66,11 +74,25 @@ char *expand(char *token)
 		}
 		curr = curr->next;
 	}
-	char *res = ft_strdup("");
+}
+
+char	*expand(char *token)
+{
+	t_list	*tmp;
+	t_list	*curr;
+	char	*aux;
+	char	*res;
+
+	if (!ft_strchr(token, '$'))
+		return (token);
+	tmp = NULL;
+	split_envars(&tmp, token);
+	expand_env(tmp);
+	res = ft_strdup("");
 	curr = tmp;
 	while (curr)
 	{
-		char *aux = res;
+		aux = res;
 		if (curr->content)
 			res = ft_strjoin(res, curr->content);
 		else
@@ -78,8 +100,7 @@ char *expand(char *token)
 		free(aux);
 		curr = curr->next;
 	}
-	free(content);
+	free(token);
 	ft_lstclear(&tmp, free);
 	return (res);
 }
-

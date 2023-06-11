@@ -34,12 +34,7 @@ MAINSRC = main.c \
 	  utils.c \
 	  destroyer.c
 
-MAIN_DBSRC = db_main.c \
-	     utils.c
-
 MAIN = $(addprefix $(MAINDIR)/,$(MAINSRC))
-
-MAIN_DB = $(addprefix $(MAINDIR)/,$(MAIN_DBSRC))
 
 LXDIR = lexer
 
@@ -97,19 +92,13 @@ SRC = $(addprefix $(SRCDIR)/,$(LX)) \
       $(addprefix $(SRCDIR)/,$(EXP)) \
 
 SRC_NORMAL = $(SRC) $(addprefix $(SRCDIR)/,$(MAIN))
-SRC_DEBUG = $(SRC) $(addprefix $(SRCDIR)/,$(MAIN_DB))
 
 LIB = libft/libft.a
 
 #objects and stuff
-
-
 OBJ_NORMAL = $(SRC_NORMAL:.c=.o)
-OBJ_DEBUG = $(SRC_DEBUG:.c=.o)
 
 #rules and stuff
-
-
 all: $(NAME)
 
 $(LIB):
@@ -121,8 +110,8 @@ $(LIB):
 $(NAME): $(OBJ_NORMAL)
 	$(CC) $(CFLAGS) $(OBJ_NORMAL) $(LDFLAGS) -o $(NAME)
 
-debug: $(OBJ_DEBUG)
-	$(CC) $(CFLAGS) $(OBJ_DEBUG) $(LDFLAGS) -o db_minishell
+# debug: $(OBJ_DEBUG)
+# 	$(CC) $(CFLAGS) $(OBJ_DEBUG) $(LDFLAGS) -o db_minishell
 
 clean:
 	make fclean -C libft
