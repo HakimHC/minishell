@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:23:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 04:57:59 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 05:05:17 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_cmdtab
 	t_list			*redir_in;
 	t_list			*redir_out;
 	int				*flags;
-	struct s_cmdtab *next;
+	struct s_cmdtab	*next;
 }					t_cmdtab;
 
 typedef struct s_builtin
@@ -74,7 +74,7 @@ typedef struct s_data
 
 /* global */
 
-extern t_data *g_data;
+extern t_data	*g_data;
 
 /* main */
 
@@ -90,7 +90,7 @@ int				is_special_char(char c);
 t_list			*split_line(char *line);
 int				is_special_char(char c);
 int				is_quote(char c);
-t_list 			*mk_tkn(char *input, int type);
+t_list			*mk_tkn(char *input, int type);
 int				mk_normal(char *input, int i, t_list **head);
 int				mk_symbol(char *input, int i, t_list **head);
 int				concat_tkn(char *input, int i, t_list *tkn);
@@ -104,14 +104,14 @@ int				*set_flags(t_data *data);
 void			populate(t_data *data);
 int				pipe_parse_error(void);
 int				input_syntax_errors(void);
-unsigned char 	is_redir(char *token);
+unsigned char	is_redir(char *token);
 int				redir_parse_error(void);
 int				print_token_error(char *token);
 int				pre_token_parse_error(char *input);
 
 /* executor */
 void			ft_execute(char *cmd, t_list *_args);
-int 	    	ft_open(char *file, int oflags);
+int				ft_open(char *file, int oflags);
 void			ft_pipe(int fd[2]);
 pid_t			ft_fork(void);
 char			**list_to_arr(t_list *head);
@@ -120,15 +120,15 @@ void			executor(t_cmdtab *tab);
 char			**split_path(char *path);
 char			*get_cmd(char *path[], char *cmd, int b);
 char			**path_arr(void);
-int 		   	ft_abs_path(char *cmd);
-int 		   	handle_heredoc(char *delim);
-int 		   	open_infile(t_cmdtab *tab);
-int 		   	open_with_flags(char *file, int type);
-int 		   	open_outfile(t_cmdtab *tab);
+int				ft_abs_path(char *cmd);
+int				handle_heredoc(char *delim);
+int				open_infile(t_cmdtab *tab);
+int				open_with_flags(char *file, int type);
+int				open_outfile(t_cmdtab *tab);
 void			handle_redirects(int redir_out, int redir_in, int pfd);
 void			create_pipe(int redir_out, int redir_in, t_cmdtab *tab);
-unsigned char 	handle_builtin(t_cmdtab **tab);
-void			wait_childs();
+unsigned char	handle_builtin(t_cmdtab **tab);
+void			wait_childs(void);
 void			exec_last(int fdin, int fdout, t_cmdtab *tab);
 
 /* builtins */
@@ -145,14 +145,14 @@ void			ft_pwd(t_list *args);
 void			ft_cd(t_list *args);
 void			print_env(t_list *head);
 t_list			*parse_envar(char *envar);
-unsigned char 	export_error(char *arg);
-unsigned char 	exec_builtin(char *cmd, t_list *args);
+unsigned char	export_error(char *arg);
+unsigned char	exec_builtin(char *cmd, t_list *args);
 int				is_int(char *str);
 void			ft_exit(t_list *args);
-unsigned char 	is_builtin(char *cmd);
+unsigned char	is_builtin(char *cmd);
 
 /* expander */
 void			expand_cmd(t_cmdtab *tab);
-char 			*expand(char *token);
+char			*expand(char *token);
 
 #endif
