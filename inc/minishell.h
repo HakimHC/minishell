@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:23:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 17:45:23 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:04:23 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int				mk_normal(char *input, int i, t_list **head);
 int				mk_symbol(char *input, int i, t_list **head);
 int				concat_tkn(char *input, int i, t_list *tkn);
 int				mk_quote(char *input, int i, t_list **head);
+void			print_tokens();
 
 /* parser */
 void			fill_cmdtab(void);
