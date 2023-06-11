@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:50:32 by hakim             #+#    #+#             */
-/*   Updated: 2023/06/10 21:34:29 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 04:37:21 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ unsigned char	handle_builtin(t_cmdtab **tab)
 	int				fdout;
 	unsigned char	b;
 
-	fdin = open_infile(data->cmdtab);
-	fdout = open_outfile(data->cmdtab);
+	fdin = open_infile(g_data->cmdtab);
+	fdout = open_outfile(g_data->cmdtab);
 	if (fdin < 0 || fdout < 0)
 		return (-1);
 	tmpin = dup(STDIN_FILENO);
@@ -73,13 +73,13 @@ unsigned char	handle_builtin(t_cmdtab **tab)
 		dup2(fdin, STDIN_FILENO);
 	if (fdout != STDOUT_FILENO)
 		dup2(fdout, STDOUT_FILENO);
-	b = exec_builtin(data->cmdtab->cmd, data->cmdtab->args);
+	b = exec_builtin(g_data->cmdtab->cmd, g_data->cmdtab->args);
 	dup2(tmpin, STDIN_FILENO);
 	dup2(tmpout, STDOUT_FILENO);
 	close(tmpin);
 	close(tmpout);
 	*tab = (*tab)->next;
-	data->exit_code = 0;
+	g_data->exit_code = 0;
 	return (b);
 }
 

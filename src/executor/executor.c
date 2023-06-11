@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:35:17 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/10 21:40:46 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 04:37:33 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ void	executor(t_cmdtab *tab)
 			wait_childs();
 		}
 		waitpid(pid, &status, 0);
-		data->exit_code = WEXITSTATUS(status);
+		g_data->exit_code = WEXITSTATUS(status);
 	}
 }

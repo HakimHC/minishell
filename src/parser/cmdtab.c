@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 02:49:30 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 03:40:34 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 04:36:00 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ unsigned char	handle_redirs(t_list *curr, t_cmdtab *curr_cmd)
 		{
 			curr = curr->next;
 			tkn = curr->content;
-			make_redir(data, types[i], tkn->content, curr_cmd);
+			make_redir(g_data, types[i], tkn->content, curr_cmd);
 			return (1);
 		}
 		++i;

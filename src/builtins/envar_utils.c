@@ -6,7 +6,7 @@
 /*   By: hakahmed <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 19:14:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/11 20:06:08 by hakim            ###   ########.fr       */
+/*   Updated: 2023/06/11 04:38:24 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*ft_getenv(char *arg)
 	t_list	*curr;
 	t_env	*env;
 
-	curr = data->envp;
+	curr = g_data->envp;
 	while (curr)
 	{
 		env = curr->content;
@@ -61,7 +61,7 @@ unsigned char	process_env(t_env *env)
 	t_list	*curr;
 	t_env	*curr_env;
 
-	curr = data->envp;
+	curr = g_data->envp;
 	while (curr)
 	{
 		curr_env = curr->content;
@@ -103,7 +103,7 @@ void	ft_setenv(char *arg)
 	if (!process_env(env))
 	{
 		node = ft_lstnew(env);
-		ft_lstadd_back(&(data->envp), node);
+		ft_lstadd_back(&(g_data->envp), node);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 01:47:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/10 21:13:23 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 04:36:48 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char *expand(char *token)
 			if (ft_getenv(curr->content + 1))
 				curr->content = ft_strdup(ft_getenv(curr->content + 1));
 			else if (!ft_strncmp(curr->content, "$?", 3))
-				curr->content = ft_itoa(data->exit_code);
+				curr->content = ft_itoa(g_data->exit_code);
 			else
 				curr->content = NULL;
 			free(aux);

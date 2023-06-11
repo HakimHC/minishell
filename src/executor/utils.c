@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:21:09 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/10 21:37:12 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 04:34:08 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ unsigned char	exec_builtin(char *cmd, t_list *args)
 	i = 0;
 	while (i < 7)
 	{
-		if (!ft_strcmp((data->builtins->cmd)[i], cmd))
+		if (!ft_strcmp((g_data->builtins->cmd)[i], cmd))
 		{
-			(data->builtins->f)[i](args);
+			(g_data->builtins->f)[i](args);
 			return (1);
 		}
 		i++;
@@ -84,7 +84,7 @@ void	ft_execute(char *cmd, t_list *_args)
 	args[0] = ft_strdup(cmd_path);
 	if (access(cmd_path, F_OK))
 		perror_exit(cmd_path);
-	if (execve(cmd_path, args, data->envparr) == -1)
+	if (execve(cmd_path, args, g_data->envparr) == -1)
 	{
 		perror(cmd_path);
 		ft_free_strarr(args);

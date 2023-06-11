@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 19:11:17 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/10 21:47:01 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 04:33:50 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@
 
 void	fill_cmdtab(void)
 {
-	data->cmdtab = cmdtab_init();
-	populate(data);
+	g_data->cmdtab = cmdtab_init();
+	populate(g_data);
 }

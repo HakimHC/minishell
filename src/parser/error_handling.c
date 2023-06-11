@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:23:57 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/15 13:56:50 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 04:36:17 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	pipe_parse_error(void)
 	t_list	*curr;
 	t_token	*tkn;
 
-	curr = data->tokens;
+	curr = g_data->tokens;
 	tkn = curr->content;
 	if (curr && tkn->content && ((char *)(tkn->content))[0] == '|')
 	{
@@ -47,7 +47,7 @@ int	redir_parse_error(void)
 	t_list	*curr;
 	t_token	*tkn;
 
-	curr = data->tokens;
+	curr = g_data->tokens;
 	while (curr)
 	{
 		tkn = curr->content;

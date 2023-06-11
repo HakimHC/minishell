@@ -31,7 +31,8 @@ SRCDIR = src
 MAINDIR = main
 
 MAINSRC = main.c \
-	  utils.c
+	  utils.c \
+	  destroyer.c
 
 MAIN_DBSRC = db_main.c \
 	     utils.c

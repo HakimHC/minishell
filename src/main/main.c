@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 04:03:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 03:48:41 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 04:35:39 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 #include "minishell.h"
 
-t_data	*data;
+t_data	*g_data;
 
 t_list	*parse_envar(char *envar)
 {
@@ -89,13 +89,13 @@ int	main(int argc, char **argv, char **envp)
 {
 	(void) argc;
 	(void) argv;
-	data = malloc(sizeof(t_data));
-	if (!data)
+	g_data = malloc(sizeof(t_data));
+	if (!g_data)
 		return (1);
-	data->envp = env_init(envp);
-	data->envparr = list_to_envars(data->envp);
-	data->builtins = populate_builtins();
-	if (!data->builtins)
+	g_data->envp = env_init(envp);
+	g_data->envparr = list_to_envars(g_data->envp);
+	g_data->builtins = populate_builtins();
+	if (!g_data->builtins)
 		return (2);
 	else
 		cmd_listen("\033[35;1mminishell$\033[0m ");

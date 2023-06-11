@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:23:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 03:44:31 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 04:33:03 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef struct s_data
 
 /* global */
 
-extern t_data *data;
+extern t_data *g_data;
 
 /* main */
 

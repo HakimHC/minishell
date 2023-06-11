@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 19:08:56 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 03:47:22 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 04:34:24 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ void	cmd_listen(char *prompt)
 			if (!tokenize_input(line))
 			{
 				fill_cmdtab();
-				executor(data->cmdtab);
+				executor(g_data->cmdtab);
 				destroyer();
 			}
 			else
-				ft_lstclear(&(data->tokens), free);
-		}
+				ft_lstclear(&(g_data->tokens), free);
+	}
 		free(line);
 		line = readline(prompt);
 	}

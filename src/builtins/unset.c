@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 22:14:34 by hakim             #+#    #+#             */
-/*   Updated: 2023/05/09 12:11:33 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 04:39:10 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	ft_unsetenv(char *var)
 	t_list	*prev;
 	t_env	*env;
 
-	lst = data->envp;
-	curr = data->envp;
+	lst = g_data->envp;
+	curr = g_data->envp;
 	prev = NULL;
 	while (curr)
 	{
@@ -51,6 +51,6 @@ void	ft_unset(t_list *args)
 		ft_unsetenv(curr->content);
 		curr = curr->next;
 	}
-	ft_free_strarr(data->envparr);
-	data->envparr = list_to_envars(data->envp);
+	ft_free_strarr(g_data->envparr);
+	g_data->envparr = list_to_envars(g_data->envp);
 }

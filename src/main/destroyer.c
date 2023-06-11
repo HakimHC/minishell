@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 03:43:18 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 03:46:25 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 04:40:07 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ void	free_tokens(void)
 	t_list	*curr;
 	t_token	*tkn;
 
-	curr = data->tokens;
+	curr = g_data->tokens;
 	while (curr)
 	{
 		tkn = curr->content;
 		free(tkn->content);
 		curr = curr->next;
 	}
-	ft_lstclear(&(data->tokens), free);
+	ft_lstclear(&(g_data->tokens), free);
 }
 
 void	free_cmdtab(void)
@@ -46,7 +46,7 @@ void	free_cmdtab(void)
 	t_cmdtab	*curr;
 	t_cmdtab	*aux;
 
-	curr = data->cmdtab;
+	curr = g_data->cmdtab;
 	while (curr)
 	{
 		aux = curr;
@@ -59,7 +59,7 @@ void	free_cmdtab(void)
 		curr = curr->next;
 		free(aux);
 	}
-	data->cmdtab = NULL;
+	g_data->cmdtab = NULL;
 }
 
 void	destroyer(void)
