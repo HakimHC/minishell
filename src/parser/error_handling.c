@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:23:57 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 19:49:23 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 20:00:29 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,20 @@ int	pipe_parse_error(void)
 	curr = g_data->tokens;
 	tkn = curr->content;
 	if (curr && tkn->content && ((char *)(tkn->content))[0] == '|')
-	{
-		ft_putstr_fd("fatal: ", 2);
-		ft_putstr_fd("syntax error near unexpected token '|'\n", 2);
-		return (1);
-	}
+		return (print_token_error("|"), 1);
 	if (!curr)
 		return (0);
 	while (curr->next)
-		curr = curr->next;
-	tkn = curr->content;
-	if (!ft_strncmp(tkn->content, "|", 1))
 	{
-		ft_putstr_fd("fatal: ", 2);
-		ft_putstr_fd("syntax error near unexpected token '|'\n", 2);
-		return (1);
+		tkn = curr->content;
+		if (tkn->content[0] == '|'
+			&& ((t_token *)(curr->next->content))->content[0] == '|')
+			return (print_token_error("|"), 1);
+		curr = curr->next;
 	}
+	tkn = curr->content;
+	if (!ft_strncmp(tkn->content, "|", 2))
+		return (print_token_error("|"), 1);
 	return (0);
 }
 
