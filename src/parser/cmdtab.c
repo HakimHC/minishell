@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 02:49:30 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/15 16:57:49 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/10 21:54:57 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,38 +53,27 @@ void	make_redir(t_data *data, int type, char *file, t_cmdtab *tab)
 
 unsigned char	handle_redirs(t_list *curr, t_cmdtab *curr_cmd)
 {
-	t_token	*tkn;
+	t_token		*tkn;
+	static char	*symbols[] = {"<", "<<", ">", ">>"};
+	static int	types[] = {REDIR_IN, HEREDOC, REDIR_OUT, APPEND};
+	int			i;
 
 	tkn = curr->content;
 	if (tkn->type != SYMB)
 		return (0);
-	if (!ft_strncmp(tkn->content, "<<", 3))
+	i = 0;
+	while (i < 4)
 	{
-		curr = curr->next;
-		tkn = curr->content;
-		make_redir(data, HEREDOC, tkn->content, curr_cmd);
+		if (!ft_strncmp(tkn->content, symbols[i], ft_strlen(symbols[i])))
+		{
+			curr = curr->next;
+			tkn = curr->content;
+			make_redir(data, types[i], tkn->content, curr_cmd);
+			return (1);
+		}
+		++i;
 	}
-	else if (!ft_strncmp(tkn->content, ">>", 3))
-	{
-		curr = curr->next;
-		tkn = curr->content;
-		make_redir(data, APPEND, tkn->content, curr_cmd);
-	}
-	else if (!ft_strncmp(tkn->content, ">", 2))
-	{
-		curr = curr->next;
-		tkn = curr->content;
-		make_redir(data, REDIR_OUT, tkn->content, curr_cmd);
-	}
-	else if (!ft_strncmp(tkn->content, "<", 2))
-	{
-		curr = curr->next;
-		tkn = curr->content;
-		make_redir(data, REDIR_IN, tkn->content, curr_cmd);
-	}
-	else
-		return (0);
-	return (1);
+	return (0);
 }
 
 t_list	*determine_type(t_list *curr, t_cmdtab *curr_cmd)
@@ -118,7 +107,7 @@ void	populate(t_data *data)
 			if (curr)
 				tkn = curr->content;
 			else
-				break;
+				break ;
 		}
 		if (curr)
 			tkn = curr->content;
