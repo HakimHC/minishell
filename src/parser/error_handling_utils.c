@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 04:02:22 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 19:10:05 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:48:51 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,24 @@
 
 unsigned char	is_redir(char *token)
 {
+	static char	*symb[] = {">", ">>", "<", "<<"};
+	int			i;
+
 	if (!token)
 		return (0);
-	if (!ft_strncmp(token, ">", 2))
-		return (1);
-	if (!ft_strncmp(token, "<", 2))
-		return (1);
-	if (!ft_strncmp(token, ">>", 3))
-		return (2);
-	if (!ft_strncmp(token, "<<", 3))
-		return (1);
+	i = 0;
+	while (i < 4)
+	{
+		if (!ft_strncmp(token, symb[i], ft_strlen(symb[i])))
+			return (1);
+		i++;
+	}
 	return (0);
+}
+
+int	is_symb(char *token)
+{
+	return (is_redir(token) || !ft_strncmp(token, "|", 2));;
 }
 
 int	print_token_error(char *token)

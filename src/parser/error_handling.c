@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:23:57 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 19:09:00 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:49:23 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int	redir_parse_error(void)
 		tkn = curr->content;
 		if (is_redir(tkn->content)
 			&& curr->next
-			&& is_redir(((t_token *)curr->next->content)->content))
-			return (print_token_error(curr->content));
+			&& is_symb(((t_token *)curr->next->content)->content))
+			return (print_token_error(tkn->content));
 		else if (is_redir(tkn->content)
 			&& ft_strlen(tkn->content) > 2)
 			return (print_token_error(tkn->content));
