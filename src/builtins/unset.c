@@ -6,13 +6,23 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 22:14:34 by hakim             #+#    #+#             */
-/*   Updated: 2023/06/11 04:39:10 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 18:05:11 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
 #include "minishell.h"
+
+void	free_env(void *env)
+{
+	t_env	*e;
+
+	e = env;
+	free(e->key);
+	free(e->value);
+	free(e);
+}
 
 void	ft_unsetenv(char *var)
 {
@@ -33,7 +43,7 @@ void	ft_unsetenv(char *var)
 				prev->next = curr->next;
 			else
 				lst = lst->next;
-			ft_lstdelone(curr, &free);
+			ft_lstdelone(curr, &free_env);
 			break ;
 		}
 		prev = curr;
