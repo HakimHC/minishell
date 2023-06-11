@@ -6,7 +6,7 @@
 /*   By: hakahmed <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 22:41:10 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/14 18:23:59 by hakim            ###   ########.fr       */
+/*   Updated: 2023/06/11 04:43:15 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	ft_exit(t_list *args)
 	else if (!is_int(args->content))
 	{
 		ft_putendl_fd("exit: numerical value required", 2);
-		/* exit(255); */
 		return ;
 	}
 	exit(ft_atoi(args->content));

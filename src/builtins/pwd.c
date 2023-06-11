@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 17:43:20 by hakim             #+#    #+#             */
-/*   Updated: 2023/05/15 11:19:11 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 04:45:25 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,17 @@ void	ft_pwd(t_list *args)
 {
 	char	*wd;
 	size_t	size;
-	DIR	*dir;
+	DIR		*dir;
 
 	if (ft_lstsize(args) > 0)
-	{
-		ft_putstr_fd("pwd: too many arguments\n", 2);
-		return ;
-	}
+		return ((void) ft_putstr_fd("pwd: too many arguments\n", 2));
 	size = 50;
 	wd = (char *) malloc((size + 1) * sizeof(char));
 	if (!wd)
 		perror_exit("malloc");
 	dir = opendir(".");
 	if (!readdir(dir))
-		return(perror(""));
+		return (perror(""));
 	closedir(dir);
 	while (!getcwd(wd, size))
 	{

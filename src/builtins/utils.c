@@ -6,15 +6,15 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:32:56 by hakim             #+#    #+#             */
-/*   Updated: 2023/06/11 04:39:32 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 04:42:02 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-unsigned char is_builtin(char *cmd)
+unsigned char	is_builtin(char *cmd)
 {
-	int	i;
+	int		i;
 	char	*str;
 
 	if (!cmd)
@@ -29,4 +29,3 @@ unsigned char is_builtin(char *cmd)
 	}
 	return (0);
 }
-

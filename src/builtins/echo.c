@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 17:33:45 by hakim             #+#    #+#             */
-/*   Updated: 2023/05/14 22:39:38 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 04:42:51 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	ft_echo(t_list	*args)
 	while (curr)
 	{
 		write(STDOUT_FILENO, curr->content, ft_strlen(curr->content));
-		if (*(char *)curr->content && curr->next && *(char *)curr->next->content)
+		if (*(char *)curr->content && curr->next
+			&& *(char *)curr->next->content)
 			write(STDOUT_FILENO, " ", 1);
 		curr = curr->next;
 	}

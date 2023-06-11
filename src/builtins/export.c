@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 18:30:22 by hakim             #+#    #+#             */
-/*   Updated: 2023/06/11 04:38:44 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 04:42:59 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 
 void	ft_export(t_list *args)
 {
-	// export doesnt work with quotes, sometimes it duplicates envars
-
 	t_list	*curr;
 
 	curr = args;

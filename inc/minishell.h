@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:23:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 04:33:03 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 04:47:41 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@
 
 # include <unistd.h>
 
-# include "../libft/inc/libft.h"
+# include "libft.h"
 
 typedef struct s_redir
 {
 	char	*file;
-	int	type;
+	int		type;
 }	t_redir;
 
-typedef struct  s_env
+typedef struct s_env
 {
 	char	*key;
 	char	*value;
@@ -78,82 +78,81 @@ extern t_data *g_data;
 
 /* main */
 
-void	cmd_listen(char *prompt);
-void	free_redirs(t_list *redirs);
-void	free_tokens(void);
-void	free_cmdtab(void);
-void	destroyer(void);
+void		cmd_listen(char *prompt);
+void		free_redirs(t_list *redirs);
+void		free_tokens(void);
+void		free_cmdtab(void);
+void		destroyer(void);
 
 /* lexer */
-int	tokenize_input(char *input);
-int	is_special_char(char c);
-t_list	*split_line(char *line);
-int	is_special_char(char c);
-int	is_quote(char c);
-t_list *mk_tkn(char *input, int type);
-int	mk_normal(char *input, int i, t_list **head);
-int	mk_symbol(char *input, int i, t_list **head);
-int	concat_tkn(char *input, int i, t_list *tkn);
-int	mk_quote(char *input, int i, t_list **head);
+int		tokenize_input(char *input);
+int		is_special_char(char c);
+t_list		*split_line(char *line);
+int		is_special_char(char c);
+int		is_quote(char c);
+t_list 		*mk_tkn(char *input, int type);
+int		mk_normal(char *input, int i, t_list **head);
+int		mk_symbol(char *input, int i, t_list **head);
+int		concat_tkn(char *input, int i, t_list *tkn);
+int		mk_quote(char *input, int i, t_list **head);
 
 /* parser */
-void	fill_cmdtab(void);
-void	print_cmdtab(void);
+void		fill_cmdtab(void);
+void		print_cmdtab(void);
 t_cmdtab	*cmdtab_init(void);
-int	*set_flags(t_data *data);
-void	populate(t_data *data);
-int	pipe_parse_error(void);
-int	input_syntax_errors(void);
-unsigned char is_redir(char *token);
-int	redir_parse_error(void);
-int	print_token_error(char *token);
-int	pre_token_parse_error(char *input);
+int		*set_flags(t_data *data);
+void		populate(t_data *data);
+int		pipe_parse_error(void);
+int		input_syntax_errors(void);
+unsigned char 	is_redir(char *token);
+int		redir_parse_error(void);
+int		print_token_error(char *token);
+int		pre_token_parse_error(char *input);
 
 /* executor */
-void	ft_execute(char *cmd, t_list *_args);
-int	ft_open(char *file, int oflags);
-void	ft_pipe(int fd[2]);
-pid_t	ft_fork(void);
-char	**list_to_arr(t_list *head);
-void	perror_exit(char *str);
-void	executor(t_cmdtab *tab);
-char	**split_path(char *path);
-char	*get_cmd(char *path[], char *cmd, int b);
-char	**path_arr(void);
-int	ft_abs_path(char *cmd);
-int	handle_heredoc(char *delim);
-int	open_infile(t_cmdtab *tab);
-int	open_with_flags(char *file, int type);
-int	open_outfile(t_cmdtab *tab);
-void	handle_redirects(int redir_out, int redir_in, int pfd);
-void	create_pipe(int redir_out, int redir_in, t_cmdtab *tab);
-unsigned char handle_builtin(t_cmdtab **tab);
-void	wait_childs();
-void	exec_last(int fdin, int fdout, t_cmdtab *tab);
+void		ft_execute(char *cmd, t_list *_args);
+int 	    	ft_open(char *file, int oflags);
+void		ft_pipe(int fd[2]);
+pid_t		ft_fork(void);
+char		**list_to_arr(t_list *head);
+void		perror_exit(char *str);
+void		executor(t_cmdtab *tab);
+char		**split_path(char *path);
+char		*get_cmd(char *path[], char *cmd, int b);
+char		**path_arr(void);
+int 	   	ft_abs_path(char *cmd);
+int 	   	handle_heredoc(char *delim);
+int 	   	open_infile(t_cmdtab *tab);
+int 	   	open_with_flags(char *file, int type);
+int 	   	open_outfile(t_cmdtab *tab);
+void		handle_redirects(int redir_out, int redir_in, int pfd);
+void		create_pipe(int redir_out, int redir_in, t_cmdtab *tab);
+unsigned char 	handle_builtin(t_cmdtab **tab);
+void		wait_childs();
+void		exec_last(int fdin, int fdout, t_cmdtab *tab);
 
 /* builtins */
-void	ft_env(t_list *args);
-t_list	*envars_to_list(char *envp[]);
-char	**list_to_envars(t_list *head);
-void	ft_export(t_list *arg);
-void	ft_unsetenv(char *var);
-void	ft_setenv(char *arg);
-void	ft_unset(t_list *args);
-char	*ft_getenv(char *arg);
-void	ft_echo(t_list	*args);
-void	ft_pwd(t_list *args);
-void	ft_cd(t_list *args);
-void	print_env(t_list *head);
-t_list	*parse_envar(char *envar);
-unsigned char export_error(char *arg);
-unsigned char exec_builtin(char *cmd, t_list *args);
-int is_int(char *str);
-void	ft_exit(t_list *args);
-unsigned char is_builtin(char *cmd);
+void		ft_env(t_list *args);
+t_list		*envars_to_list(char *envp[]);
+char		**list_to_envars(t_list *head);
+void		ft_export(t_list *arg);
+void		ft_unsetenv(char *var);
+void		ft_setenv(char *arg);
+void		ft_unset(t_list *args);
+char		*ft_getenv(char *arg);
+void		ft_echo(t_list	*args);
+void		ft_pwd(t_list *args);
+void		ft_cd(t_list *args);
+void		print_env(t_list *head);
+t_list		*parse_envar(char *envar);
+unsigned char 	export_error(char *arg);
+unsigned char 	exec_builtin(char *cmd, t_list *args);
+int		is_int(char *str);
+void		ft_exit(t_list *args);
+unsigned char 	is_builtin(char *cmd);
 
 /* expander */
-void	expand_cmd(t_cmdtab *tab);
-char 	*expand(char *token);
-
+void		expand_cmd(t_cmdtab *tab);
+char 		*expand(char *token);
 
 #endif
