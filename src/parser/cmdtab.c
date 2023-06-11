@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 02:49:30 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 04:36:00 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 08:16:11 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ void	populate(t_data *data)
 			curr_cmd->next = cmdtab_init();
 			curr_cmd = curr_cmd->next;
 		}
-		if (curr)
-			curr = curr->next;
+		curr = p_increment(curr);
 	}
 }

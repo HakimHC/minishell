@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:23:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 05:05:17 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 08:16:00 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void			print_cmdtab(void);
 t_cmdtab		*cmdtab_init(void);
 int				*set_flags(t_data *data);
 void			populate(t_data *data);
+t_list			*p_increment(t_list *node);
 int				pipe_parse_error(void);
 int				input_syntax_errors(void);
 unsigned char	is_redir(char *token);
