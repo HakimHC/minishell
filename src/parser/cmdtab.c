@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 02:49:30 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 08:16:11 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 17:55:30 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ unsigned char	handle_redirs(t_list *curr, t_cmdtab *curr_cmd)
 	i = 0;
 	while (i < 4)
 	{
-		if (!ft_strncmp(tkn->content, symbols[i], ft_strlen(symbols[i])))
+		if (!ft_strncmp(tkn->content, symbols[i], ft_strlen(symbols[i]) + 1))
 		{
 			curr = curr->next;
 			tkn = curr->content;

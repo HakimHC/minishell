@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 12:19:41 by hakim             #+#    #+#             */
-/*   Updated: 2023/06/10 21:41:15 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 17:56:03 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	handle_heredoc(char *delim)
 	if (fd < 0)
 		return (fd);
 	line = readline("heredoc> ");
-	while (ft_strncmp(line, delim, ft_strlen(line) + 1))
+	while (line && ft_strncmp(line, delim, ft_strlen(line) + 1))
 	{
 		ft_putendl_fd(line, fd);
 		free(line);

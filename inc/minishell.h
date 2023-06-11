@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:23:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 08:16:00 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 17:45:23 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,5 +155,9 @@ unsigned char	is_builtin(char *cmd);
 /* expander */
 void			expand_cmd(t_cmdtab *tab);
 char			*expand(char *token);
+
+/* signals */
+void			handle_sigquit(int sig);
+void			sighandler(void);
 
 #endif

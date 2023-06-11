@@ -75,6 +75,10 @@ EXPDIR = expander
 
 EXPSRC = expander.c
 
+SIGDIR = signals
+
+SIGSRC = handle_signals.c
+
 LX = $(addprefix $(LXDIR)/,$(LXSRC))
 
 BI = $(addprefix $(BIDIR)/,$(BISRC))
@@ -85,11 +89,14 @@ PS = $(addprefix $(PSDIR)/,$(PSSRC))
 
 EXP = $(addprefix $(EXPDIR)/,$(EXPSRC))
 
+SIG =$(addprefix $(SIGDIR)/, $(SIGSRC))
+
 SRC = $(addprefix $(SRCDIR)/,$(LX)) \
       $(addprefix $(SRCDIR)/,$(PS)) \
       $(addprefix $(SRCDIR)/,$(EXEC)) \
       $(addprefix $(SRCDIR)/,$(BI)) \
       $(addprefix $(SRCDIR)/,$(EXP)) \
+      $(addprefix $(SRCDIR)/,$(SIG)) \
 
 SRC_NORMAL = $(SRC) $(addprefix $(SRCDIR)/,$(MAIN))
 

@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 19:08:56 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 05:07:55 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 17:57:25 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,16 @@ void	cmd_listen(char *prompt)
 	char	*line;
 
 	line = readline(prompt);
-	while (1)
+	while (1 && line)
 	{
+		sighandler();
 		if (!empty_line(line))
 		{
 			add_history(line);
 			if (!tokenize_input(line))
 			{
 				fill_cmdtab();
+				/* print_cmdtab(); */
 				executor(g_data->cmdtab);
 				destroyer();
 			}

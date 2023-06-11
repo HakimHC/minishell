@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 19:11:17 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 08:15:45 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 17:56:45 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /* { */
 /* 	t_list *curr; */
 /* 	t_cmdtab *cmd_curr; */
-/* 	cmd_curr = data->cmdtab; */
+/* 	cmd_curr = g_data->cmdtab; */
 /* 	while (cmd_curr) */
 /* 	{ */
 /* 		ft_putstr("\n==============================\n"); */
