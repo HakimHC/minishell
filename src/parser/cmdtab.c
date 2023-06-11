@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 02:49:30 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/10 21:54:57 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 03:40:34 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_list	*determine_type(t_list *curr, t_cmdtab *curr_cmd)
 	else
 		ft_lstadd_back(&(curr_cmd->args),
 			ft_lstnew(ft_strdup(((t_token *)curr->content)->content)));
-	return (curr);
+	return (curr->next);
 }
 
 void	populate(t_data *data)
@@ -103,11 +103,8 @@ void	populate(t_data *data)
 			|| (!ft_strncmp(tkn->content, "|", 2) && tkn->type == NORM))
 		{
 			curr = determine_type(curr, curr_cmd);
-			curr = curr->next;
 			if (curr)
 				tkn = curr->content;
-			else
-				break ;
 		}
 		if (curr)
 			tkn = curr->content;

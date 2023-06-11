@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 04:03:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/08 15:30:19 by hakim            ###   ########.fr       */
+/*   Updated: 2023/06/11 03:48:41 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,24 +85,10 @@ t_builtin	*populate_builtins(void)
 	return (res);
 }
 
-void	db(char *line)
-{
-
-	if (pre_token_parse_error(line))
-	{
-		print_token_error("|");
-		exit(1);
-	}
-	if (!tokenize_input(line))
-	{
-		fill_cmdtab();
-		/* print_cmdtab(); */
-		executor(data->cmdtab);
-	}
-}
-
 int	main(int argc, char **argv, char **envp)
 {
+	(void) argc;
+	(void) argv;
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (1);
@@ -111,8 +97,6 @@ int	main(int argc, char **argv, char **envp)
 	data->builtins = populate_builtins();
 	if (!data->builtins)
 		return (2);
-	if (argc == 2)
-		db(argv[1]);
 	else
 		cmd_listen("\033[35;1mminishell$\033[0m ");
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:23:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/10 21:23:33 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/11 03:44:31 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ extern t_data *data;
 /* main */
 
 void	cmd_listen(char *prompt);
+void	free_redirs(t_list *redirs);
+void	free_tokens(void);
+void	free_cmdtab(void);
 void	destroyer(void);
 
 /* lexer */
