@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 19:08:56 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 18:11:51 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/12 01:21:38 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	cmd_listen(char *prompt)
 	char	*line;
 
 	line = readline(prompt);
-	while (1 && line)
+	while (line)
 	{
 		sighandler();
 		if (!empty_line(line))
