@@ -138,10 +138,4 @@ leak: $(LDFLAGS) += -fsanitize=leak
 leak: $(CFLAGS) += -g3
 leak: $(NAME)
 
-commit: fclean
-	@read -p "Commit msg: " msg; \
-	git add . ; \
-	git commit -m "$$msg" ; \
-	git push
-
 .PHONY: all fclean clean re

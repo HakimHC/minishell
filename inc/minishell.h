@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:23:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 19:43:00 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/12 16:03:29 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ typedef struct s_cmdtab
 	t_list			*args;
 	t_list			*redir_in;
 	t_list			*redir_out;
-	int				*flags;
 	struct s_cmdtab	*next;
 }					t_cmdtab;
 

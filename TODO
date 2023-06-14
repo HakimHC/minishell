@@ -1,0 +1,9 @@
+trivial:
+	cd -> update pwd and oldpwd
+	expand heredoc
+	expand '~'
+
+non-trivial:
+	finish signals
+	fix export
+	fix quotes

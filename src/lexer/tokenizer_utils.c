@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:15:10 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/10 21:30:01 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/15 00:31:46 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,17 @@ int	concat_tkn(char *input, int i, t_list *tkn)
 	char	*tmp;
 	t_token	*cn;
 
+	if (!is_special_char(input[i]))
+	{
+		int j = 0;
+		while (input[i + j] && !is_special_char(input[i + j])
+			&& !ft_isspace(input[i + j]))
+			j++;
+		cn = tkn->content;
+		cn->content = ft_strjoin(cn->content, ft_substr(input, i, j));
+		return j;
+
+	}
 	c = input[i++];
 	j = 0;
 	while (input[i + j] && input[i + j] != c)
@@ -88,7 +99,7 @@ int	concat_tkn(char *input, int i, t_list *tkn)
 	tmp = cn->content;
 	cn->content = ft_strjoin(cn->content, content);
 	free(tmp);
-	return (i);
+	return (j);
 }
 
 int	mk_quote(char *input, int i, t_list **head)
@@ -109,6 +120,8 @@ int	mk_quote(char *input, int i, t_list **head)
 		((t_token *)node->content)->content = exp;
 	}
 	i += j;
+	while ((is_quote(input[++i]) && input[i]) || (input[i] && !is_special_char(input[i])))
+		i += concat_tkn(input, i, node);
 	ft_lstadd_back(head, node);
-	return (i);
+	return (i - 1);
 }

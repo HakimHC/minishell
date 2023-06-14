@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 01:47:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 08:09:11 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/14 12:06:36 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*expand(char *token)
 	char	*res;
 
 	if (!ft_strchr(token, '$'))
-		return (token);
+		return (ft_strdup(token));
 	tmp = NULL;
 	split_envars(&tmp, token);
 	expand_env(tmp);
