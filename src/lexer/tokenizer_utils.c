@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:15:10 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/15 00:31:46 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/15 00:48:29 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	concat_tkn(char *input, int i, t_list *tkn)
 			j++;
 		cn = tkn->content;
 		cn->content = ft_strjoin(cn->content, ft_substr(input, i, j));
-		return j;
+		return i + j;
 
 	}
 	c = input[i++];
@@ -99,7 +99,7 @@ int	concat_tkn(char *input, int i, t_list *tkn)
 	tmp = cn->content;
 	cn->content = ft_strjoin(cn->content, content);
 	free(tmp);
-	return (j);
+	return (i + j);
 }
 
 int	mk_quote(char *input, int i, t_list **head)
@@ -120,8 +120,9 @@ int	mk_quote(char *input, int i, t_list **head)
 		((t_token *)node->content)->content = exp;
 	}
 	i += j;
-	while ((is_quote(input[++i]) && input[i]) || (input[i] && !is_special_char(input[i])))
-		i += concat_tkn(input, i, node);
+	while ((is_quote(input[++i]) && input[i]) || (input[i] && !is_special_char(input[i]) 
+				&& !ft_isspace(input[i])))
+		i = concat_tkn(input, i, node);
 	ft_lstadd_back(head, node);
 	return (i - 1);
 }

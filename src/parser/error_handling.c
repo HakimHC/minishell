@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:23:57 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 20:00:29 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/15 00:41:38 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ int	redir_parse_error(void)
 	while (curr)
 	{
 		tkn = curr->content;
-		if (is_redir(tkn->content)
+		if (is_redir(tkn->content) && tkn->type == SYMB
 			&& curr->next
 			&& is_symb(((t_token *)curr->next->content)->content))
 			return (print_token_error(tkn->content));
 		else if (is_redir(tkn->content)
-			&& ft_strlen(tkn->content) > 2)
+			&& ft_strlen(tkn->content) > 2 && tkn->type == SYMB)
 			return (print_token_error(tkn->content));
-		else if (!curr->next && is_redir(tkn->content))
+		else if (!curr->next && is_redir(tkn->content) && tkn->type == SYMB)
 			return (print_token_error(tkn->content));
 		curr = curr->next;
 	}
