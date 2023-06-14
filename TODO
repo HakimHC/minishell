@@ -1,9 +1,11 @@
 trivial:
 	cd -> update pwd and oldpwd
-	expand heredoc
+	expand heredoc (Done !)
 	expand '~'
+
+	echo -n
 
 non-trivial:
 	finish signals
 	fix export
-	fix quotes
+	fix quotes (Done ??)
