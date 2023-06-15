@@ -6,7 +6,7 @@
 /*   By: hakahmed <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 19:14:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 04:38:24 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:12:19 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,7 @@ unsigned char	export_error(char *arg)
 		ft_putstr_fd("': not a valid identifier\n", 2);
 		return (1);
 	}
+	if (!ft_strchr(arg, '='))
+		return (1);
 	return (0);
 }

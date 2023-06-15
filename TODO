@@ -1,7 +1,4 @@
 trivial:
-	cd -> update pwd and oldpwd
-	expand '~'
-
 	echo -n
 
 non-trivial:

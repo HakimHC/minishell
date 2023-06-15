@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 18:30:22 by hakim             #+#    #+#             */
-/*   Updated: 2023/06/11 20:37:29 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:19:42 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	export_noargs(void)
 void	ft_export(t_list *args)
 {
 	t_list	*curr;
+	char	*aux;
 
 	curr = args;
 	if (!curr)
@@ -40,8 +41,19 @@ void	ft_export(t_list *args)
 	while (curr)
 	{
 		if (!export_error(curr->content))
-			ft_setenv(curr->content);
-		curr = curr->next;
+		{
+			if (curr->next)
+			{
+				aux = ft_strjoin(curr->content, curr->next->content);
+				curr = curr->next;
+			}
+			else
+			 	aux = ft_strdup(curr->content);
+			ft_setenv(aux);
+			free(aux);
+		}
+		if (curr)
+			curr = curr->next;
 	}
 	ft_free_strarr(g_data->envparr);
 	g_data->envparr = list_to_envars(g_data->envp);
