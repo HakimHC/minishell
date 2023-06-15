@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:15:10 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/15 04:35:57 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:41:19 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	concat_tkn(char *input, int i, t_list *tkn)
 			j++;
 		cn = tkn->content;
 		cn->content = ft_strjoin(cn->content, ft_substr(input, i, j));
-		return i + j;
+		return i + j - 1;
 
 	}
 	c = input[i++];
@@ -120,9 +120,9 @@ int	mk_quote(char *input, int i, t_list **head)
 		((t_token *)node->content)->content = exp;
 	}
 	i += j;
-	t_token* tkn = node->content;
+	/* t_token* tkn = node->content; */
 	while ((is_quote(input[++i]) && input[i]) || (input[i] && !is_special_char(input[i]) 
-				&& !ft_isspace(input[i]) && !*(tkn->content)))
+				&& !ft_isspace(input[i])))
 		i = concat_tkn(input, i, node);
 	ft_lstadd_back(head, node);
 	return (i - 1);
