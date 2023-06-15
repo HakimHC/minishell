@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:15:10 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/15 00:48:29 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/15 04:35:57 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,9 @@ int	mk_quote(char *input, int i, t_list **head)
 		((t_token *)node->content)->content = exp;
 	}
 	i += j;
+	t_token* tkn = node->content;
 	while ((is_quote(input[++i]) && input[i]) || (input[i] && !is_special_char(input[i]) 
-				&& !ft_isspace(input[i])))
+				&& !ft_isspace(input[i]) && !*(tkn->content)))
 		i = concat_tkn(input, i, node);
 	ft_lstadd_back(head, node);
 	return (i - 1);
