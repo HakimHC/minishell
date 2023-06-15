@@ -6,33 +6,48 @@
 /*   By: hakahmed <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:44:16 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/15 04:57:18 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/15 05:43:16 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
 
 #include "libft.h"
 #include "minishell.h"
 
-void	go_home(void)
+int	change_dir(char *dir)
 {
-	char	*home;
-	char	*old_pwd;
+	char	*pwd;
 	char	*aux;
+	char	*old_pwd;
 
-	home = ft_getenv("HOME");
-	if (!home)
-		return (ft_putendl_fd("cd: HOME not set", 2));
 	old_pwd = _getcwd();
 	if (!old_pwd)
 		old_pwd = ft_strdup("");
-	chdir(home);
+	if (chdir(dir) == -1)
+		return (perror(dir), -1);
 	aux = old_pwd;
 	old_pwd = ft_strjoin("OLDPWD=", old_pwd);
 	free(aux);
 	ft_setenv(old_pwd);
+	pwd = _getcwd();
+	aux = pwd;
+	pwd = ft_strjoin("PWD=", pwd);
+	free(aux);
+	ft_setenv(pwd);
+	return (0);
+}
+
+void	go_home(void)
+{
+	char	*home;
+
+	home = ft_getenv("HOME");
+	if (!home)
+		return (ft_putendl_fd("cd: HOME not set", 2));
+	change_dir(home);
 }
 
 void	expand_home(char *path)
@@ -60,6 +75,6 @@ void	ft_cd(t_list *args)
 		return (ft_putstr_fd("cd: too many arguments\n", 2));
 	if (*(char *)(args->content) == '~')
 		return (expand_home(args->content));
-	if (args && chdir(args->content) == -1)
-		perror(args->content);
+	if (change_dir(args->content) == -1)
+		g_data->exit_code = 1;
 }
