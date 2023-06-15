@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:15:10 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/15 18:41:19 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:54:10 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,11 @@ int	concat_tkn(char *input, int i, t_list *tkn)
 			&& !ft_isspace(input[i + j]))
 			j++;
 		cn = tkn->content;
-		cn->content = ft_strjoin(cn->content, ft_substr(input, i, j));
+		tmp = cn->content;
+		content = ft_substr(input, i, j);
+		cn->content = ft_strjoin(cn->content, content);
+		free(content);
+		free(tmp);
 		return i + j - 1;
 
 	}
