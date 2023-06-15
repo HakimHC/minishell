@@ -6,7 +6,7 @@
 /*   By: hakahmed <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:44:16 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/15 11:26:55 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/15 04:57:18 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,20 @@
 void	go_home(void)
 {
 	char	*home;
+	char	*old_pwd;
+	char	*aux;
 
 	home = ft_getenv("HOME");
 	if (!home)
 		return (ft_putendl_fd("cd: HOME not set", 2));
+	old_pwd = _getcwd();
+	if (!old_pwd)
+		old_pwd = ft_strdup("");
 	chdir(home);
+	aux = old_pwd;
+	old_pwd = ft_strjoin("OLDPWD=", old_pwd);
+	free(aux);
+	ft_setenv(old_pwd);
 }
 
 void	expand_home(char *path)

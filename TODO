@@ -1,6 +1,5 @@
 trivial:
 	cd -> update pwd and oldpwd
-	expand heredoc (Done !)
 	expand '~'
 
 	echo -n

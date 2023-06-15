@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:23:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/12 16:03:29 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/15 04:53:29 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ unsigned char	exec_builtin(char *cmd, t_list *args);
 int				is_int(char *str);
 void			ft_exit(t_list *args);
 unsigned char	is_builtin(char *cmd);
+char	*_getcwd(void);
 
 /* expander */
 void			expand_cmd(t_cmdtab *tab);
