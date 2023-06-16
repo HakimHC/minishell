@@ -6,7 +6,7 @@
 /*   By: hakahmed <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 19:14:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/15 17:12:19 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/16 10:35:18 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ unsigned char	process_env(t_env *env)
 	while (curr)
 	{
 		curr_env = curr->content;
-		if (!ft_strcmp(curr_env->key, env->key)
-			&& ft_strcmp(curr_env->value, env->value))
+		if (!ft_strncmp(curr_env->key, env->key, ft_strlen(env->key) + 1)
+			&& ft_strncmp(curr_env->value, env->value, ft_strlen(env->value) + 1))
 		{
 			free(curr_env->value);
 			free(env->key);

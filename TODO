@@ -1,7 +1,5 @@
 trivial:
-	echo -n
 
 non-trivial:
 	finish signals
 	fix export
-	fix quotes (Done ??)

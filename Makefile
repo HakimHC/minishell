@@ -23,7 +23,7 @@ CFLAGS += -I $(LFTDIR)/$(INCDIR)
 
 LDFLAGS = -Llibft -lft -lreadline
 
-LDFLAGS += -fsanitize=address
+LDFLAGS += -fsanitize=leak
 
 #source files and stuff
 SRCDIR = src
