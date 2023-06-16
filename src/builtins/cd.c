@@ -6,7 +6,7 @@
 /*   By: hakahmed <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:44:16 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/15 05:43:16 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/16 11:19:51 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,14 @@ int	change_dir(char *dir)
 	free(aux);
 	ft_setenv(old_pwd);
 	pwd = _getcwd();
+	if (!pwd)
+		pwd = ft_strdup("");
 	aux = pwd;
 	pwd = ft_strjoin("PWD=", pwd);
 	free(aux);
 	ft_setenv(pwd);
+	free(pwd);
+	free(old_pwd);
 	return (0);
 }
 
