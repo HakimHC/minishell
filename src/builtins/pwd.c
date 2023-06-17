@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 17:43:20 by hakim             #+#    #+#             */
-/*   Updated: 2023/06/16 11:24:49 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/16 11:48:53 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ void	ft_pwd(t_list *args)
 {
 	char	*wd;
 
-	if (ft_lstsize(args) > 0)
-		return ((void) ft_putstr_fd("pwd: too many arguments\n", 2));
+	(void) args;
 	wd = _getcwd();
 	if (!wd)
 		return ((void) printf("error: current directory doesn't exist\n"));

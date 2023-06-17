@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:23:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/15 04:53:29 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/16 18:24:41 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,5 +161,6 @@ char			*expand(char *token);
 /* signals */
 void			handle_sigquit(int sig);
 void			sighandler(void);
+void			sigint_cmd(int sig);
 
 #endif

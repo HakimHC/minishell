@@ -6,10 +6,11 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 12:19:41 by hakim             #+#    #+#             */
-/*   Updated: 2023/06/15 00:36:23 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/17 17:19:33 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <signal.h>
 #include <stdio.h>
 #include <readline/readline.h>
 #include <stdlib.h>
@@ -25,6 +26,8 @@ int	handle_heredoc(char *delim)
 	fd = open("/tmp/.heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
 		return (fd);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	line = readline("heredoc> ");
 	while (line && ft_strncmp(line, delim, ft_strlen(line) + 1))
 	{
