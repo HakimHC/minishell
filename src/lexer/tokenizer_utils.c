@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:15:10 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/17 19:36:45 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/17 19:40:28 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int	concat_tkn(char *input, int i, t_list *tkn)
 	tmp = cn->content;
 	cn->content = ft_strjoin(cn->content, content);
 	free(tmp);
+	free(content);
 	return (i + j);
 }
 
