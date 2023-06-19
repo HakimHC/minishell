@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 01:47:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/16 10:34:18 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/19 22:33:14 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	mk_exptoken(t_list **head, char *token, int i)
 	i++;
 	j = 0;
 	while (token[i + j] && token[i + j] != '$'
-		&& ft_isalnum(token[i + j]))
+		&& (ft_isalnum(token[i + j]) || token[i + j] == '?'))
 		j++;
 	node = ft_lstnew(ft_substr(token, i - 1, j + 1));
 	ft_lstadd_back(head, node);
@@ -61,13 +61,13 @@ void	expand_env(t_list *head)
 	curr = head;
 	while (curr)
 	{
-		if (ft_strchr(curr->content, '$') && ft_strncmp(curr->content, "$", 2))
+		if (ft_strchr(curr->content, '$') && !ft_strncmp(curr->content, "$", 1))
 		{
 			aux = curr->content;
-			if (ft_getenv(curr->content + 1))
-				curr->content = ft_strdup(ft_getenv(curr->content + 1));
-			else if (!ft_strncmp(curr->content, "$?", 3))
+			if (!ft_strncmp(curr->content, "$?", 3))
 				curr->content = ft_itoa(g_data->exit_code);
+			else if (ft_getenv(curr->content + 1))
+				curr->content = ft_strdup(ft_getenv(curr->content + 1));
 			else
 				curr->content = NULL;
 			free(aux);

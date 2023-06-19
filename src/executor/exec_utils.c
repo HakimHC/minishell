@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:50:32 by hakim             #+#    #+#             */
-/*   Updated: 2023/06/19 19:34:33 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/19 22:46:07 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,13 @@ void	wait_childs(void)
 	while (1)
 	{
 		p = waitpid(-1, &status, 0);
+		if (WIFSIGNALED(status))
+			ft_printf("keloke papi\n");
 		if (p < 0)
+		{
+			ft_printf("wx: %d\n",WEXITSTATUS(status));
 			exit(WEXITSTATUS(status));
+		}
 	}
 }
 

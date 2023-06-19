@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:35:17 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/19 19:34:40 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/19 22:54:17 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
+#include "libft.h"
 #include "minishell.h"
 
 t_cmdtab	*smart_exec(t_cmdtab *tab)
@@ -41,7 +42,7 @@ void	executor(t_cmdtab *tab)
 	pid_t	pid;
 	int		status;
 
-	sighandler();
+	/* sighandler(); */
 	if (!(tab->next) && is_builtin(tab->cmd))
 		handle_builtin(&tab);
 	else
@@ -49,19 +50,26 @@ void	executor(t_cmdtab *tab)
 		pid = ft_fork();
 		if (!pid)
 		{
-			signal(SIGINT, &handle_sigint);
+			signal(SIGINT, SIG_DFL);
 			signal(SIGQUIT, SIG_DFL);
 			while (tab)
 				tab = smart_exec(tab);
-			if (WIFSIGNALED(SIGINT))
-				write(1, "\n", 1);
 			wait_childs();
 		}
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
 		waitpid(pid, &status, 0);
-		if (WIFEXITED(status) && WTERMSIG(status) + 128 == 130)
-			write(1, "\n", 1);
+		if (WIFSIGNALED(status))
+		{
+			if (WTERMSIG(status) == 2)
+				g_data->exit_code = 130;
+			if (WTERMSIG(status) == 3)
+			{
+				g_data->exit_code = 131;
+				ft_putstr_fd("Quit (core dumped)", 2);
+			}
+			write(1, "\n", 2);
+		}
 		g_data->exit_code = WEXITSTATUS(status);
 	}
 	sighandler();

@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 12:19:41 by hakim             #+#    #+#             */
-/*   Updated: 2023/06/19 20:22:44 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/19 21:00:18 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ int	handle_heredoc(char *delim)
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_IGN);
 	line = readline("heredoc> ");
+	if (!line)
+		ft_printf("warning: here-document delimited by end-of-file (wanted `%s')\n",
+				delim);
 	while (line && ft_strncmp(line, delim, ft_strlen(line) + 1))
 	{
 		line = expand(line);
@@ -36,7 +39,8 @@ int	handle_heredoc(char *delim)
 		free(line);
 		line = readline("heredoc> ");
 		if (!line)
-			ft_putstr("warning noseque\n");
+			ft_printf("warning: here-document delimited by end-of-file (wanted `%s')\n",
+					delim);
 	}
 	free(line);
 	close(fd);
