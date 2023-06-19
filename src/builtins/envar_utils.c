@@ -6,7 +6,7 @@
 /*   By: hakahmed <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 19:14:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/16 10:45:22 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/19 23:08:06 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ unsigned char	export_error(char *arg)
 	int	i;
 
 	i = -1;
+	if (*arg == '?')
+		return (ft_putstr_fd("export: '?': not a valid identifier\n", 2), 1);
 	while (ft_isspace(arg[++i]))
 		;
 	if (arg[i] == '=')
