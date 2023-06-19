@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:35:17 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/17 03:31:11 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/19 19:34:40 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	executor(t_cmdtab *tab)
 	pid_t	pid;
 	int		status;
 
-	/* signal(SIGINT, &sigint_cmd); */
+	sighandler();
 	if (!(tab->next) && is_builtin(tab->cmd))
 		handle_builtin(&tab);
 	else
@@ -49,12 +49,20 @@ void	executor(t_cmdtab *tab)
 		pid = ft_fork();
 		if (!pid)
 		{
+			signal(SIGINT, &handle_sigint);
+			signal(SIGQUIT, SIG_DFL);
 			while (tab)
 				tab = smart_exec(tab);
+			if (WIFSIGNALED(SIGINT))
+				write(1, "\n", 1);
 			wait_childs();
 		}
-		sighandler();
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 		waitpid(pid, &status, 0);
+		if (WIFEXITED(status) && WTERMSIG(status) + 128 == 130)
+			write(1, "\n", 1);
 		g_data->exit_code = WEXITSTATUS(status);
 	}
+	sighandler();
 }

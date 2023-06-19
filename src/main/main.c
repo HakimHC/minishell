@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 04:03:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 04:35:39 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/19 20:19:48 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	main(int argc, char **argv, char **envp)
 	g_data->envp = env_init(envp);
 	g_data->envparr = list_to_envars(g_data->envp);
 	g_data->builtins = populate_builtins();
+	sighandler();
 	if (!g_data->builtins)
 		return (2);
 	else

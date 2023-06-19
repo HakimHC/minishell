@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:56:03 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/17 19:20:37 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/19 19:24:08 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	input_syntax_errors(void)
 int	tokenize_input(char *input)
 {
 	g_data->tokens = tokenize(input);
-	print_tokens();
+	/* print_tokens(); */
 	if (pre_token_parse_error(input))
 	{
 		print_token_error("|");

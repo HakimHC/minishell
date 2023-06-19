@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 17:42:58 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/17 02:57:37 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/19 19:27:35 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,6 @@
 #include <stdlib.h>
 
 #include "minishell.h"
-
-void	handle_sigquit(int sig)
-{
-	(void) sig;
-	close(STDIN_FILENO);
-}
 
 void	handle_sigint(int sig)
 {
@@ -43,6 +37,6 @@ void	sigint_cmd(int sig)
 
 void	sighandler(void)
 {
-	signal(SIGQUIT, &handle_sigquit);
 	signal(SIGINT, &handle_sigint);
+	signal(SIGQUIT, SIG_IGN);
 }
