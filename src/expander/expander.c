@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 01:47:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/19 22:33:14 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/20 11:12:45 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,19 @@ void	expand_env(t_list *head)
 	}
 }
 
+char	*cncat_tmp(t_list *curr, char *res)
+{
+	char	*aux;
+
+	aux = res;
+	if (curr->content)
+		res = ft_strjoin(res, curr->content);
+	else
+		res = ft_strjoin(res, "");
+	free(aux);
+	return (res);
+}
+
 char	*expand(char *token)
 {
 	t_list	*tmp;
@@ -95,12 +108,7 @@ char	*expand(char *token)
 	curr = tmp;
 	while (curr)
 	{
-		aux = res;
-		if (curr->content)
-			res = ft_strjoin(res, curr->content);
-		else
-			res = ft_strjoin(res, "");
-		free(aux);
+		res = cncat_tmp(curr, res);
 		curr = curr->next;
 	}
 	free(token);

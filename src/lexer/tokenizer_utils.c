@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:15:10 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/20 10:16:33 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/20 11:16:17 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	mk_normal(char *input, int i, t_list **head)
 	exp = expand(((t_token *)node->content)->content);
 	((t_token *)node->content)->content = exp;
 	i += j;
-	while ((is_quote(input[i]) && input[i]) || (input[i] && !ft_isspace(input[i])
-		&& !is_special_char(input[i])))
+	while ((is_quote(input[i]) && input[i]) || (input[i]
+			&& !ft_isspace(input[i]) && !is_special_char(input[i])))
 	{
 		i = concat_tkn(input, i, node);
 		i++;
@@ -83,20 +83,7 @@ int	concat_tkn(char *input, int i, t_list *tkn)
 	t_token	*cn;
 
 	if (!is_special_char(input[i]))
-	{
-		int j = 0;
-		while (input[i + j] && !is_special_char(input[i + j])
-			&& !ft_isspace(input[i + j]))
-			j++;
-		cn = tkn->content;
-		tmp = cn->content;
-		content = ft_substr(input, i, j);
-		cn->content = ft_strjoin(cn->content, content);
-		free(content);
-		free(tmp);
-		return i + j - 1;
-
-	}
+		return (cncat_util(input, i, tkn));
 	c = input[i++];
 	j = 0;
 	while (input[i + j] && input[i + j] != c)
@@ -131,9 +118,9 @@ int	mk_quote(char *input, int i, t_list **head)
 		((t_token *)node->content)->content = exp;
 	}
 	i += j;
-	/* t_token* tkn = node->content; */
-	while ((is_quote(input[++i]) && input[i]) || (input[i] && !is_special_char(input[i]) 
-				&& !ft_isspace(input[i])))
+	while ((is_quote(input[++i]) && input[i])
+		|| (input[i] && !is_special_char(input[i])
+			&& !ft_isspace(input[i])))
 		i = concat_tkn(input, i, node);
 	ft_lstadd_back(head, node);
 	return (i - 1);

@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:23:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/19 19:29:59 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/20 11:17:35 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,9 @@ int				mk_normal(char *input, int i, t_list **head);
 int				mk_symbol(char *input, int i, t_list **head);
 int				concat_tkn(char *input, int i, t_list *tkn);
 int				mk_quote(char *input, int i, t_list **head);
-void			print_tokens();
+void			print_tokens(void);
 int				is_symb(char *token);
+int				cncat_util(char *input, int i, t_list *tkn);
 
 /* parser */
 void			fill_cmdtab(void);
@@ -152,7 +153,7 @@ unsigned char	exec_builtin(char *cmd, t_list *args);
 int				is_int(char *str);
 void			ft_exit(t_list *args);
 unsigned char	is_builtin(char *cmd);
-char	*_getcwd(void);
+char			*_getcwd(void);
 
 /* expander */
 void			expand_cmd(t_cmdtab *tab);
