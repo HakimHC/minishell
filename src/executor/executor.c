@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:35:17 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/20 10:25:52 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/21 01:01:17 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	executor(t_cmdtab *tab)
 	pid_t	pid;
 	int		status;
 
+	if (g_data->sig_hd)
+		return ;
 	if (!(tab->next) && is_builtin(tab->cmd))
 		handle_builtin(&tab);
 	else

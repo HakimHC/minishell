@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:23:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/21 00:45:59 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/21 01:00:11 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_data
 	t_builtin	*builtins;
 	char		**envparr;
 	int			exit_code;
+	int			sig_hd;
 }	t_data;
 
 /* global */
