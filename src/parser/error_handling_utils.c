@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 04:02:22 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/11 19:48:51 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/19 23:18:49 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ unsigned char	is_redir(char *token)
 
 int	is_symb(char *token)
 {
-	return (is_redir(token) || !ft_strncmp(token, "|", 2));;
+	return (is_redir(token) || !ft_strncmp(token, "|", 2));
 }
 
 int	print_token_error(char *token)

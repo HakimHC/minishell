@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:35:17 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/19 22:56:18 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/20 10:25:52 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,28 @@ t_cmdtab	*smart_exec(t_cmdtab *tab)
 	return (tab);
 }
 
+void	hnd_exitcode(int status)
+{
+	if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == 2)
+			g_data->exit_code = 130;
+		if (WTERMSIG(status) == 3)
+		{
+			g_data->exit_code = 131;
+			ft_putstr_fd("Quit (core dumped)", 2);
+		}
+		write(1, "\n", 2);
+	}
+	else
+		g_data->exit_code = WEXITSTATUS(status);
+}
+
 void	executor(t_cmdtab *tab)
 {
 	pid_t	pid;
 	int		status;
 
-	/* sighandler(); */
 	if (!(tab->next) && is_builtin(tab->cmd))
 		handle_builtin(&tab);
 	else
@@ -59,19 +75,7 @@ void	executor(t_cmdtab *tab)
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
 		waitpid(pid, &status, 0);
-		if (WIFSIGNALED(status))
-		{
-			if (WTERMSIG(status) == 2)
-				g_data->exit_code = 130;
-			if (WTERMSIG(status) == 3)
-			{
-				g_data->exit_code = 131;
-				ft_putstr_fd("Quit (core dumped)", 2);
-			}
-			write(1, "\n", 2);
-		}
-		else
-			g_data->exit_code = WEXITSTATUS(status);
+		hnd_exitcode(status);
 	}
 	sighandler();
 }

@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 17:33:45 by hakim             #+#    #+#             */
-/*   Updated: 2023/06/15 21:53:35 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/19 23:17:59 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ void	ft_echo(t_list	*args)
 	curr = args;
 	n = 0;
 	if (!args)
-	{
-		write(STDOUT_FILENO, "\n", 1);
-		return ;
-	}
+		return ((void)write(STDOUT_FILENO, "\n", 1));
 	if (!ft_strncmp(curr->content, "-n", 3))
 	{
 		n = 1;
@@ -37,7 +34,7 @@ void	ft_echo(t_list	*args)
 		{
 			write(STDOUT_FILENO, curr->content, ft_strlen(curr->content));
 			if (*(char *)curr->content && curr->next
-					&& *(char *)curr->next->content)
+				&& *(char *)curr->next->content)
 				write(STDOUT_FILENO, " ", 1);
 		}
 		curr = curr->next;

@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:15:10 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/17 19:40:28 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/20 10:16:33 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int	mk_normal(char *input, int i, t_list **head)
 	exp = expand(((t_token *)node->content)->content);
 	((t_token *)node->content)->content = exp;
 	i += j;
-	while ((is_quote(input[i]) && input[i]))
+	while ((is_quote(input[i]) && input[i]) || (input[i] && !ft_isspace(input[i])
+		&& !is_special_char(input[i])))
 	{
 		i = concat_tkn(input, i, node);
 		i++;
