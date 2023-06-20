@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:23:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/20 11:17:35 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/21 00:45:59 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ unsigned char	is_redir(char *token);
 int				redir_parse_error(void);
 int				print_token_error(char *token);
 int				pre_token_parse_error(char *input);
+int				parsing_errors(void);
 
 /* executor */
 void			ft_execute(char *cmd, t_list *_args);

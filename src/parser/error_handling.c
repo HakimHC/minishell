@@ -6,13 +6,14 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:23:57 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/20 16:51:47 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/21 00:51:44 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "libft.h"
 #include "minishell.h"
 
 int	pipe_parse_error(void)
@@ -101,5 +102,32 @@ int	pre_token_parse_error(char *input)
 			return (1);
 		input = ft_strchrset(input, "<>");
 	}
+	return (0);
+}
+
+int	parsing_errors(void)
+{
+	t_list	*curr;
+	t_token	*tkn;
+	t_token	*aux;
+
+	curr = g_data->tokens;
+	tkn = curr->content;
+	if (is_symb(tkn->content) && !curr->next && tkn->type == SYMB)
+		return (print_token_error(tkn->content));
+	if (!ft_strncmp(tkn->content, "|", 2) && tkn->type == SYMB)
+		return (print_token_error(tkn->content));
+	while (curr && curr->next)
+	{
+		tkn = curr->content;
+		aux = curr->next->content;
+		if (is_symb(tkn->content) && is_symb(aux->content)
+			&& tkn->type == SYMB && aux->type == SYMB)
+			return (print_token_error(aux->content));
+		curr = curr->next;
+	}
+	tkn = curr->content;
+	if (is_symb(tkn->content) && tkn->type == SYMB)
+			return (print_token_error(tkn->content));
 	return (0);
 }

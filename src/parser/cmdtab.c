@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 02:49:30 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/16 11:07:41 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/21 00:49:58 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	populate(t_data *data)
 	{
 		tkn = curr->content;
 		while ((curr && ft_strncmp(tkn->content, "|", 2))
-			|| (!ft_strncmp(tkn->content, "|", 2) && tkn->type == NORM))
+			|| (curr && !ft_strncmp(tkn->content, "|", 2) && tkn->type == NORM))
 		{
 			curr = determine_type(curr, curr_cmd);
 			if (curr)
