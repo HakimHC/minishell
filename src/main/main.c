@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 04:03:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/19 20:19:48 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/21 05:40:45 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <readline/history.h>
 #include <readline/readline.h>
 
+#include "libft.h"
 #include "minishell.h"
 
 t_data	*g_data;
@@ -87,12 +88,38 @@ t_builtin	*populate_builtins(void)
 
 int	main(int argc, char **argv, char **envp)
 {
+	char	*shlvl;
+	char	*tmp;
+	int	lvl;
+
 	(void) argc;
 	(void) argv;
 	g_data = malloc(sizeof(t_data));
 	if (!g_data)
 		return (1);
 	g_data->envp = env_init(envp);
+	shlvl = ft_getenv("SHLVL");
+	if (!shlvl)
+		ft_setenv("SHLVL=1");
+	else
+	{
+		tmp = shlvl;
+		lvl = ft_atoi(shlvl);
+		if (lvl < 0)
+			lvl = -1;
+		if (lvl >= 999)
+		{
+			ft_putstr_fd("shell level (1000) too high, resetting to 1\n", 2);
+			lvl = 0;
+		}
+		++lvl;
+		char *it = ft_itoa(lvl);
+		shlvl = ft_strjoin("SHLVL=", it);
+		free(it);
+		free(tmp);
+		ft_setenv(shlvl);
+		free(shlvl);
+	}
 	g_data->envparr = list_to_envars(g_data->envp);
 	g_data->builtins = populate_builtins();
 	sighandler();
