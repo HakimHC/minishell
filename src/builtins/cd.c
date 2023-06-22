@@ -6,7 +6,7 @@
 /*   By: hakahmed <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:44:16 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/16 11:19:51 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/22 21:28:19 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	change_dir(char *dir)
 	if (!old_pwd)
 		old_pwd = ft_strdup("");
 	if (chdir(dir) == -1)
-		return (perror(dir), -1);
+		return (free(old_pwd), perror(dir), -1);
 	aux = old_pwd;
 	old_pwd = ft_strjoin("OLDPWD=", old_pwd);
 	free(aux);

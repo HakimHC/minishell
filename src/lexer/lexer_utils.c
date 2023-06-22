@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:09:18 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/20 11:15:51 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:31:17 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	cncat_util(char *input, int i, t_list *tkn)
 	cn = tkn->content;
 	tmp = cn->content;
 	content = ft_substr(input, i, j);
+	content = expand(content);
 	cn->content = ft_strjoin(cn->content, content);
 	free(content);
 	free(tmp);
