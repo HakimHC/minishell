@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 02:49:30 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/21 00:49:58 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/22 04:23:39 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ void	populate(t_data *data)
 			|| (curr && !ft_strncmp(tkn->content, "|", 2) && tkn->type == NORM))
 		{
 			curr = determine_type(curr, curr_cmd);
+			if (data->sig_hd)
+				return ;
 			if (curr)
 				tkn = curr->content;
 		}

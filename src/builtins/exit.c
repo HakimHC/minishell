@@ -6,7 +6,7 @@
 /*   By: hakahmed <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 22:41:10 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/20 16:53:27 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/22 03:06:45 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,14 @@ void	ft_exit(t_list *args)
 	if (!args)
 		exit(0);
 	if (ft_lstsize(args) > 1)
-		return (ft_putendl_fd("exit: too many arguments", 2));
+	{
+		ft_putendl_fd("exit: too many arguments", 2);
+		g_data->exit_code = EXIT_FAILURE;
+	}
 	else if (!is_int(args->content))
 	{
 		ft_putendl_fd("exit: numerical value required", 2);
-		return ;
+		exit(2);
 	}
 	exit(ft_atoi(args->content));
 }

@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 19:08:56 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/21 01:01:51 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/22 04:48:40 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	cmd_listen(char *prompt)
 		}
 		free(line);
 		g_data->sig_hd = 0;
+		line = "";
 		line = readline(prompt);
 	}
 	free(line);

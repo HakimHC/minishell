@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 04:02:22 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/19 23:18:49 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/22 04:16:02 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ int	print_token_error(char *token)
 	ft_putstr_fd("'", 2);
 	ft_putstr_fd(token, 2);
 	ft_putstr_fd("'\n", 2);
+	g_data->exit_code = 2;
 	return (1);
 }
