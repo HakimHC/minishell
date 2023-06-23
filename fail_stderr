@@ -25,6 +25,8 @@ echo $T
 
 cd --
 
+echo hi >./outfiles/outfile01 | echo bye
+
 pwd
 cd /Users
 pwd
@@ -236,8 +238,6 @@ ls >./outfiles/outfile01 >>./test_files/invalid_permission >>./outfiles/outfile0
 ls <missing >>./test_files/invalid_permission >>./outfiles/outfile02
 
 ls >>./test_files/invalid_permission >>./outfiles/outfile02 <missing
-
-echo hi >>./outfiles/outfile01 | echo bye
 
 cat <minishell.h>./outfiles/outfile
 

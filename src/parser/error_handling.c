@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:23:57 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/21 00:51:44 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/23 14:09:40 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,13 @@ int	parsing_errors(void)
 		aux = curr->next->content;
 		if (is_symb(tkn->content) && is_symb(aux->content)
 			&& tkn->type == SYMB && aux->type == SYMB)
-			return (print_token_error(aux->content));
+		{
+			if (!ft_strncmp(tkn->content, "|", 2)
+				&& !ft_strncmp(aux->content, "<<", 3))
+				;
+			else
+				return (print_token_error(aux->content));
+		}
 		curr = curr->next;
 	}
 	tkn = curr->content;
