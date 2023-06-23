@@ -6,7 +6,7 @@
 /*   By: hakahmed <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 19:14:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/23 02:23:46 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/23 05:23:44 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ unsigned char	export_error(char *arg)
 		ft_putstr_fd("export: '", 2);
 		ft_putstr_fd(arg, 2);
 		ft_putstr_fd("': not a valid identifier\n", 2);
+		g_data->exit_code = EXIT_FAILURE;
 		return (1);
 	}
 	if (!ft_strchr(arg, '='))

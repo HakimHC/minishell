@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:15:10 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/22 18:32:04 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/23 10:42:04 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ int	mk_normal(char *input, int i, t_list **head)
 	while ((is_quote(input[i]) && input[i]) || (input[i]
 			&& !ft_isspace(input[i]) && !is_special_char(input[i])))
 	{
+		if (exp[ft_strlen(exp) - 1] == '$')
+		{
+			free(exp);
+			((t_token *)node->content)->content = ft_strdup("");
+		}
 		i = concat_tkn(input, i, node);
 		i++;
 	}

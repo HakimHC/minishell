@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 18:30:22 by hakim             #+#    #+#             */
-/*   Updated: 2023/06/17 19:30:18 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/23 05:00:35 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	ft_export(t_list *args)
 	{
 		if (!export_error(curr->content))
 		{
+			g_data->exit_code = 0;
 			ft_setenv(curr->content);
 		}
 		if (curr)
