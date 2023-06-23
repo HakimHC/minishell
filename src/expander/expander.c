@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 01:47:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/21 16:26:50 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/23 03:07:16 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,10 @@ char	*expand(char *token)
 
 	if (!ft_strchr(token, '$') || !ft_strncmp(token, "$", 2))
 	{
-		aux = ft_strdup(token);
+		if (!ft_strchr(token, '$'))
+			aux = ft_strdup(token);
+		else
+		 	aux = ft_strdup("$");
 		return (free(token), aux);
 	}
 	tmp = NULL;
