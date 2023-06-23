@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 01:47:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/23 03:07:16 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/23 03:56:39 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	mk_exptoken(t_list **head, char *token, int i)
 	i++;
 	j = 0;
 	while (token[i + j] && token[i + j] != '$'
-		&& (ft_isalnum(token[i + j]) || token[i + j] == '?'))
+		&& (ft_isalnum(token[i + j]) || token[i + j] == '?'
+		|| token[i + j] == '_'))
 		j++;
 	node = ft_lstnew(ft_substr(token, i - 1, j + 1));
 	ft_lstadd_back(head, node);

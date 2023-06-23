@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 21:50:32 by hakim             #+#    #+#             */
-/*   Updated: 2023/06/23 03:34:51 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/23 04:04:24 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 
 void	handle_redirects(int redir_out, int redir_in, int pfd)
 {
+	if (redir_in < 0 || redir_out < 0)
+		exit(errno);
 	if (redir_in != STDIN_FILENO)
 	{
 		dup2(redir_in, STDIN_FILENO);
