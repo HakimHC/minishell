@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 13:28:50 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/05/13 21:48:21 by hakim            ###   ########.fr       */
+/*   Updated: 2023/06/23 03:43:49 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	ft_abs_path(char *cmd)
 {
 	if (!cmd)
 		return (0);
-	if (cmd[0] != '.' && cmd[0] != '~' && cmd[0] != '/')
-		return (0);
-	if (!access(cmd, X_OK))
+	/* if (cmd[0] != '.' && cmd[0] != '~' && cmd[0] != '/') */
+	/* 	return (0); */
+	if (!ft_strncmp(cmd, "./", 2) || !ft_strncmp(cmd, "/", 1))
 		return (1);
 	return (0);
 }
