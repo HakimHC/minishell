@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 01:47:33 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/23 03:56:39 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/23 10:52:17 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	expand_env(t_list *head)
 				curr->content = ft_itoa(g_data->exit_code);
 			else if (ft_getenv(curr->content + 1))
 				curr->content = ft_strdup(ft_getenv(curr->content + 1));
+			else if (!ft_strncmp(curr->content, "$", 2))
+				curr->content = ft_strdup("$");
 			else
 				curr->content = NULL;
 			free(aux);

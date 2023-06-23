@@ -237,6 +237,8 @@ ls <missing >>./test_files/invalid_permission >>./outfiles/outfile02
 
 ls >>./test_files/invalid_permission >>./outfiles/outfile02 <missing
 
+echo hi >>./outfiles/outfile01 | echo bye
+
 cat <minishell.h>./outfiles/outfile
 
 cat <minishell.h|ls
