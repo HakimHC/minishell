@@ -6,7 +6,7 @@
 /*   By: hakim </var/spool/mail/hakim>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 12:19:41 by hakim             #+#    #+#             */
-/*   Updated: 2023/06/21 01:00:32 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/23 04:51:32 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	handle_heredoc(char *delim)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_IGN);
-		line = readline("heredoc> ");
+		line = readline("> ");
 		if (!line)
 			p_warning(delim);
 		while (line && ft_strncmp(line, delim, ft_strlen(line) + 1))
@@ -48,12 +48,13 @@ int	handle_heredoc(char *delim)
 			line = expand(line);
 			ft_putendl_fd(line, fd);
 			free(line);
-			line = readline("heredoc> ");
+			line = readline("> ");
 			if (!line)
 				p_warning(delim);
 		}
 		free(line);
 		close(fd);
+		exit(0);
 	}
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);

@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 19:08:56 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/22 23:47:50 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/23 04:54:16 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	cmd_listen(char *prompt)
 	line = tstline();
 	while (line)
 	{
+		g_data->exit_code = 0;
 		sighandler();
 		if (!empty_line(line))
 		{
