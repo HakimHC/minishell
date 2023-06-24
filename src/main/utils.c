@@ -6,7 +6,7 @@
 /*   By: hakahmed <hakahmed@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 19:08:56 by hakahmed          #+#    #+#             */
-/*   Updated: 2023/06/23 05:03:49 by hakahmed         ###   ########.fr       */
+/*   Updated: 2023/06/24 23:29:47 by hakahmed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,13 @@ void	cmd_listen(char *prompt)
 {
 	char	*line;
 
-	/* line = readline(prompt); */
-	(void) prompt;
-	line = tstline();
+	line = readline(prompt);
 	while (line)
 	{
 		sighandler();
 		if (!empty_line(line))
 		{
-			/* add_history(line); */
+			add_history(line);
 			if (!tokenize_input(line))
 			{
 				fill_cmdtab();
@@ -74,8 +72,7 @@ void	cmd_listen(char *prompt)
 		free(line);
 		g_data->sig_hd = 0;
 		line = "";
-		/* line = readline(prompt); */
-		line = tstline();
+		line = readline(prompt);
 	}
 	free(line);
 	exit(g_data->exit_code);
