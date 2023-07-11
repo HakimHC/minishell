@@ -128,7 +128,8 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
-re: fclean all
+re:: fclean
+re:: all
 
 asan: $(LDFLAGS) += -fsanitize=address
 asan: $(CFLAGS) += -g3 -fsanitize=address
