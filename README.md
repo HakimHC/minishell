@@ -33,37 +33,3 @@ A Makefile is provided to compile the source files.
 ```
 
 Upon running, the shell will display a prompt and wait for the user to enter commands.
-
-# =========================================
-
-## My approach
-
-This project is quite large, as a matter of fact, it is the largest project I've ever done in C.
-I broke it down into 4 main parts, somewhat imitating what the ```bash``` shell does:
-
-### Lexer: analyze the line of input lexically
-The lexer I implemented takes the line of input and breaks it down into ```tokens```.
-The lines are being split on whitespaces and symbols (```
-'>' '>>' '<' '<<' '|'
-```),
-except when quotes are present, in which case whitespaces get tokenized aswell.
-For example:
-```cat<Makefile | wc -l > mlines```
-would get tokenized like:
-```[cat] [<] [Makefile] [|] [wc] [-l] [>] [mlines]```
-And
-```cat << "end of file"```
-would get tokenized like:
-```[cat] [<<] [end of file]```
-
-The tokens get placed in a LINKED LIST with a personalized structure as the content.
-Why is that, why not just the string?
-The reason is that, because of the nature of symbols, it is very important to know if,
-for example, a '|' symbol should be interpreted as an actual pipe, or just the pipe character.
-For that, I made a structure with the string and a simple integer indicating the way in which the string should be interpreted.
-
-The single and double quotes must also be handled by the lexer, however as of right now, they don't work perfectly.
-
-## Expander
-
-
